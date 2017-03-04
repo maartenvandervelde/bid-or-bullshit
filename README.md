@@ -1,4 +1,4 @@
-# README #
+# Bid or Bullshit - README #
 
 ### Adding this repository to Xcode ###
 
