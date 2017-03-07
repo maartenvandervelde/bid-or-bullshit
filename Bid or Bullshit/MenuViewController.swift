@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
+class MenuViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,24 @@ class MenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func openSettings(_ sender: UIButton) {
+        let popover = storyboard?.instantiateViewController(withIdentifier: "Settings")
+        popover?.modalPresentationStyle = UIModalPresentationStyle.popover
+        popover?.popoverPresentationController?.delegate = self
+        popover?.popoverPresentationController?.sourceView = self.view
+        popover?.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        popover?.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        
+        self.present(popover!, animated: true)
+    }
+    
+    @IBAction func unwindToMenu(segue: UIStoryboardSegue) {}    
 
+    @IBAction func saveSettingsAndReturnToMenu(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "unwindToMenuFromSettings", sender: self)
+    }
+    
+    
     /*
     // MARK: - Navigation
 

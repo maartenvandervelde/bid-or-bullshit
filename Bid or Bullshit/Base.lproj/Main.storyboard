@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6A1-Tx-QLt">
-    <device id="retina4_7" orientation="portrait">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KTC-DR-oQs">
+    <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,36 +9,43 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Bid or Bullshit-->
-        <scene sceneID="0ih-o8-0d0">
+        <!--Menu View Controller-->
+        <scene sceneID="z0v-1P-FUu">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="16o-GV-HlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Pec-MO-5kZ" customClass="MenuViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KTC-DR-oQs" customClass="MenuViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="tFk-no-NXX"/>
-                        <viewControllerLayoutGuide type="bottom" id="PH3-1e-RdI"/>
+                        <viewControllerLayoutGuide type="top" id="d1N-pH-gQf"/>
+                        <viewControllerLayoutGuide type="bottom" id="ouR-LO-Bmv"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gzq-yE-dFb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" contentMode="scaleToFill" id="Ff3-6r-9Qu">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KbC-kr-mg8">
-                                <rect key="frame" x="115" y="263" width="145" height="140"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J3o-8y-38j">
+                                <rect key="frame" x="295.5" y="402" width="178" height="220"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbE-KX-XnK">
-                                        <rect key="frame" x="30.5" y="0.0" width="84" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOa-M3-WUt">
+                                        <rect key="frame" x="47" y="0.0" width="84" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
-                                            <segue destination="q9d-dD-cSv" kind="show" id="dTZ-mL-uGo"/>
+                                            <segue destination="BMo-uD-aH8" kind="show" id="WGQ-mn-euH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSC-Qw-VI8">
-                                        <rect key="frame" x="0.0" y="80" width="145" height="60"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-Ek-6Pd">
+                                        <rect key="frame" x="2.5" y="80" width="173" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <state key="normal" title="Settings"/>
+                                        <state key="normal" title="Settings 1"/>
                                         <connections>
-                                            <segue destination="T8D-Iv-GBb" kind="show" id="pZy-uc-b2M"/>
+                                            <segue destination="T8D-Iv-GBb" kind="show" id="UeK-9W-Pqf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz4-RQ-fjs">
+                                        <rect key="frame" x="0.0" y="160" width="178" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <state key="normal" title="Settings 2"/>
+                                        <connections>
+                                            <action selector="openSettings:" destination="KTC-DR-oQs" eventType="touchUpInside" id="wbe-Ks-Oc7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -46,120 +53,119 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KbC-kr-mg8" firstAttribute="centerY" secondItem="gzq-yE-dFb" secondAttribute="centerY" id="FS3-tB-vbj"/>
-                            <constraint firstItem="KbC-kr-mg8" firstAttribute="centerX" secondItem="gzq-yE-dFb" secondAttribute="centerX" id="vTD-W5-f9I"/>
+                            <constraint firstItem="J3o-8y-38j" firstAttribute="centerY" secondItem="Ff3-6r-9Qu" secondAttribute="centerY" id="JT8-xH-91e"/>
+                            <constraint firstItem="J3o-8y-38j" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="haj-Hc-fbd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Bid or Bullshit" id="GlY-lS-wzZ">
-                        <barButtonItem key="backBarButtonItem" title="Menu" id="Tuz-JV-DuP"/>
-                    </navigationItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jd8-GP-tyY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="935.20000000000005" y="-179.46026986506749"/>
+            <point key="canvasLocation" x="911" y="-915"/>
         </scene>
         <!--Game View Controller-->
-        <scene sceneID="HvR-Qu-zts">
+        <scene sceneID="aFM-RF-ehO">
             <objects>
-                <viewController id="q9d-dD-cSv" customClass="GameViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BMo-uD-aH8" customClass="GameViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3oX-rg-12L"/>
-                        <viewControllerLayoutGuide type="bottom" id="DKX-s0-QIy"/>
+                        <viewControllerLayoutGuide type="top" id="RuL-dS-HyL"/>
+                        <viewControllerLayoutGuide type="bottom" id="alW-Oq-gVw"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Mph-PU-sib">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" contentMode="scaleToFill" id="zPf-6j-fFe">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid or Bullshit!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3t-7E-TAA">
+                                <rect key="frame" x="289" y="494.5" width="190.5" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1C7-A1-rEf">
+                                <rect key="frame" x="20" y="28" width="64" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Menu"/>
+                                <connections>
+                                    <action selector="backToMenu:" destination="BMo-uD-aH8" eventType="touchUpInside" id="sXr-Ex-0Cz"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="J3t-7E-TAA" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="E0h-cM-1nh"/>
+                            <constraint firstItem="J3t-7E-TAA" firstAttribute="centerX" secondItem="zPf-6j-fFe" secondAttribute="centerX" id="yFY-LU-3BK"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="cD9-l1-e6F" kind="unwind" identifier="unwindToMenuFromGame" unwindAction="unwindToMenuWithSegue:" id="JzD-Fc-tJW"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h76-IB-laT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="unM-r7-Xwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cD9-l1-e6F" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1855" y="-179"/>
+            <point key="canvasLocation" x="1854.6875" y="-915.23437499999989"/>
         </scene>
         <!--Settings-->
         <scene sceneID="f3I-TE-NwC">
             <objects>
-                <viewController title="Settings" id="T8D-Iv-GBb" customClass="MenuViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Settings" title="Settings" id="T8D-Iv-GBb" customClass="MenuViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kuk-VD-8zM"/>
                         <viewControllerLayoutGuide type="bottom" id="OgK-qn-Bhj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="r1a-CC-26m">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="84.5" y="184" width="206" height="298.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
+                                <rect key="frame" x="227" y="322" width="314" height="380"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="11.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="65.5" y="0.0" width="183" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="42.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="96.5" y="70" width="121" height="31"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="210" height="31"/>
+                                        <rect key="frame" x="-2" y="140" width="318" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="78.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="132.5" y="210" width="51" height="30"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="56" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="110" y="280" width="94" height="29"/>
                                     </stepper>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
+                                        <rect key="frame" x="138.5" y="350" width="37" height="30"/>
+                                        <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mPn-7V-3EK" firstAttribute="centerY" secondItem="r1a-CC-26m" secondAttribute="centerY" id="gxK-Ke-zC4"/>
                             <constraint firstItem="mPn-7V-3EK" firstAttribute="centerX" secondItem="r1a-CC-26m" secondAttribute="centerX" id="mk2-Nj-ndh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="Owe-Gw-uHb" kind="unwind" identifier="unwindToMenuFromSettings" unwindAction="unwindToMenuWithSegue:" id="gqb-EK-RiG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9UW-Fw-3VX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Owe-Gw-uHb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="935" y="565"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="byu-dj-2M9">
-            <objects>
-                <navigationController id="SXZ-F6-WH8" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0kP-DC-iTl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nPZ-ev-ssi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1090" y="1518"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="dbN-CU-kKv">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6A1-Tx-QLt" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9mV-Xi-3gh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="jl8-p2-HJ2">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="Pec-MO-5kZ" kind="relationship" relationship="rootViewController" id="L86-QG-bWs"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Vf-KS-mhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4" y="-179.46026986506749"/>
+            <point key="canvasLocation" x="1855" y="-162"/>
         </scene>
     </scenes>
 </document>
