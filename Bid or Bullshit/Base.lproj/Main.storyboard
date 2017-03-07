@@ -132,32 +132,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="227" y="322" width="314" height="380"/>
+                                <rect key="frame" x="225" y="322" width="318" height="380"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="65.5" y="0.0" width="183" height="30"/>
+                                        <rect key="frame" x="67.5" y="0.0" width="183" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="96.5" y="70" width="121" height="31"/>
+                                        <rect key="frame" x="98.5" y="70" width="121" height="31"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="140" width="318" height="31"/>
+                                        <rect key="frame" x="-2" y="140" width="322" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="132.5" y="210" width="51" height="30"/>
+                                        <rect key="frame" x="134.5" y="210" width="51" height="30"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="110" y="280" width="94" height="29"/>
+                                        <rect key="frame" x="112" y="280" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="138.5" y="350" width="37" height="30"/>
+                                        <rect key="frame" x="140.5" y="350" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
