@@ -16,11 +16,9 @@ class MenuViewController: UIViewController, UIPopoverPresentationControllerDeleg
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
+    // Present settings view as a popover
     @IBAction func openSettings(_ sender: UIButton) {
         let popover = storyboard?.instantiateViewController(withIdentifier: "Settings")
         popover?.modalPresentationStyle = UIModalPresentationStyle.popover
