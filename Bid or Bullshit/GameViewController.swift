@@ -22,7 +22,8 @@ enum GameState: String {
 
 class GameViewController: UIViewController {
     
-    @IBOutlet weak var status: UILabel!
+    @IBOutlet weak var gameInformation: UILabel!
+    
     
     // Return to main menu, throwing away the current game (after user confirmation).
     @IBAction func backToMenu(_ sender: UIButton) {
@@ -48,7 +49,7 @@ class GameViewController: UIViewController {
     
     private var gamestate = GameState.GameStart {
         didSet {
-            status.text = "Game state: " + gamestate.rawValue
+           // gameInformation.text = gamestate.rawValue
         }
     }
     
@@ -58,6 +59,9 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         gamestate = GameState.GameStart
+        
+        gameInformation.layer.borderWidth = 1
+        gameInformation.backgroundColor = UIColor.lightGray
         
     }
 

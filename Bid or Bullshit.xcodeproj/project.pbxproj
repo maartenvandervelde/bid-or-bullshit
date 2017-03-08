@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C768AFB21E70407B0007C674 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768AFB11E70407B0007C674 /* SettingsViewController.swift */; };
 		C7A270931E64252400841D3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A270921E64252400841D3E /* AppDelegate.swift */; };
 		C7A270981E64252400841D3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7A270961E64252400841D3E /* Main.storyboard */; };
 		C7A2709A1E64252400841D3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7A270991E64252400841D3E /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C768AFB11E70407B0007C674 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C7A2708F1E64252400841D3E /* Bid or Bullshit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bid or Bullshit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A270921E64252400841D3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C7A270971E64252400841D3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				FED574D91E6B0A110096AC7E /* MenuViewController.swift */,
+				C768AFB11E70407B0007C674 /* SettingsViewController.swift */,
 				FED574D71E6B05C70096AC7E /* GameViewController.swift */,
 				C7C019C01E6ED19C00B1F9BE /* ModelPlayer.swift */,
 				C7C019C21E6ED1A800B1F9BE /* Player.swift */,
@@ -167,6 +170,7 @@
 				C7C019C51E6ED1B400B1F9BE /* HumanPlayer.swift in Sources */,
 				C7C019C31E6ED1A800B1F9BE /* Player.swift in Sources */,
 				C7C019C11E6ED19C00B1F9BE /* ModelPlayer.swift in Sources */,
+				C768AFB21E70407B0007C674 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

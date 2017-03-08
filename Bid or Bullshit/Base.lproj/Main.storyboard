@@ -61,7 +61,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jd8-GP-tyY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="911" y="-915"/>
+            <point key="canvasLocation" x="910.9375" y="-915.23437499999989"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="aFM-RF-ehO">
@@ -83,41 +83,93 @@
                                     <action selector="backToMenu:" destination="BMo-uD-aH8" eventType="touchUpInside" id="sXr-Ex-0Cz"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="D8u-jz-1Yi">
-                                <rect key="frame" x="258" y="426" width="252" height="172"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3t-7E-TAA">
+                                <rect key="frame" x="20" y="460" width="728" height="105"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Bid or Bullsh*t! Information about the state of the game will appear inside this text box. This box has a constant size.">
+                                        <attributes>
+                                            <font key="NSFont" size="30" name=".SFNSDisplay-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" firstLineHeadIndent="10" headIndent="10" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="-10"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd">
+                                <rect key="frame" x="137" y="681" width="495" height="89"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid or Bullshit!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3t-7E-TAA">
-                                        <rect key="frame" x="0.0" y="0.0" width="252" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oju-d9-yjm">
-                                        <rect key="frame" x="0.0" y="148" width="252" height="24"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqY-ez-uRb">
+                                        <rect key="frame" x="0.0" y="20.5" width="43" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Bid"/>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="faH-px-In5">
+                                        <rect key="frame" x="93" y="0.0" width="238" height="89"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jb8-Ab-rxf">
+                                                <rect key="frame" x="0.0" y="9" width="94" height="80"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6s-BM-oxg" userLabel="bidNumberOfDiceLabel">
+                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="BzW-j7-1g2">
+                                                        <rect key="frame" x="0.0" y="51" width="94" height="29"/>
+                                                    </stepper>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="w6s-BM-oxg" firstAttribute="width" secondItem="BzW-j7-1g2" secondAttribute="width" id="3JK-ps-NvV"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uMk-qq-R3j">
+                                                <rect key="frame" x="144" y="0.0" width="94" height="89"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey-die-4" translatesAutoresizingMaskIntoConstraints="NO" id="alx-s3-9cJ" userLabel="bidNumberOfPipsImage">
+                                                        <rect key="frame" x="22" y="0.0" width="50" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="LYG-li-DhQ"/>
+                                                            <constraint firstAttribute="width" constant="50" id="NmD-cW-RWX"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Mcd-hq-1Gp">
+                                                        <rect key="frame" x="0.0" y="60" width="94" height="29"/>
+                                                    </stepper>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvU-rv-kKb">
+                                        <rect key="frame" x="381" y="20.5" width="114" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Bullsh*t!"/>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="D8u-jz-1Yi" firstAttribute="centerX" secondItem="zPf-6j-fFe" secondAttribute="centerX" id="8gr-1O-9lb"/>
+                            <constraint firstItem="alW-Oq-gVw" firstAttribute="top" secondItem="8wG-VM-Xjd" secondAttribute="bottom" constant="254" id="3zE-qT-XOH"/>
+                            <constraint firstItem="J3t-7E-TAA" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="CB3-so-WVZ"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="Rzb-Ti-g0C"/>
-                            <constraint firstItem="D8u-jz-1Yi" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="jcM-bF-hy6"/>
+                            <constraint firstItem="J3t-7E-TAA" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="TNA-cf-mYC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="J3t-7E-TAA" secondAttribute="trailing" id="W9t-30-vzh"/>
+                            <constraint firstItem="8wG-VM-Xjd" firstAttribute="centerX" secondItem="zPf-6j-fFe" secondAttribute="centerX" id="aCR-yl-RAT"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="top" secondItem="RuL-dS-HyL" secondAttribute="bottom" id="mdY-3W-d4D"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="status" destination="Oju-d9-yjm" id="gta-VN-p3O"/>
+                        <outlet property="gameInformation" destination="J3t-7E-TAA" id="qwm-0G-kmk"/>
                         <segue destination="cD9-l1-e6F" kind="unwind" identifier="unwindToMenuFromGame" unwindAction="unwindToMenuWithSegue:" id="JzD-Fc-tJW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="unM-r7-Xwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cD9-l1-e6F" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1854.6875" y="-915.23437499999989"/>
+            <point key="canvasLocation" x="1682" y="-915"/>
         </scene>
         <!--Settings-->
         <scene sceneID="f3I-TE-NwC">
@@ -131,33 +183,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="225" y="322" width="318" height="380"/>
+                            <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
+                                <rect key="frame" x="211" y="328.5" width="346" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="67.5" y="0.0" width="183" height="30"/>
+                                        <rect key="frame" x="81.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="98.5" y="70" width="121" height="31"/>
+                                        <rect key="frame" x="112.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="140" width="322" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="350" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="134.5" y="210" width="51" height="30"/>
+                                        <rect key="frame" x="148.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="112" y="280" width="94" height="29"/>
+                                        <rect key="frame" x="126" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="140.5" y="350" width="37" height="30"/>
+                                        <rect key="frame" x="154.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
@@ -179,7 +231,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9UW-Fw-3VX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Owe-Gw-uHb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="911" y="-126"/>
+            <point key="canvasLocation" x="911" y="-179"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="grey-die-4" width="200" height="200"/>
+    </resources>
 </document>
