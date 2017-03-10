@@ -22,6 +22,7 @@ enum GameState: String {
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var opponentImage: UIImageView!
     @IBOutlet weak var gameInformation: UILabel!
     
     
@@ -42,10 +43,10 @@ class GameViewController: UIViewController {
     
     
     
+    var opponent: OpponentCharacter? = nil
     
-    
-    private var humanPlayer = HumanPlayer()
-    private var modelPlayer = ModelPlayer()
+    let humanPlayer = HumanPlayer()
+    let modelPlayer = ModelPlayer()
     
     private var gamestate = GameState.GameStart {
         didSet {
@@ -57,6 +58,10 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if opponent != nil {
+            opponentImage.image = opponent!.image
+        }
         
         gamestate = GameState.GameStart
         

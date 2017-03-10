@@ -15,6 +15,7 @@
 		C7C019C11E6ED19C00B1F9BE /* ModelPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C019C01E6ED19C00B1F9BE /* ModelPlayer.swift */; };
 		C7C019C31E6ED1A800B1F9BE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C019C21E6ED1A800B1F9BE /* Player.swift */; };
 		C7C019C51E6ED1B400B1F9BE /* HumanPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C019C41E6ED1B400B1F9BE /* HumanPlayer.swift */; };
+		FE2382751E72E5A700D7AE53 /* CharacterSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */; };
 		FED574D81E6B05C70096AC7E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED574D71E6B05C70096AC7E /* GameViewController.swift */; };
 		FED574DA1E6B0A110096AC7E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED574D91E6B0A110096AC7E /* MenuViewController.swift */; };
 		FED574DC1E6B18BC0096AC7E /* Perudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED574DB1E6B18BC0096AC7E /* Perudo.swift */; };
@@ -31,6 +32,7 @@
 		C7C019C01E6ED19C00B1F9BE /* ModelPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelPlayer.swift; sourceTree = "<group>"; };
 		C7C019C21E6ED1A800B1F9BE /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C7C019C41E6ED1B400B1F9BE /* HumanPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanPlayer.swift; sourceTree = "<group>"; };
+		FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSelectionViewController.swift; sourceTree = "<group>"; };
 		FED574D71E6B05C70096AC7E /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FED574D91E6B0A110096AC7E /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FED574DB1E6B18BC0096AC7E /* Perudo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Perudo.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				C7C019C41E6ED1B400B1F9BE /* HumanPlayer.swift */,
 				FED574DB1E6B18BC0096AC7E /* Perudo.swift */,
 				C7A270961E64252400841D3E /* Main.storyboard */,
+				FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */,
 				FED574D61E6B05A40096AC7E /* Supporting Files */,
 			);
 			path = "Bid or Bullshit";
@@ -164,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FED574D81E6B05C70096AC7E /* GameViewController.swift in Sources */,
+				FE2382751E72E5A700D7AE53 /* CharacterSelectionViewController.swift in Sources */,
 				FED574DA1E6B0A110096AC7E /* MenuViewController.swift in Sources */,
 				FED574DC1E6B18BC0096AC7E /* Perudo.swift in Sources */,
 				C7A270931E64252400841D3E /* AppDelegate.swift in Sources */,
