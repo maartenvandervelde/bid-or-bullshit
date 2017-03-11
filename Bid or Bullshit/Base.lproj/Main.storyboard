@@ -23,18 +23,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J3o-8y-38j">
-                                <rect key="frame" x="295.5" y="402" width="178" height="220"/>
+                                <rect key="frame" x="281.5" y="362" width="206" height="300"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOa-M3-WUt">
-                                        <rect key="frame" x="47" y="0.0" width="84" height="60"/>
+                                        <rect key="frame" x="61" y="0.0" width="84" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <segue destination="dA4-I6-gx9" kind="show" id="gbl-Tu-H3d"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMT-6A-z2U">
+                                        <rect key="frame" x="0.0" y="80" width="206" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <state key="normal" title="Instructions"/>
+                                        <connections>
+                                            <segue destination="IpC-V0-buR" kind="show" id="Odc-w0-fuv"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-Ek-6Pd">
-                                        <rect key="frame" x="2.5" y="80" width="173" height="60"/>
+                                        <rect key="frame" x="16.5" y="160" width="173" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Settings 1"/>
                                         <connections>
@@ -42,7 +50,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz4-RQ-fjs">
-                                        <rect key="frame" x="0.0" y="160" width="178" height="60"/>
+                                        <rect key="frame" x="14" y="240" width="178" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Settings 2"/>
                                         <connections>
@@ -129,7 +137,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uMk-qq-R3j">
                                                 <rect key="frame" x="144" y="0.0" width="94" height="89"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey-die-4" translatesAutoresizingMaskIntoConstraints="NO" id="alx-s3-9cJ" userLabel="bidNumberOfPipsImage">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="die-4" translatesAutoresizingMaskIntoConstraints="NO" id="alx-s3-9cJ" userLabel="bidNumberOfPipsImage">
                                                         <rect key="frame" x="22" y="0.0" width="50" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="LYG-li-DhQ"/>
@@ -151,16 +159,25 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H5v-or-116">
-                                <rect key="frame" x="20" y="50" width="200" height="200"/>
+                                <rect key="frame" x="20" y="50" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="SUh-dH-Tvg"/>
-                                    <constraint firstAttribute="height" constant="200" id="wA2-oX-v6E"/>
+                                    <constraint firstAttribute="width" constant="150" id="SUh-dH-Tvg"/>
+                                    <constraint firstAttribute="height" constant="150" id="wA2-oX-v6E"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf">
+                                <rect key="frame" x="683" y="964" width="65" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Roll"/>
+                                <connections>
+                                    <action selector="roll:" destination="BMo-uD-aH8" eventType="touchUpInside" id="PLV-11-Bio"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="alW-Oq-gVw" firstAttribute="top" secondItem="8wG-VM-Xjd" secondAttribute="bottom" constant="254" id="3zE-qT-XOH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IM8-1l-6xf" secondAttribute="trailing" id="6lQ-4F-asr"/>
                             <constraint firstItem="J3t-7E-TAA" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="CB3-so-WVZ"/>
                             <constraint firstItem="H5v-or-116" firstAttribute="top" secondItem="1C7-A1-rEf" secondAttribute="bottom" constant="8" symbolic="YES" id="ERs-BW-xge"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="Rzb-Ti-g0C"/>
@@ -168,6 +185,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="J3t-7E-TAA" secondAttribute="trailing" id="W9t-30-vzh"/>
                             <constraint firstItem="8wG-VM-Xjd" firstAttribute="centerX" secondItem="zPf-6j-fFe" secondAttribute="centerX" id="aCR-yl-RAT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="H5v-or-116" secondAttribute="leading" id="hfT-Ee-Nax"/>
+                            <constraint firstItem="alW-Oq-gVw" firstAttribute="top" secondItem="IM8-1l-6xf" secondAttribute="bottom" id="kL6-od-gVF"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="top" secondItem="RuL-dS-HyL" secondAttribute="bottom" id="mdY-3W-d4D"/>
                         </constraints>
                     </view>
@@ -196,32 +214,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="207" y="328.5" width="354" height="368.5"/>
+                                <rect key="frame" x="205" y="328.5" width="358" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="85.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="87.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="116.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="118.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="358" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="362" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="152.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="154.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="130" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="132" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="158.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="160.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
@@ -245,6 +263,51 @@
                 <exit id="Owe-Gw-uHb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="911" y="-179"/>
+        </scene>
+        <!--Instructions View Controller-->
+        <scene sceneID="rSg-l6-GPZ">
+            <objects>
+                <viewController id="IpC-V0-buR" customClass="InstructionsViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Npr-kP-UHK"/>
+                        <viewControllerLayoutGuide type="bottom" id="u0U-UK-5Ma"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uXE-iU-MYA">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game instructions go here..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKw-zQ-e51">
+                                <rect key="frame" x="239" y="468" width="290" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-zv-QaU">
+                                <rect key="frame" x="20" y="20" width="56" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="back:" destination="IpC-V0-buR" eventType="touchUpInside" id="0ox-9R-Wra"/>
+                                    <action selector="back:" destination="dA4-I6-gx9" eventType="touchUpInside" id="BZs-53-2gs"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="c6B-zv-QaU" secondAttribute="leading" id="C6F-CT-Jan"/>
+                            <constraint firstItem="c6B-zv-QaU" firstAttribute="top" secondItem="Npr-kP-UHK" secondAttribute="bottom" id="IC7-KE-BGx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="instructions" destination="gKw-zQ-e51" id="o85-Fx-abl"/>
+                        <segue destination="ffO-0j-NAn" kind="unwind" identifier="unwindToMenuFromInstructions" unwindAction="unwindToMenuWithSegue:" id="nlf-ly-KeT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X9d-ms-RwI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ffO-0j-NAn" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1629.6875" y="-179.296875"/>
         </scene>
         <!--Character Selection View Controller-->
         <scene sceneID="jGL-Ga-UVk">
@@ -294,6 +357,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="grey-die-4" width="200" height="200"/>
+        <image name="die-4" width="200" height="200"/>
     </resources>
 </document>

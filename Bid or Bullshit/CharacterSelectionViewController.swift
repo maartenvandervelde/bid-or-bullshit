@@ -57,9 +57,19 @@ class CharacterSelectionViewController: UIViewController {
         
         opponents = [captainHook, davyJones, chingShih]
         addCharacterButtons()
+        
+        setBackgroundImage()
     }
     
 
+    private func setBackgroundImage() {
+        let backgroundImageView = UIImageView(frame: self.view.bounds)
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.image = UIImage(named: "nauticalmap")
+        backgroundImageView.alpha = 0.25
+        view.addSubview(backgroundImageView)
+        view.sendSubview(toBack: backgroundImageView)
+    }
     
     /**
      Adds a button for each opponent character to the screen.

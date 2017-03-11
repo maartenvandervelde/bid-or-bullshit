@@ -13,7 +13,17 @@ class MenuViewController: UIViewController, UIPopoverPresentationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setBackgroundImage()
 
+    }
+    
+    private func setBackgroundImage() {
+        let backgroundImageView = UIImageView(frame: self.view.bounds)
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.image = UIImage(named: "nauticalmap")
+        backgroundImageView.alpha = 0.25
+        view.addSubview(backgroundImageView)
+        view.sendSubview(toBack: backgroundImageView)
     }
 
 
