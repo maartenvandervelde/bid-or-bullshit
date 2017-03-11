@@ -41,6 +41,7 @@ class GameViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
