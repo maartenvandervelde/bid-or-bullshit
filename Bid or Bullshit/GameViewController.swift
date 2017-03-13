@@ -20,7 +20,7 @@ enum GameState: String {
 }
 
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var opponentImage: UIImageView!
     @IBOutlet weak var gameInformation: UILabel!
@@ -87,6 +87,7 @@ class GameViewController: UIViewController {
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
+        //drawOpponentSpeechBubble(message: "Do you fear death?")
     }
     
     
@@ -114,6 +115,19 @@ class GameViewController: UIViewController {
         
     }
 
+    
+    /// GAMEPLAY FUNCTIONS
+    
+    private func drawOpponentSpeechBubble(message: String) {
+        let popover = storyboard?.instantiateViewController(withIdentifier: "speechbubble")
+        popover?.modalPresentationStyle = .popover
+        popover?.popoverPresentationController?.delegate = self
+        popover?.popoverPresentationController?.sourceView = self.view
+        popover?.popoverPresentationController?.sourceRect = CGRect(x: 50, y: 100, width: 400, height: 50)
+        popover?.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.left
+        self.present(popover!, animated: true)
+    }
+    
     
     
     

@@ -211,6 +211,38 @@
             </objects>
             <point key="canvasLocation" x="2339.84375" y="-915.23437499999989"/>
         </scene>
+        <!--Speech Bubble View Controller-->
+        <scene sceneID="uds-ji-wWy">
+            <objects>
+                <viewController restorationIdentifier="speechbubble" storyboardIdentifier="speechbubble" id="ZtV-Qw-1PN" customClass="SpeechBubbleViewController" customModule="Bid_or_Bullshit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="V0F-c9-4hI"/>
+                        <viewControllerLayoutGuide type="bottom" id="EsU-D0-zpB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lvI-kq-taj">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Arrr! This is the model talking." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WxG-oQ-b84">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="400" height="50"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="768" height="1024"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yp9-4x-0Zd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3060.15625" y="-915.23437499999989"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="f3I-TE-NwC">
             <objects>
@@ -286,13 +318,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game instructions go here..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKw-zQ-e51">
-                                <rect key="frame" x="239" y="468" width="290" height="89"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6B-zv-QaU">
                                 <rect key="frame" x="20" y="0.0" width="56" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -302,6 +327,23 @@
                                     <action selector="back:" destination="dA4-I6-gx9" eventType="touchUpInside" id="BZs-53-2gs"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKw-zQ-e51">
+                                <rect key="frame" x="20" y="0.0" width="728" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <mutableString key="text">Instructions:
+
+- First choose an oponent, note that they are of different difficulty
+-  Bidding: 
+	* Press - or + beneath the number to change the number of dice you want to bid
+	* Press - or + beneath the die to change the amount of eyes/ pips you want to bid.
+	* Press bid once you havve selected a bid you are satisfied with
+- Bullshit: Press bullshit if you don't believe the bid of the oponent
+- End of round: After a round you get feedback about who wins that round. Press Roll once you have read the feedback and want to start a new round. 
+- You win the game if you are the last one with dice. Tip: Keep track of the amount of dice that are still in the game to be able to make better bids.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
