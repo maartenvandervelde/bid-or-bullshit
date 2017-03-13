@@ -25,7 +25,49 @@ class GameViewController: UIViewController {
     @IBOutlet weak var opponentImage: UIImageView!
     @IBOutlet weak var gameInformation: UILabel!
     
+    @IBOutlet weak var playerBidNumberOfDiceLabel: UILabel!
+    @IBOutlet weak var playerBidNumberOfPipsView: UIImageView!
+    @IBOutlet weak var playerBidNumberOfDiceStepper: UIStepper!
+    @IBOutlet weak var playerBidNumberOfPipsStepper: UIStepper!
     
+    let diceImages = [1: UIImage(named: "die-1"),
+                      2: UIImage(named: "die-2"),
+                      3: UIImage(named: "die-3"),
+                      4: UIImage(named: "die-4"),
+                      5: UIImage(named: "die-5"),
+                      6: UIImage(named: "die-6")]
+    
+    
+    var opponent: OpponentCharacter? = nil
+    
+    let humanPlayer = HumanPlayer()
+    let modelPlayer = ModelPlayer()
+    
+    private var gamestate = GameState.GameStart
+    
+    private var playerBidNumberOfDice: Int? {
+        didSet {
+            playerBidNumberOfDiceLabel.text = "\(playerBidNumberOfDice!)"
+        }
+    }
+    private var playerBidNumberOfPips: Int? {
+        didSet {
+            playerBidNumberOfPipsView.image = diceImages[playerBidNumberOfPips!]!
+        }
+    }
+    private var modelBidNumberOfDice: Int?
+    private var modelBidNumberOfPips: Int?
+    
+    @IBAction func setPlayerBidNumberOfDice(_ sender: UIStepper) {
+        playerBidNumberOfDice = Int(sender.value)
+    }
+    @IBAction func setPlayerBidNumberOfPips(_ sender: UIStepper) {
+        playerBidNumberOfPips = Int(sender.value)
+    }
+    
+    
+    
+    /// BACK BUTTON
     // Return to main menu, throwing away the current game (after user confirmation).
     @IBAction func backToMenu(_ sender: UIButton) {
         let alert = UIAlertController(title: "Return to menu?", message: "Are you sure you want to return to the menu? Your progress in the game will be lost.", preferredStyle: .alert)
@@ -41,7 +83,7 @@ class GameViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    
+    /// ROLL BUTTON
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
@@ -50,27 +92,7 @@ class GameViewController: UIViewController {
     
     
     
-    let diceImages = [1: UIImage(named: "die-1"),
-                      2: UIImage(named: "die-2"),
-                      3: UIImage(named: "die-3"),
-                      4: UIImage(named: "die-4"),
-                      5: UIImage(named: "die-5"),
-                      6: UIImage(named: "die-6")]
     
-    
-    var opponent: OpponentCharacter? = nil
-    
-    let humanPlayer = HumanPlayer()
-    let modelPlayer = ModelPlayer()
-    
-    
-    
-    
-    private var gamestate = GameState.GameStart {
-        didSet {
-           // gameInformation.text = gamestate.rawValue
-        }
-    }
     
     
     override func viewDidLoad() {
@@ -92,6 +114,12 @@ class GameViewController: UIViewController {
         
     }
 
+    
+    
+    
+    
+    /// DRAWING FUNCTIONS
+    
     private func setBackgroundImage() {
         let backgroundImageView = UIImageView(frame: self.view.bounds)
         backgroundImageView.contentMode = .scaleAspectFill
@@ -103,22 +131,24 @@ class GameViewController: UIViewController {
     
     
     private func drawPlayerDice() {
+        
+        // Remove previous images of dice from the view
+        for dieView in view.subviews {
+            if let dieView = dieView as? DieUIImageView {
+                dieView.removeFromSuperview()
+            }
+        }
+        
         // Retrieve the player's current dice
         let playerDice = humanPlayer.diceList
         
-        // Draw each die
+        // Draw each die in the view
         for (index, die) in playerDice.enumerated() {
             print(die)
             let image = diceImages[die] ?? UIImage(named: "grey-die-4")
-            let dieImageView = UIImageView(image: image!)
+            let dieImageView = DieUIImageView(image: image!)
             dieImageView.frame = CGRect(x: 200 + (76 * index), y: 900, width: 64, height: 64)
             view.addSubview(dieImageView)
         }
-        
-        
     }
-    
-    
-    
-
 }
