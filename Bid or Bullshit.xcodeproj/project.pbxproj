@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		929694C71E77F1770009945A /* SpeechBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929694C61E77F1770009945A /* SpeechBubbleView.swift */; };
 		C768AFB21E70407B0007C674 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768AFB11E70407B0007C674 /* SettingsViewController.swift */; };
 		C7A270931E64252400841D3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A270921E64252400841D3E /* AppDelegate.swift */; };
 		C7A270981E64252400841D3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7A270961E64252400841D3E /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		C7C019C31E6ED1A800B1F9BE /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C019C21E6ED1A800B1F9BE /* Player.swift */; };
 		C7C019C51E6ED1B400B1F9BE /* HumanPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C019C41E6ED1B400B1F9BE /* HumanPlayer.swift */; };
 		C7E968B91E76940A0059E068 /* DieUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E968B81E76940A0059E068 /* DieUIImageView.swift */; };
-		C7E968BB1E76A1330059E068 /* SpeechBubbleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E968BA1E76A1330059E068 /* SpeechBubbleViewController.swift */; };
 		FE2382751E72E5A700D7AE53 /* CharacterSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */; };
 		FE760D131E7445810089BE48 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE760D121E7445810089BE48 /* InstructionsViewController.swift */; };
 		FED574D81E6B05C70096AC7E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED574D71E6B05C70096AC7E /* GameViewController.swift */; };
@@ -25,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		929694C61E77F1770009945A /* SpeechBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechBubbleView.swift; sourceTree = "<group>"; };
 		C768AFB11E70407B0007C674 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C7A2708F1E64252400841D3E /* Bid or Bullshit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bid or Bullshit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A270921E64252400841D3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +37,6 @@
 		C7C019C21E6ED1A800B1F9BE /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C7C019C41E6ED1B400B1F9BE /* HumanPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanPlayer.swift; sourceTree = "<group>"; };
 		C7E968B81E76940A0059E068 /* DieUIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DieUIImageView.swift; sourceTree = "<group>"; };
-		C7E968BA1E76A1330059E068 /* SpeechBubbleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeechBubbleViewController.swift; sourceTree = "<group>"; };
 		FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSelectionViewController.swift; sourceTree = "<group>"; };
 		FE760D121E7445810089BE48 /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionsViewController.swift; sourceTree = "<group>"; };
 		FED574D71E6B05C70096AC7E /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 				FE760D121E7445810089BE48 /* InstructionsViewController.swift */,
 				FE2382741E72E5A700D7AE53 /* CharacterSelectionViewController.swift */,
 				C7E968B81E76940A0059E068 /* DieUIImageView.swift */,
+				929694C61E77F1770009945A /* SpeechBubbleView.swift */,
 				C7A270961E64252400841D3E /* Main.storyboard */,
-				C7E968BA1E76A1330059E068 /* SpeechBubbleViewController.swift */,
 				FED574D61E6B05A40096AC7E /* Supporting Files */,
 			);
 			path = "Bid or Bullshit";
@@ -179,7 +179,7 @@
 				FE2382751E72E5A700D7AE53 /* CharacterSelectionViewController.swift in Sources */,
 				C7E968B91E76940A0059E068 /* DieUIImageView.swift in Sources */,
 				FED574DA1E6B0A110096AC7E /* MenuViewController.swift in Sources */,
-				C7E968BB1E76A1330059E068 /* SpeechBubbleViewController.swift in Sources */,
+				929694C71E77F1770009945A /* SpeechBubbleView.swift in Sources */,
 				FED574DC1E6B18BC0096AC7E /* Perudo.swift in Sources */,
 				FE760D131E7445810089BE48 /* InstructionsViewController.swift in Sources */,
 				C7A270931E64252400841D3E /* AppDelegate.swift in Sources */,

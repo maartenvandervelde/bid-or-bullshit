@@ -106,59 +106,64 @@
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="-10"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd">
-                                <rect key="frame" x="137" y="681" width="495" height="89"/>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd" userLabel="Player Input">
+                                <rect key="frame" x="108.5" y="608" width="552" height="162"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqY-ez-uRb">
-                                        <rect key="frame" x="0.0" y="20.5" width="43" height="48"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Bid"/>
-                                    </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="faH-px-In5">
-                                        <rect key="frame" x="93" y="0.0" width="238" height="89"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="My7-Yb-T6F">
+                                        <rect key="frame" x="0.0" y="0.0" width="238" height="162"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jb8-Ab-rxf">
-                                                <rect key="frame" x="0.0" y="9" width="94" height="80"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="faH-px-In5">
+                                                <rect key="frame" x="0.0" y="0.0" width="238" height="89"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6s-BM-oxg" userLabel="bidNumberOfDiceLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="BzW-j7-1g2">
-                                                        <rect key="frame" x="0.0" y="51" width="94" height="29"/>
-                                                        <connections>
-                                                            <action selector="setPlayerBidNumberOfDice:" destination="BMo-uD-aH8" eventType="valueChanged" id="cwf-Lj-Hp9"/>
-                                                        </connections>
-                                                    </stepper>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="w6s-BM-oxg" firstAttribute="width" secondItem="BzW-j7-1g2" secondAttribute="width" id="3JK-ps-NvV"/>
-                                                </constraints>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uMk-qq-R3j">
-                                                <rect key="frame" x="144" y="0.0" width="94" height="89"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="die-1" translatesAutoresizingMaskIntoConstraints="NO" id="alx-s3-9cJ" userLabel="bidNumberOfPipsImage">
-                                                        <rect key="frame" x="22" y="0.0" width="50" height="50"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Jb8-Ab-rxf">
+                                                        <rect key="frame" x="0.0" y="9" width="94" height="80"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6s-BM-oxg" userLabel="bidNumberOfDiceLabel">
+                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="BzW-j7-1g2">
+                                                                <rect key="frame" x="0.0" y="51" width="94" height="29"/>
+                                                                <connections>
+                                                                    <action selector="setPlayerBidNumberOfDice:" destination="BMo-uD-aH8" eventType="valueChanged" id="cwf-Lj-Hp9"/>
+                                                                </connections>
+                                                            </stepper>
+                                                        </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="LYG-li-DhQ"/>
-                                                            <constraint firstAttribute="width" constant="50" id="NmD-cW-RWX"/>
+                                                            <constraint firstItem="w6s-BM-oxg" firstAttribute="width" secondItem="BzW-j7-1g2" secondAttribute="width" id="3JK-ps-NvV"/>
                                                         </constraints>
-                                                    </imageView>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="Mcd-hq-1Gp">
-                                                        <rect key="frame" x="0.0" y="60" width="94" height="29"/>
-                                                        <connections>
-                                                            <action selector="setPlayerBidNumberOfPips:" destination="BMo-uD-aH8" eventType="valueChanged" id="joP-5T-hXa"/>
-                                                        </connections>
-                                                    </stepper>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uMk-qq-R3j">
+                                                        <rect key="frame" x="144" y="0.0" width="94" height="89"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dop1" translatesAutoresizingMaskIntoConstraints="NO" id="alx-s3-9cJ" userLabel="bidNumberOfPipsImage">
+                                                                <rect key="frame" x="22" y="0.0" width="50" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="LYG-li-DhQ"/>
+                                                                    <constraint firstAttribute="width" constant="50" id="NmD-cW-RWX"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="Mcd-hq-1Gp">
+                                                                <rect key="frame" x="0.0" y="60" width="94" height="29"/>
+                                                                <connections>
+                                                                    <action selector="setPlayerBidNumberOfPips:" destination="BMo-uD-aH8" eventType="valueChanged" id="joP-5T-hXa"/>
+                                                                </connections>
+                                                            </stepper>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqY-ez-uRb">
+                                                <rect key="frame" x="97.5" y="114" width="43" height="48"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <state key="normal" title="Bid"/>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvU-rv-kKb">
-                                        <rect key="frame" x="381" y="20.5" width="114" height="48"/>
+                                        <rect key="frame" x="438" y="0.0" width="114" height="162"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Bullsh*t!"/>
                                     </button>
@@ -171,7 +176,7 @@
                                     <constraint firstAttribute="height" constant="150" id="wA2-oX-v6E"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf" userLabel="Roll Button">
                                 <rect key="frame" x="683" y="964" width="65" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Roll"/>
@@ -203,6 +208,8 @@
                         <outlet property="playerBidNumberOfDiceStepper" destination="BzW-j7-1g2" id="wc9-rr-sNC"/>
                         <outlet property="playerBidNumberOfPipsStepper" destination="Mcd-hq-1Gp" id="pdl-08-huT"/>
                         <outlet property="playerBidNumberOfPipsView" destination="alx-s3-9cJ" id="lOT-8f-PV8"/>
+                        <outlet property="playerInputButtons" destination="8wG-VM-Xjd" id="d5X-tk-2Fj"/>
+                        <outlet property="rollButton" destination="IM8-1l-6xf" id="08Z-r8-L5N"/>
                         <segue destination="cD9-l1-e6F" kind="unwind" identifier="unwindToMenuFromGame" unwindAction="unwindToMenuWithSegue:" id="JzD-Fc-tJW"/>
                     </connections>
                 </viewController>
@@ -409,6 +416,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="die-1" width="200" height="200"/>
+        <image name="dop1" width="380" height="380"/>
     </resources>
 </document>

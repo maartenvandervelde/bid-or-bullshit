@@ -11,3 +11,13 @@ import Foundation
 class Perudo {
     
 }
+
+struct Bid {
+    var numberOfDice: Int = 1
+    var numberOfPips: Int = 1
+    
+    
+    func printBid() {
+        print("Bid: \(numberOfDice) dice with \(numberOfPips) pips")
+    }
+}

@@ -29,6 +29,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var playerBidNumberOfPipsView: UIImageView!
     @IBOutlet weak var playerBidNumberOfDiceStepper: UIStepper!
     @IBOutlet weak var playerBidNumberOfPipsStepper: UIStepper!
+    @IBOutlet weak var playerInputButtons: UIStackView!
+    @IBOutlet weak var rollButton: UIButton!
     
 //    let diceImages = [1: UIImage(named: "die-1"),
 //                      2: UIImage(named: "die-2"),
@@ -50,26 +52,60 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     let humanPlayer = HumanPlayer()
     let modelPlayer = ModelPlayer()
     
-    private var gamestate = GameState.GameStart
+    private var gamestate = GameState.GameStart {
+        didSet {
+            switch gamestate {
+            
+            case .GameStart:
+                print("Starting a new game")
+            
+            case .ModelOpeningBid:
+                print("The model makes an opening bid")
+                modelPlayer.makeOpeningBid()
+            
+            case .PlayerOpeningBid:
+                print("The player makes an opening bid")
+                playerInputButtons.isHidden = false
+            
+            case .ModelResponse:
+                print("The model responds to the player's bid")
+                playerInputButtons.isHidden = true
+                modelPlayer.respondToBid(bid: Bid(numberOfDice: 3, numberOfPips: 2))
+            
+            case .PlayerResponse:
+                print("The player responds to the model's bid")
+            
+            case .Results:
+                print("Determining the winner")
+            
+            case .GameOver:
+                print("Game over")
+            
+            }
+            drawOpponentSpeechBubble(message: modelPlayer.speak(gamestate: gamestate))
+        }
+    }
     
-    private var playerBidNumberOfDice: Int? {
+    private var playerBid = Bid() {
         didSet {
-            playerBidNumberOfDiceLabel.text = "\(playerBidNumberOfDice!)"
+            playerBidNumberOfDiceLabel.text = "\(playerBid.numberOfDice)"
+            playerBidNumberOfPipsView.image = diceImages[playerBid.numberOfPips]!
+            playerBid.printBid()
         }
     }
-    private var playerBidNumberOfPips: Int? {
+    
+    private var modelBid = Bid() {
         didSet {
-            playerBidNumberOfPipsView.image = diceImages[playerBidNumberOfPips!]!
+            
         }
     }
-    private var modelBidNumberOfDice: Int?
-    private var modelBidNumberOfPips: Int?
+
     
     @IBAction func setPlayerBidNumberOfDice(_ sender: UIStepper) {
-        playerBidNumberOfDice = Int(sender.value)
+        playerBid.numberOfDice = Int(sender.value)
     }
     @IBAction func setPlayerBidNumberOfPips(_ sender: UIStepper) {
-        playerBidNumberOfPips = Int(sender.value)
+        playerBid.numberOfPips = Int(sender.value)
     }
     
     
@@ -77,6 +113,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     /// BACK BUTTON
     // Return to main menu, throwing away the current game (after user confirmation).
     @IBAction func backToMenu(_ sender: UIButton) {
+        
         let alert = UIAlertController(title: "Return to menu?", message: "Are you sure you want to return to the menu? Your progress in the game will be lost.", preferredStyle: .alert)
         
         let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
@@ -94,7 +131,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
-        //drawOpponentSpeechBubble(message: "Do you fear death?")
     }
     
     
@@ -114,9 +150,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         drawPlayerDice()
         
-        
-        gamestate = GameState.GameStart
-        
+        gamestate = .PlayerOpeningBid
         gameInformation.layer.borderWidth = 1
         gameInformation.backgroundColor = UIColor.lightGray
         
@@ -125,15 +159,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     /// GAMEPLAY FUNCTIONS
     
-    private func drawOpponentSpeechBubble(message: String) {
-        let popover = storyboard?.instantiateViewController(withIdentifier: "speechbubble")
-        popover?.modalPresentationStyle = .popover
-        popover?.popoverPresentationController?.delegate = self
-        popover?.popoverPresentationController?.sourceView = self.view
-        popover?.popoverPresentationController?.sourceRect = CGRect(x: 50, y: 100, width: 400, height: 50)
-        popover?.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.left
-        self.present(popover!, animated: true)
-    }
+
     
     
     
@@ -165,11 +191,27 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // Draw each die in the view
         for (index, die) in playerDice.enumerated() {
-            print(die)
             let image = diceImages[die] ?? UIImage(named: "grey-die-4")
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.frame = CGRect(x: 200 + (76 * index), y: 900, width: 64, height: 64)
             view.addSubview(dieImageView)
+        }
+    }
+    
+    private func drawOpponentSpeechBubble(message: String) {
+        // Is there a previous speech bubble on screen? Then remove it first.
+        removeExistingSpeechBubble()
+        
+        // Show a new speech bubble with the specified message
+        let bubbleView = SpeechBubbleView(baseView: opponentImage, text: message, fontSize: 20.0)
+        view.addSubview(bubbleView)
+    }
+    
+    private func removeExistingSpeechBubble() {
+        for subview in view.subviews {
+            if let subview = subview as? SpeechBubbleView {
+                subview.removeFromSuperview()
+            }
         }
     }
 }
