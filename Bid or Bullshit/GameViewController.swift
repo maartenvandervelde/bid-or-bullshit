@@ -30,13 +30,20 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var playerBidNumberOfDiceStepper: UIStepper!
     @IBOutlet weak var playerBidNumberOfPipsStepper: UIStepper!
     
-    let diceImages = [1: UIImage(named: "die-1"),
-                      2: UIImage(named: "die-2"),
-                      3: UIImage(named: "die-3"),
-                      4: UIImage(named: "die-4"),
-                      5: UIImage(named: "die-5"),
-                      6: UIImage(named: "die-6")]
-    
+//    let diceImages = [1: UIImage(named: "die-1"),
+//                      2: UIImage(named: "die-2"),
+//                      3: UIImage(named: "die-3"),
+//                      4: UIImage(named: "die-4"),
+//                      5: UIImage(named: "die-5"),
+//                      6: UIImage(named: "die-6")]
+
+    let diceImages = [1: UIImage(named: "dop1"),
+                      2: UIImage(named: "dop2"),
+                      3: UIImage(named: "dop3"),
+                      4: UIImage(named: "dop4"),
+                      5: UIImage(named: "dop5"),
+                      6: UIImage(named: "dop6")]
+
     
     var opponent: OpponentCharacter? = nil
     

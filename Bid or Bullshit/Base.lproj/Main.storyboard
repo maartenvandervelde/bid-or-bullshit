@@ -41,7 +41,7 @@
                                             <segue destination="IpC-V0-buR" kind="show" id="Odc-w0-fuv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-Ek-6Pd">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-Ek-6Pd">
                                         <rect key="frame" x="16.5" y="160" width="173" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Settings 1"/>
@@ -49,7 +49,7 @@
                                             <segue destination="T8D-Iv-GBb" kind="show" id="UeK-9W-Pqf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz4-RQ-fjs">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz4-RQ-fjs">
                                         <rect key="frame" x="14" y="240" width="178" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Settings 2"/>
@@ -256,32 +256,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="201" y="328.5" width="366" height="368.5"/>
+                                <rect key="frame" x="199" y="328.5" width="370" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="91.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="93.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="122.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="124.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="370" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="374" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="158.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="160.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="136" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="138" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="164.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="166.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
@@ -330,7 +330,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKw-zQ-e51">
                                 <rect key="frame" x="20" y="0.0" width="728" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <mutableString key="text">Instructions:
+                                <string key="text">Instructions:
 
 - First choose an oponent, note that they are of different difficulty
 -  Bidding: 
@@ -339,7 +339,7 @@
 	* Press bid once you havve selected a bid you are satisfied with
 - Bullshit: Press bullshit if you don't believe the bid of the oponent
 - End of round: After a round you get feedback about who wins that round. Press Roll once you have read the feedback and want to start a new round. 
-- You win the game if you are the last one with dice. Tip: Keep track of the amount of dice that are still in the game to be able to make better bids.</mutableString>
+- You win the game if you are the last one with dice. Tip: Keep track of the amount of dice that are still in the game to be able to make better bids.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
