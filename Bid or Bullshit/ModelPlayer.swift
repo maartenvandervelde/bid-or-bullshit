@@ -8,15 +8,25 @@
 
 import Foundation
 
-
-class ModelPlayer: Player {
-    
+class ModelPlayer: Player {    
     // instantiation of and interaction with act-r model goes here.
+    var dm= Declaritive()
     
     private var latestBid: Bid?
     
     func makeOpeningBid() {
-        
+        var openingBid = [:]
+        var myTopDice = getMyTopDice(myDice)
+        var opponentDice = getOpponentDice(DM, myDice)
+        var previousOpeningBid = getPreviousOpeningBid(DM, myTopDice, opponentDice)
+
+        if previousOpeningBid != nil{//retrieval succes
+            openingBid = previousOpeningBid
+        } else {//retrieval failure
+            openingBid = makeDefaultOpeningBid(myDice, opponentDice)
+        }
+
+        return openingBid
     }
     
     func respondToBid(bid: Bid) -> Bid? {
@@ -51,7 +61,80 @@ class ModelPlayer: Player {
             return "I have won the game"
         case .PlayerWinsGame:
             return "You have won the game."
+        }
     }
+
+    func getMyTopDice(ownDice){
+        var topDice = [:]
+
+        //Choose pip with highest number of dice
+
+        //if pips share highest number of dice, choose highest pip
+
+        return topDice
+    }
+    
+    func getOpponentDice(DM, ownDice){
+        var opponentDiceNumber = retrieveChunk(DM,type=opponentDiceNum)
+
+        if opponentDiceNumber == nil{//retrieval failure
+            opponentDiceNumber = length(ownDice)
+        }
+
+        return opponentDiceNumber
+    }
+
+    func getPreviousOpeningBid(DM, ownDice, opponentDice){
+        var openingBid = nil
+        openingBid = retrieveChunk(DM,type=openingbid, ownDice, opponentDice)
+
+        return openingBid
+    }
+
+    func getPreviousOpponentBidResponse(DM, ownDice, opponentDice, opponentBid){
+        var response = nil
+        response = retrieveChunk(DM,type=bidresponse, ownDice, opponentDice, opponentBid)
+
+        return response
+    }
+
+    func makeDefaultOpeningBid(ownDice, opponentDice){
+        var openingBid = [:]
+        var extraDice = opponentDice/6
+
+        //openingBid = owndice + extraDice
+
+        return openingBid
+    }
+
+    func makeDefaultReponse(ownDice, opponentDice, opponentBid){
+
+        var result = something()//subtract target dice from opponents bid	
+
+        if (result/opponentDice<1/6){//if below pip probability
+
+        } else {
+            makeCounterBid(myDice, opponentBid)
+        }
+    }
+
+    func evaluateBid(opponentBid, myDice){
+        var opponentDice = getOpponentDice(DM, type=opponentDiceNum, myDice)
+            
+        var response = getPreviousOpponentBidResponse(DM, myDice, opponentDiceNum, opponentBid)
+
+        if (response=!NULL){//retrieval succes
+            if(response=="bullshit"){
+                callBullshit()
+            } else {
+                makeCounterBid(myDice, opponentBid)
+            }
+        } else {//retrieval failure
+            makeDefaultResponse(myDice, opponentDice, opponentBid)
+        }
+    }
+
+    func makeCounterBid(myDice, opponentBid){
 
     }
 }
