@@ -13,17 +13,20 @@ class ModelPlayer: Player {
     
     // instantiation of and interaction with act-r model goes here.
     
+    private var latestBid: Bid?
     
     func makeOpeningBid() {
         
     }
     
-    func respondToBid(bid: Bid) {
-        
+    func respondToBid(bid: Bid) -> Bid? {
+        // for now we just return a bid that increases the number of dice by 1.
+        latestBid = Bid(numberOfDice: bid.numberOfDice + 1, numberOfPips: bid.numberOfPips)
+        return latestBid
     }
     
     func speak(gamestate: GameState) -> String {
-        // The model says something every time the game state changes.
+        // These are some canned responses that the model says every time the game state changes.
         // It returns a different string depending on the game state (this can be expanded further if needed).
         switch gamestate {
         case .GameStart:
@@ -33,15 +36,22 @@ class ModelPlayer: Player {
         case .PlayerOpeningBid:
             return "The player is making an opening bid."
         case .ModelResponse:
-            return "I'm responding to the player's bid."
+            return "Let me think about it..."
         case .PlayerResponse:
-            return "The player is responding to my bid."
-        case .Results:
-            return "The results are being shown."
-        case .GameOver:
-            return "One of us has won."
-        }
+            return "I bid \(latestBid!.repr())."
+        case .ModelCallsBullshit:
+            return "I don't believe you."
+        case .PlayerCallsBullshit:
+            return "You don't believe me."
+        case .ModelWinsRound:
+            return "I have won."
+        case .PlayerWinsRound:
+            return "You win this time."
+        case .ModelWinsGame:
+            return "I have won the game"
+        case .PlayerWinsGame:
+            return "You have won the game."
     }
 
-    
+    }
 }

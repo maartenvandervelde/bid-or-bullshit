@@ -9,7 +9,7 @@
 import UIKit
 
 class SpeechBubbleView: UIView {
-    let strokeColor: UIColor = UIColor.gray
+    let strokeColor: UIColor = UIColor.black
     let fillColor: UIColor = UIColor.white
     var triangleHeight: CGFloat!
     var radius: CGFloat!

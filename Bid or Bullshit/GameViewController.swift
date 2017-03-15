@@ -15,8 +15,12 @@ enum GameState: String {
     case PlayerOpeningBid
     case ModelResponse
     case PlayerResponse
-    case Results
-    case GameOver
+    case ModelCallsBullshit
+    case PlayerCallsBullshit
+    case ModelWinsRound
+    case PlayerWinsRound
+    case ModelWinsGame
+    case PlayerWinsGame
 }
 
 
@@ -30,6 +34,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var playerBidNumberOfDiceStepper: UIStepper!
     @IBOutlet weak var playerBidNumberOfPipsStepper: UIStepper!
     @IBOutlet weak var playerInputButtons: UIStackView!
+    @IBOutlet weak var playerBidButtons: UIStackView!
+    @IBOutlet weak var playerBullshitButton: UIButton!
     @IBOutlet weak var rollButton: UIButton!
     
 //    let diceImages = [1: UIImage(named: "die-1"),
@@ -49,6 +55,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     var opponent: OpponentCharacter? = nil
     
+    let perudo = Perudo()
+    
     let humanPlayer = HumanPlayer()
     let modelPlayer = ModelPlayer()
     
@@ -65,29 +73,93 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
-                playerInputButtons.isHidden = false
+                statusMessage = "It's your turn to start. Make an opening bid."
+                playerBidButtons.isHidden = false
+                playerBullshitButton.isHidden = true
             
             case .ModelResponse:
                 print("The model responds to the player's bid")
-                playerInputButtons.isHidden = true
-                modelPlayer.respondToBid(bid: Bid(numberOfDice: 3, numberOfPips: 2))
+                statusMessage = "You bid \(playerBid.repr()). The model will now respond."
+                playerBidButtons.isHidden = true
+                playerBullshitButton.isHidden = true
+                let modelResponse = modelPlayer.respondToBid(bid: playerBid)
+                if modelResponse != nil {
+                    modelBid = modelResponse!
+                }
             
             case .PlayerResponse:
                 print("The player responds to the model's bid")
+                statusMessage = "The model bid \(modelBid.repr()). It is your turn."
+                playerBid = modelBid
+                playerBidButtons.isHidden = false
+                playerBullshitButton.isHidden = false
             
-            case .Results:
-                print("Determining the winner")
+            case .ModelCallsBullshit:
+                print("The model calls bullshit")
+                statusMessage = "The model does not believe your bid of \(playerBid.repr()). Let's see who's right."
+                playerBidButtons.isHidden = true
+                playerBullshitButton.isHidden = true
+
+            case .PlayerCallsBullshit:
+                print("The player calls bullshit")
+                statusMessage = "You don't believe the model's bid of \(modelBid.repr()). Let's see who's right."
+                playerBidButtons.isHidden = true
+                playerBullshitButton.isHidden = true
+                
+                let bidCorrect = Perudo.isBidCorrect(bid: modelBid, player1dice: humanPlayer.diceList, player2dice: modelPlayer.diceList)
+                
+                if bidCorrect {
+                    // delay for 3 seconds
+                    let when = DispatchTime.now() + 3
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.gamestate = .ModelWinsRound
+                    }
+                } else {
+                    let when = DispatchTime.now() + 3
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.gamestate = .PlayerWinsRound
+                    }
+                }
             
-            case .GameOver:
-                print("Game over")
+            case .ModelWinsRound:
+                print("The model wins this round")
+                statusMessage = "The model wins this round. Final bid: \(modelBid.repr()). The model's dice: \(modelPlayer.diceList)."
+                humanPlayer.discardDice()
+                
+                rollButton.isHidden = false
+                
+                
+            case .PlayerWinsRound:
+                print("You win this round")
+                statusMessage = "You win this round. Final bid: \(modelBid.repr()). The model's dice: \(modelPlayer.diceList)."
+                
+                rollButton.isHidden = false
+                
+                
+            case .ModelWinsGame:
+                print("The model has won the game")
+                statusMessage = "The model has won the game."
+                
+            case .PlayerWinsGame:
+                print("The player has won the game")
+                statusMessage = "You have won the game."
             
             }
+            
             drawOpponentSpeechBubble(message: modelPlayer.speak(gamestate: gamestate))
+        }
+    }
+    
+    private var statusMessage: String? {
+        didSet {
+            gameInformation.text = statusMessage!
         }
     }
     
     private var playerBid = Bid() {
         didSet {
+            playerBidNumberOfDiceStepper.value = Double(playerBid.numberOfDice)
+            playerBidNumberOfPipsStepper.value = Double(playerBid.numberOfPips)
             playerBidNumberOfDiceLabel.text = "\(playerBid.numberOfDice)"
             playerBidNumberOfPipsView.image = diceImages[playerBid.numberOfPips]!
             playerBid.printBid()
@@ -96,6 +168,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     private var modelBid = Bid() {
         didSet {
+            // delay for 3 seconds
+            let when = DispatchTime.now() + 3
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.gamestate = .PlayerResponse
+            }
             
         }
     }
@@ -131,6 +208,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
+        gamestate = .PlayerOpeningBid
     }
     
     
@@ -152,14 +230,20 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         gamestate = .PlayerOpeningBid
         gameInformation.layer.borderWidth = 1
-        gameInformation.backgroundColor = UIColor.lightGray
+        gameInformation.backgroundColor = UIColor.white
         
     }
 
     
     /// GAMEPLAY FUNCTIONS
     
+    @IBAction func processPlayerBid(_ sender: UIButton) {
+        gamestate = .ModelResponse
+    }
 
+    @IBAction func playerSaysBullshit(_ sender: UIButton) {
+        gamestate = .PlayerCallsBullshit
+    }
     
     
     

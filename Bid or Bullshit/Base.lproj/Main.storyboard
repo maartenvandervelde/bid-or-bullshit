@@ -106,7 +106,7 @@
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="-10"/>
                             </label>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd" userLabel="Player Input">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd" userLabel="Player Input">
                                 <rect key="frame" x="108.5" y="608" width="552" height="162"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="My7-Yb-T6F">
@@ -159,6 +159,9 @@
                                                 <rect key="frame" x="97.5" y="114" width="43" height="48"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="Bid"/>
+                                                <connections>
+                                                    <action selector="processPlayerBid:" destination="BMo-uD-aH8" eventType="touchUpInside" id="BSk-7W-7r8"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -166,6 +169,9 @@
                                         <rect key="frame" x="438" y="0.0" width="114" height="162"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Bullsh*t!"/>
+                                        <connections>
+                                            <action selector="playerSaysBullshit:" destination="BMo-uD-aH8" eventType="touchUpInside" id="r2T-LN-Dao"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -204,10 +210,12 @@
                     <connections>
                         <outlet property="gameInformation" destination="J3t-7E-TAA" id="qwm-0G-kmk"/>
                         <outlet property="opponentImage" destination="H5v-or-116" id="F6l-QB-lzJ"/>
+                        <outlet property="playerBidButtons" destination="My7-Yb-T6F" id="qlQ-Vu-30a"/>
                         <outlet property="playerBidNumberOfDiceLabel" destination="w6s-BM-oxg" id="NR3-cZ-JvV"/>
                         <outlet property="playerBidNumberOfDiceStepper" destination="BzW-j7-1g2" id="wc9-rr-sNC"/>
                         <outlet property="playerBidNumberOfPipsStepper" destination="Mcd-hq-1Gp" id="pdl-08-huT"/>
                         <outlet property="playerBidNumberOfPipsView" destination="alx-s3-9cJ" id="lOT-8f-PV8"/>
+                        <outlet property="playerBullshitButton" destination="TvU-rv-kKb" id="BVX-qi-CPl"/>
                         <outlet property="playerInputButtons" destination="8wG-VM-Xjd" id="d5X-tk-2Fj"/>
                         <outlet property="rollButton" destination="IM8-1l-6xf" id="08Z-r8-L5N"/>
                         <segue destination="cD9-l1-e6F" kind="unwind" identifier="unwindToMenuFromGame" unwindAction="unwindToMenuWithSegue:" id="JzD-Fc-tJW"/>
@@ -263,32 +271,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="199" y="328.5" width="370" height="368.5"/>
+                                <rect key="frame" x="197" y="328.5" width="374" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="93.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="95.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="124.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="126.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="374" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="378" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="160.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="162.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="138" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="140" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="166.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="168.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
