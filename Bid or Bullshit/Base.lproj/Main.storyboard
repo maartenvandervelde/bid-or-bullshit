@@ -28,7 +28,10 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOa-M3-WUt">
                                         <rect key="frame" x="61" y="0.0" width="84" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <state key="normal" title="Start"/>
+                                        <size key="titleShadowOffset" width="2" height="2"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="dA4-I6-gx9" kind="show" id="gbl-Tu-H3d"/>
                                         </connections>
@@ -36,7 +39,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMT-6A-z2U">
                                         <rect key="frame" x="0.0" y="80" width="206" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        <state key="normal" title="Instructions"/>
+                                        <state key="normal" title="Instructions">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="IpC-V0-buR" kind="show" id="Odc-w0-fuv"/>
                                         </connections>
@@ -59,10 +64,18 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bid or Bullsh!t" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQh-wP-aRi">
+                                <rect key="frame" x="125" y="74" width="518" height="164"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="60"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="J3o-8y-38j" firstAttribute="centerY" secondItem="Ff3-6r-9Qu" secondAttribute="centerY" id="JT8-xH-91e"/>
+                            <constraint firstItem="XQh-wP-aRi" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="Pf4-8D-V3s"/>
+                            <constraint firstItem="XQh-wP-aRi" firstAttribute="top" secondItem="d1N-pH-gQf" secondAttribute="bottom" constant="74" id="emO-6l-OLe"/>
                             <constraint firstItem="J3o-8y-38j" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="haj-Hc-fbd"/>
                         </constraints>
                     </view>
