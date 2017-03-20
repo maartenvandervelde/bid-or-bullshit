@@ -10,14 +10,15 @@ import Foundation
 
 class ModelPlayer: Player {    
     // instantiation of and interaction with act-r model goes here.
-    var dm= Declaritive()
+    //var dm  = Declarative()
     
     private var latestBid: Bid?
     
     func makeOpeningBid() {
-        var openingBid = [:]
-        var myTopDice = getMyTopDice(myDice)
-        var opponentDice = getOpponentDice(DM, myDice)
+ 
+        var myDice = self.diceList
+        //var myTopDice = getMyTopDice(myDice)
+        /*var opponentDice = getOpponentDice(DM, myDice)
         var previousOpeningBid = getPreviousOpeningBid(DM, myTopDice, opponentDice)
 
         if previousOpeningBid != nil{//retrieval succes
@@ -26,7 +27,7 @@ class ModelPlayer: Player {
             openingBid = makeDefaultOpeningBid(myDice, opponentDice)
         }
 
-        return openingBid
+        return openingBid*/
     }
     
     func respondToBid(bid: Bid) -> Bid? {
@@ -64,17 +65,22 @@ class ModelPlayer: Player {
         }
     }
 
-    func getMyTopDice(ownDice){
-        var topDice = [:]
-
+    /*func getMyTopDice(ownDice){
         //Choose pip with highest number of dice
+        var
+        for(index,Dice) in ownDice{
+            
+        }
+        var topDice
+
+        
 
         //if pips share highest number of dice, choose highest pip
 
         return topDice
-    }
+    }*/
     
-    func getOpponentDice(DM, ownDice){
+    /*func getOpponentDice(DM, ownDice){
         var opponentDiceNumber = retrieveChunk(DM,type=opponentDiceNum)
 
         if opponentDiceNumber == nil{//retrieval failure
@@ -136,5 +142,5 @@ class ModelPlayer: Player {
 
     func makeCounterBid(myDice, opponentBid){
 
-    }
+    }*/
 }
