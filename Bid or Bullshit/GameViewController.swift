@@ -136,6 +136,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerWinsRound:
                 print("You win this round")
                 statusMessage = "You win this round. Final bid: \(modelBid.repr()). The model's dice: \(modelPlayer.diceList)."
+                modelPlayer.discardDice()
                 
                 rollButton.isHidden = false
                 
@@ -223,6 +224,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer.rollDice()
         drawPlayerDice()
+        modelPlayer.rollDice()
+        drawOpponentDice()
         gamestate = .PlayerOpeningBid
         rollButton.isHidden = true
     }
@@ -243,6 +246,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         setBackgroundImage()
         
         drawPlayerDice()
+        drawOpponentDice()
         
         gamestate = .PlayerOpeningBid
         gameInformation.layer.borderWidth = 1
@@ -282,7 +286,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         // Remove previous images of dice from the view
         for dieView in view.subviews {
             if let dieView = dieView as? DieUIImageView {
-                dieView.removeFromSuperview()
+                if dieView.owner == "player" {
+                    dieView.removeFromSuperview()
+                }
             }
         }
         
@@ -293,7 +299,32 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         for (index, die) in playerDice.enumerated() {
             let image = diceImages[die] ?? UIImage(named: "grey-die-4")
             let dieImageView = DieUIImageView(image: image!)
+            dieImageView.owner = "player"
             dieImageView.frame = CGRect(x: 200 + (76 * index), y: 900, width: 64, height: 64)
+            view.addSubview(dieImageView)
+        }
+    }
+    
+    private func drawOpponentDice() {
+        
+        // Remove previous images of dice from the view
+        for dieView in view.subviews {
+            if let dieView = dieView as? DieUIImageView {
+                if dieView.owner == "opponent" {
+                    dieView.removeFromSuperview()
+                }
+            }
+        }
+        
+        // Retrieve the player's current dice
+        let opponentDice = modelPlayer.diceList
+        
+        // Draw each die in the view
+        for (index, die) in opponentDice.enumerated() {
+            let image = diceImages[die] ?? UIImage(named: "grey-die-4")
+            let dieImageView = DieUIImageView(image: image!)
+            dieImageView.owner = "opponent"
+            dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
             view.addSubview(dieImageView)
         }
     }

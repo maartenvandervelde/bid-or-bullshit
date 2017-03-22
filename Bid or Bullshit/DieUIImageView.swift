@@ -9,5 +9,7 @@
 import UIKit
 
 class DieUIImageView: UIImageView {
+    
+    var owner: String?
 
 }
