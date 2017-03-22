@@ -231,7 +231,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         gamestate = .PlayerOpeningBid
         gameInformation.layer.borderWidth = 1
         gameInformation.backgroundColor = UIColor.white
-        
+        gameInformation.textColor = UIColor.black
     }
 
     

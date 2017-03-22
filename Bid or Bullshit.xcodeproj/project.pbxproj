@@ -135,7 +135,7 @@
 				TargetAttributes = {
 					C7A2708E1E64252400841D3E = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 577VS93H3Z;
+						DevelopmentTeam = KCBZ69F5FZ;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -317,12 +317,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 577VS93H3Z;
+				DEVELOPMENT_TEAM = KCBZ69F5FZ;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				INFOPLIST_FILE = "Bid or Bullshit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cogmodcb.team1.bidorbullshit;
+				PRODUCT_BUNDLE_IDENTIFIER = cogmodcb.teamone.bidorbullshit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -336,12 +336,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 577VS93H3Z;
+				DEVELOPMENT_TEAM = KCBZ69F5FZ;
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				INFOPLIST_FILE = "Bid or Bullshit/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cogmodcb.team1.bidorbullshit;
+				PRODUCT_BUNDLE_IDENTIFIER = cogmodcb.teamone.bidorbullshit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
