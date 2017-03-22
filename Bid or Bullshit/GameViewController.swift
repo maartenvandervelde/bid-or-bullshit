@@ -35,6 +35,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var playerBidNumberOfPipsStepper: UIStepper!
     @IBOutlet weak var playerInputButtons: UIStackView!
     @IBOutlet weak var playerBidButtons: UIStackView!
+    @IBOutlet weak var playerBidConfirmButton: UIButton!
     @IBOutlet weak var playerBullshitButton: UIButton!
     @IBOutlet weak var rollButton: UIButton!
     
@@ -74,7 +75,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
                 statusMessage = "It's your turn to start. Make an opening bid."
+                playerBid = Bid()
+                modelBid = Bid()
                 playerBidButtons.isHidden = false
+                playerBidConfirmButton.isEnabled = true
                 playerBullshitButton.isHidden = true
             
             case .ModelResponse:
@@ -163,17 +167,28 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             playerBidNumberOfDiceLabel.text = "\(playerBid.numberOfDice)"
             playerBidNumberOfPipsView.image = diceImages[playerBid.numberOfPips]!
             playerBid.printBid()
+            if gamestate != .PlayerOpeningBid {
+                if (Perudo.isBidLegal(previous: modelBid, new: playerBid)) {
+                    print("This bid is legal.")
+                    playerBidConfirmButton.isEnabled = true
+                
+                } else {
+                    print("This bid is NOT legal!")
+                    playerBidConfirmButton.isEnabled = false
+                }
+            }
         }
     }
     
     private var modelBid = Bid() {
         didSet {
             // delay for 3 seconds
-            let when = DispatchTime.now() + 3
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.gamestate = .PlayerResponse
+            if gamestate != .PlayerOpeningBid {
+                let when = DispatchTime.now() + 3
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.gamestate = .PlayerResponse
+                }
             }
-            
         }
     }
 
@@ -209,6 +224,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         humanPlayer.rollDice()
         drawPlayerDice()
         gamestate = .PlayerOpeningBid
+        rollButton.isHidden = true
     }
     
     

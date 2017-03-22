@@ -10,6 +10,27 @@ import Foundation
 
 class Perudo {
     
+    
+    static func isBidLegal(previous: Bid, new: Bid) -> Bool {
+        
+        // new bid increments number of dice by 1
+        if (new.numberOfDice == previous.numberOfDice + 1) {
+            // new bid decrements or increments number of pips by 1, or keeps it the same
+            if (new.numberOfPips == previous.numberOfPips - 1 || new.numberOfPips == previous.numberOfPips || new.numberOfPips == previous.numberOfPips + 1) {
+                return true
+            }
+        }
+        
+        // new bid increments number of pips by 1, number of dice stays the same
+        if (new.numberOfPips == previous.numberOfPips + 1 && new.numberOfDice == previous.numberOfDice) {
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    
     static func isBidCorrect(bid: Bid, player1dice: [Int], player2dice: [Int]) -> Bool {
         let allDice = player1dice + player2dice
         var count = 0
