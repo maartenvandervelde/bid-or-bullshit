@@ -266,7 +266,14 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     
-    
+    // Responding to a shake gesture
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if event?.subtype == UIEventSubtype.motionShake {
+            if !rollButton.isHidden {
+                roll(_: UIButton())
+            }
+        }
+    }
     
     
     /// DRAWING FUNCTIONS
