@@ -225,20 +225,23 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     
     /// BACK BUTTON
-    // Return to main menu, throwing away the current game (after user confirmation).
+    // Return to main menu, throwing away the current game if in progress (after user confirmation).
     @IBAction func backToMenu(_ sender: UIButton) {
-        
-        let alert = UIAlertController(title: "Return to menu?", message: "Are you sure you want to return to the menu? Your progress in the game will be lost.", preferredStyle: .alert)
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
-            self.performSegue(withIdentifier: "unwindToMenuFromGame", sender: self)
+        if !(gamestate == .PlayerWinsGame || gamestate == .ModelWinsGame) {
+            let alert = UIAlertController(title: "Return to menu?", message: "Are you sure you want to return to the menu? Your progress in the game will be lost.", preferredStyle: .alert)
+            
+            let yesAction = UIAlertAction(title: "Yes", style: .destructive) { (action) in
+                self.performSegue(withIdentifier: "unwindToMenuFromGame", sender: self)
+            }
+            let noAction = UIAlertAction(title: "No", style: .cancel)
+            
+            alert.addAction(noAction)
+            alert.addAction(yesAction)
+            
+            present(alert, animated: true)
+        } else {
+            performSegue(withIdentifier: "unwindToMenuFromGame", sender: self)
         }
-        let noAction = UIAlertAction(title: "No", style: .cancel)
-        
-        alert.addAction(noAction)
-        alert.addAction(yesAction)
-        
-        present(alert, animated: true)
     }
     
     /// ROLL BUTTON
