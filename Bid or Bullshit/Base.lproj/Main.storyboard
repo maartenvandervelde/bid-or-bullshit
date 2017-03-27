@@ -125,7 +125,7 @@
                                 <size key="shadowOffset" width="0.0" height="-10"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="200" translatesAutoresizingMaskIntoConstraints="NO" id="8wG-VM-Xjd" userLabel="Player Input">
-                                <rect key="frame" x="111.5" y="596" width="546" height="174"/>
+                                <rect key="frame" x="111" y="596" width="546" height="174"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="My7-Yb-T6F">
                                         <rect key="frame" x="0.0" y="0.0" width="238" height="174"/>
@@ -217,6 +217,16 @@
                                     <action selector="roll:" destination="BMo-uD-aH8" eventType="touchUpInside" id="PLV-11-Bio"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdC-es-kHi">
+                                <rect key="frame" x="317" y="596" width="134" height="174"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="30"/>
+                                <state key="normal" title="Play again">
+                                    <color key="titleColor" red="0.050980392159999999" green="0.25882352939999997" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="playAgain:" destination="BMo-uD-aH8" eventType="touchUpInside" id="Efo-1e-vY0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -224,19 +234,23 @@
                             <constraint firstAttribute="trailingMargin" secondItem="IM8-1l-6xf" secondAttribute="trailing" id="6lQ-4F-asr"/>
                             <constraint firstItem="J3t-7E-TAA" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="CB3-so-WVZ"/>
                             <constraint firstItem="H5v-or-116" firstAttribute="top" secondItem="1C7-A1-rEf" secondAttribute="bottom" constant="8" symbolic="YES" id="ERs-BW-xge"/>
+                            <constraint firstItem="IdC-es-kHi" firstAttribute="bottom" secondItem="8wG-VM-Xjd" secondAttribute="bottom" id="LAb-F0-jEg"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="Rzb-Ti-g0C"/>
                             <constraint firstItem="J3t-7E-TAA" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="TNA-cf-mYC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J3t-7E-TAA" secondAttribute="trailing" id="W9t-30-vzh"/>
                             <constraint firstItem="8wG-VM-Xjd" firstAttribute="centerX" secondItem="zPf-6j-fFe" secondAttribute="centerX" id="aCR-yl-RAT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="H5v-or-116" secondAttribute="leading" id="hfT-Ee-Nax"/>
+                            <constraint firstItem="IdC-es-kHi" firstAttribute="top" secondItem="8wG-VM-Xjd" secondAttribute="top" id="i1V-GQ-Li2"/>
                             <constraint firstItem="alW-Oq-gVw" firstAttribute="top" secondItem="IM8-1l-6xf" secondAttribute="bottom" id="kL6-od-gVF"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="top" secondItem="RuL-dS-HyL" secondAttribute="bottom" id="mdY-3W-d4D"/>
+                            <constraint firstItem="IdC-es-kHi" firstAttribute="centerX" secondItem="8wG-VM-Xjd" secondAttribute="centerX" id="zeW-wX-K4n"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="gameInformation" destination="J3t-7E-TAA" id="qwm-0G-kmk"/>
                         <outlet property="opponentImage" destination="H5v-or-116" id="F6l-QB-lzJ"/>
+                        <outlet property="playAgainButton" destination="IdC-es-kHi" id="EMm-hg-xgI"/>
                         <outlet property="playerBidButtons" destination="My7-Yb-T6F" id="qlQ-Vu-30a"/>
                         <outlet property="playerBidConfirmButton" destination="nqY-ez-uRb" id="ESr-k3-KST"/>
                         <outlet property="playerBidNumberOfDiceLabel" destination="w6s-BM-oxg" id="NR3-cZ-JvV"/>
@@ -299,32 +313,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="189" y="328.5" width="390" height="368.5"/>
+                                <rect key="frame" x="187" y="328.5" width="394" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="103.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="105.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="134.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="136.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="394" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="398" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="170.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="172.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="148" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="150" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="176.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="178.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
