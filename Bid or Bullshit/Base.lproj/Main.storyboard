@@ -492,13 +492,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="ETm-OC-wlB">
+                                <rect key="frame" x="176.5" y="893" width="416.5" height="31"/>
+                                <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dbm-aZ-apz">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent learns from previous games" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ro4-xC-eXI">
+                                        <rect key="frame" x="74" y="0.0" width="342.5" height="31"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="MO9-G6-dNu" firstAttribute="top" secondItem="ETm-OC-wlB" secondAttribute="bottom" constant="100" id="DC5-Aa-PXx"/>
                             <constraint firstItem="LXZ-fR-vha" firstAttribute="top" secondItem="asO-MJ-2gp" secondAttribute="bottom" id="Kev-uU-zBB"/>
                             <constraint firstAttribute="leadingMargin" secondItem="LXZ-fR-vha" secondAttribute="leading" id="QKC-R5-0Wt"/>
                             <constraint firstItem="l9O-fw-jim" firstAttribute="centerX" secondItem="nAn-EK-oJ3" secondAttribute="centerX" id="fh5-iL-ctI"/>
                             <constraint firstItem="l9O-fw-jim" firstAttribute="centerY" secondItem="LXZ-fR-vha" secondAttribute="centerY" id="sE8-aN-qFi"/>
+                            <constraint firstItem="ETm-OC-wlB" firstAttribute="centerX" secondItem="l9O-fw-jim" secondAttribute="centerX" id="xdu-ev-TTj"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
