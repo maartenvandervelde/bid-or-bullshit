@@ -271,6 +271,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         gameInformation.layer.borderWidth = 1
         gameInformation.backgroundColor = UIColor.white
         gameInformation.textColor = UIColor.black
+        
+        playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
+        playerBidNumberOfPipsView.layer.masksToBounds = true
+
     }
 
     private func setStartingPlayer() {
@@ -351,6 +355,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "player"
             dieImageView.frame = CGRect(x: 200 + (76 * index), y: 900, width: 64, height: 64)
+            dieImageView.layer.cornerRadius = 5 // round the corners of the dice
+            dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
         }
     }
@@ -375,6 +381,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "opponent"
             dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
+            dieImageView.layer.cornerRadius = 5 // round the corners of the dice
+            dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
         }
     }
