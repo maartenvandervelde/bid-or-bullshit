@@ -93,10 +93,12 @@ class CharacterSelectionViewController: UIViewController {
         btn.frame = frame
         btn.backgroundColor = UIColor.darkGray
         btn.tintColor = UIColor.white
-        btn.layer.masksToBounds = false
+        btn.layer.cornerRadius = 10 // round the corners
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOffset = CGSize(width: 2, height: 2)
         btn.layer.shadowOpacity = 0.8
         btn.layer.shadowRadius = 5
-        btn.layer.shadowOffset = CGSize(width: 2, height: 2)
+        
         btn.addTarget(self, action: #selector(CharacterSelectionViewController.didPressButton), for: .touchUpInside)
         
         // Add image
