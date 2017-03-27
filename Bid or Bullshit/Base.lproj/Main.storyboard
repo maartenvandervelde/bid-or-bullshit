@@ -201,10 +201,10 @@
                                 </subviews>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H5v-or-116">
-                                <rect key="frame" x="20" y="60" width="150" height="150"/>
+                                <rect key="frame" x="20" y="60" width="200" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="SUh-dH-Tvg"/>
-                                    <constraint firstAttribute="height" constant="150" id="wA2-oX-v6E"/>
+                                    <constraint firstAttribute="width" constant="200" id="SUh-dH-Tvg"/>
+                                    <constraint firstAttribute="height" constant="200" id="wA2-oX-v6E"/>
                                 </constraints>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf" userLabel="Roll Button">

@@ -122,11 +122,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     // delay for 3 seconds
                     let when = DispatchTime.now() + 3
                     DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.drawOpponentDice(hidden: false)
                         self.gamestate = .ModelWinsRound
                     }
                 } else {
                     let when = DispatchTime.now() + 3
                     DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.drawOpponentDice(hidden: false)
                         self.gamestate = .PlayerWinsRound
                     }
                 }
@@ -166,7 +168,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             }
             
-            drawOpponentSpeechBubble(message: modelPlayer.speak(gamestate: gamestate))
+            let when = DispatchTime.now() + 0.05
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.drawOpponentSpeechBubble(message: self.modelPlayer.speak(gamestate: self.gamestate))
+            }
+
         }
     }
     
@@ -240,8 +246,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         humanPlayer.rollDice()
         drawPlayerDice()
         modelPlayer.rollDice()
-        drawOpponentDice()
-        gamestate = .PlayerOpeningBid
+        drawOpponentDice(hidden: true)
+        gamestate = .GameStart
     }
     
     /// PLAY AGAIN BUTTON
@@ -265,7 +271,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         setBackgroundImage()
         
         drawPlayerDice()
-        drawOpponentDice()
+        drawOpponentDice(hidden: true)
         
         gamestate = .PlayerOpeningBid
         gameInformation.layer.borderWidth = 1
@@ -274,6 +280,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
         playerBidNumberOfPipsView.layer.masksToBounds = true
+        
+        opponentImage.layer.cornerRadius = 5
+        opponentImage.layer.masksToBounds = true
 
     }
 
@@ -298,7 +307,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         modelPlayer = ModelPlayer()
         gamestate = .GameStart
         drawPlayerDice()
-        drawOpponentDice()
+        drawOpponentDice(hidden: true)
     }
     
     
@@ -338,13 +347,14 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     private func drawPlayerDice() {
         
         // Remove previous images of dice from the view
-        for dieView in view.subviews {
-            if let dieView = dieView as? DieUIImageView {
+        for subView in view.subviews {
+            if let dieView = subView as? DieUIImageView {
                 if dieView.owner == "player" {
                     dieView.removeFromSuperview()
                 }
             }
         }
+        
         
         // Retrieve the player's current dice
         let playerDice = humanPlayer.diceList
@@ -361,31 +371,49 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
-    private func drawOpponentDice() {
+    private func drawOpponentDice(hidden: Bool) {
         
-        // Remove previous images of dice from the view
-        for dieView in view.subviews {
-            if let dieView = dieView as? DieUIImageView {
+        // Remove any previous images of dice and cups from the view
+        for subView in view.subviews {
+            if let dieView = subView as? DieUIImageView {
                 if dieView.owner == "opponent" {
                     dieView.removeFromSuperview()
                 }
+            } else if let cupView = subView as? CupUIImageView {
+                cupView.removeFromSuperview()
             }
         }
         
-        // Retrieve the player's current dice
+        // Retrieve the opponent's current dice
         let opponentDice = modelPlayer.diceList
+        
+        
+
         
         // Draw each die in the view
         for (index, die) in opponentDice.enumerated() {
             let image = diceImages[die] ?? UIImage(named: "grey-die-4")
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "opponent"
-            dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
+            //dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
+            dieImageView.frame = CGRect(x: 500 + (42 * index), y: 220, width: 36, height: 36)
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
         }
+        
+        
+        // If the dice are hidden, draw the cup over them
+        if hidden {
+            if let cupImage = UIImage(named: "davyjonescup") {
+                let cupImageView = CupUIImageView(image: cupImage)
+                cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
+                view.addSubview(cupImageView)
+            }
+        }
+        
     }
+    
     
     private func drawOpponentSpeechBubble(message: String) {
         // Is there a previous speech bubble on screen? Then remove it first.
@@ -394,6 +422,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         // Show a new speech bubble with the specified message
         let bubbleView = SpeechBubbleView(baseView: opponentImage, text: message, fontSize: 20.0)
         view.addSubview(bubbleView)
+        
+        // Make sure that the speech bubble is in front of everything else
+        view.bringSubview(toFront: bubbleView)
     }
     
     private func removeExistingSpeechBubble() {

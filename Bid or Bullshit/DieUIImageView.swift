@@ -13,3 +13,7 @@ class DieUIImageView: UIImageView {
     var owner: String?
 
 }
+
+class CupUIImageView: UIImageView {
+    
+}
