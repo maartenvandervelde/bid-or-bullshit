@@ -20,6 +20,10 @@ struct OpponentCharacter {
 
 class CharacterSelectionViewController: UIViewController {
 
+    
+    @IBOutlet weak var backButton: UIButton!
+    
+    
     // CAPTAIN HOOK
     let captainHook = OpponentCharacter(
         name: "Captain Hook",
@@ -52,13 +56,16 @@ class CharacterSelectionViewController: UIViewController {
     }
     
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         opponents = [captainHook, davyJones, chingShih]
         addCharacterButtons()
         
         setBackgroundImage()
+        
+        backButton.layer.cornerRadius = 10
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
     }
     
 

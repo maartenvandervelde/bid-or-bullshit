@@ -29,6 +29,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var opponentImage: UIImageView!
     @IBOutlet weak var gameInformation: UILabel!
     
+    @IBOutlet weak var gameInfoPaddingLabel: UILabel!
     @IBOutlet weak var playerBidNumberOfDiceLabel: UILabel!
     @IBOutlet weak var playerBidNumberOfPipsView: UIImageView!
     @IBOutlet weak var playerBidNumberOfDiceStepper: UIStepper!
@@ -55,6 +56,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                       5: UIImage(named: "dop5"),
                       6: UIImage(named: "dop6")]
 
+    let cupImages = [""]
     
     var opponent: OpponentCharacter? = nil
     
@@ -281,11 +283,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         //gameInformation.layer.borderWidth = 1
         //gameInformation.backgroundColor = UIColor.white
         //gameInformation.textColor = UIColor.black
-        gameInformation.layer.cornerRadius = 10
-        gameInformation.layer.shadowOpacity = 0.8
-        gameInformation.layer.shadowRadius = 5
-        gameInformation.layer.shadowOffset = CGSize(width: 2, height: 2)
+        //gameInformation.layer.cornerRadius = 10
+        //gameInformation.layer.shadowOpacity = 0.8
+        //gameInformation.layer.shadowRadius = 5
+        //gameInformation.layer.shadowOffset = CGSize(width: 2, height: 2)
 
+        gameInfoPaddingLabel.layer.cornerRadius = 10
+        gameInfoPaddingLabel.layer.shadowOpacity = 0.8
+        gameInfoPaddingLabel.layer.shadowRadius = 5
+        gameInfoPaddingLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
         
         playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
         playerBidNumberOfPipsView.layer.masksToBounds = true
