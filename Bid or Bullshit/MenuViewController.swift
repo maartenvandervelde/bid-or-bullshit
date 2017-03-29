@@ -10,10 +10,19 @@ import UIKit
 
 class MenuViewController: UIViewController, UIPopoverPresentationControllerDelegate {
 
+    @IBOutlet weak var start: UIButton!
+    @IBOutlet weak var instructions: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setBackgroundImage()
+        
+        // Adjust appearance of menu buttons
+        start.layer.cornerRadius = 10
+        start.contentEdgeInsets = UIEdgeInsets(top: 8, left: 100, bottom: 8, right: 100)
+        instructions.layer.cornerRadius = 10
+        instructions.contentEdgeInsets = UIEdgeInsets(top:8, left:45, bottom:8, right:45)
 
     }
     

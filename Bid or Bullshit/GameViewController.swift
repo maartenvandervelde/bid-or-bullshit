@@ -39,6 +39,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var playerBullshitButton: UIButton!
     @IBOutlet weak var rollButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
+    @IBOutlet weak var quit: UIButton!
     
 //    let diceImages = [1: UIImage(named: "die-1"),
 //                      2: UIImage(named: "die-2"),
@@ -277,15 +278,34 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         drawOpponentDice(hidden: true)
         
         gamestate = .PlayerOpeningBid
-        gameInformation.layer.borderWidth = 1
-        gameInformation.backgroundColor = UIColor.white
-        gameInformation.textColor = UIColor.black
+        //gameInformation.layer.borderWidth = 1
+        //gameInformation.backgroundColor = UIColor.white
+        //gameInformation.textColor = UIColor.black
+        gameInformation.layer.cornerRadius = 10
+        gameInformation.layer.shadowOpacity = 0.8
+        gameInformation.layer.shadowRadius = 5
+        gameInformation.layer.shadowOffset = CGSize(width: 2, height: 2)
+
         
         playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
         playerBidNumberOfPipsView.layer.masksToBounds = true
         
         opponentImage.layer.cornerRadius = 5
         opponentImage.layer.masksToBounds = true
+        
+        
+        // Adjust appearance of buttons
+        rollButton.layer.cornerRadius = 10
+        rollButton.contentEdgeInsets = UIEdgeInsets(top:8, left:25,bottom:8,right:25)
+        
+        playerBullshitButton.layer.cornerRadius = 10
+        playerBullshitButton.contentEdgeInsets = UIEdgeInsets(top:8, left:20,bottom:8,right:20)
+        
+        playerBidConfirmButton.layer.cornerRadius = 10
+        playerBidConfirmButton.contentEdgeInsets = UIEdgeInsets(top:8, left:50,bottom:8,right:50)
+        
+        quit.layer.cornerRadius = 10
+        quit.contentEdgeInsets = UIEdgeInsets(top:8, left:15,bottom:8,right:15)
 
     }
 

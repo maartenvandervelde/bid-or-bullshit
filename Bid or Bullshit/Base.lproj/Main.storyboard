@@ -22,21 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid or Bullsh!t" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQh-wP-aRi">
-                                <rect key="frame" x="132.5" y="74" width="503" height="76"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bid or Bullsh!t" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQh-wP-aRi">
+                                <rect key="frame" x="125" y="74" width="518" height="164"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="60"/>
-                                <color key="textColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J3o-8y-38j">
-                                <rect key="frame" x="283" y="330" width="202" height="364"/>
+                                <rect key="frame" x="283" y="426" width="202" height="172"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOa-M3-WUt">
                                         <rect key="frame" x="56.5" y="0.0" width="89" height="76"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" priority="250" constant="202" id="jUs-fu-LYD"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="40"/>
                                         <size key="titleShadowOffset" width="2" height="2"/>
                                         <state key="normal" title="Start">
-                                            <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="dA4-I6-gx9" kind="show" id="gbl-Tu-H3d"/>
@@ -44,32 +48,13 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMT-6A-z2U">
                                         <rect key="frame" x="0.0" y="96" width="202" height="76"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="40"/>
                                         <state key="normal" title="Instructions">
-                                            <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="IpC-V0-buR" kind="show" id="E2S-Ln-Le2"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-Ek-6Pd">
-                                        <rect key="frame" x="21" y="192" width="160" height="76"/>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="40"/>
-                                        <state key="normal" title="Settings 1">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="T8D-Iv-GBb" kind="show" id="UeK-9W-Pqf"/>
-                                        </connections>
-                                    </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz4-RQ-fjs">
-                                        <rect key="frame" x="12.5" y="288" width="177" height="76"/>
-                                        <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="40"/>
-                                        <state key="normal" title="Settings 2">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="openSettings:" destination="KTC-DR-oQs" eventType="touchUpInside" id="wbe-Ks-Oc7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -84,6 +69,10 @@
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="instructions" destination="mMT-6A-z2U" id="ky1-gE-LIT"/>
+                        <outlet property="start" destination="VOa-M3-WUt" id="hcT-vU-f6S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jd8-GP-tyY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -103,9 +92,10 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1C7-A1-rEf">
                                 <rect key="frame" x="20" y="0.0" width="45" height="52"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.94509803920000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="25"/>
                                 <state key="normal" title="Quit">
-                                    <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="backToMenu:" destination="BMo-uD-aH8" eventType="touchUpInside" id="sXr-Ex-0Cz"/>
@@ -144,6 +134,7 @@
                                                             </label>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="BzW-j7-1g2">
                                                                 <rect key="frame" x="0.0" y="51" width="94" height="29"/>
+                                                                <color key="tintColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <connections>
                                                                     <action selector="setPlayerBidNumberOfDice:" destination="BMo-uD-aH8" eventType="valueChanged" id="cwf-Lj-Hp9"/>
                                                                 </connections>
@@ -165,19 +156,23 @@
                                                             </imageView>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" wraps="YES" value="1" minimumValue="1" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="Mcd-hq-1Gp">
                                                                 <rect key="frame" x="0.0" y="60" width="94" height="29"/>
+                                                                <color key="tintColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <connections>
                                                                     <action selector="setPlayerBidNumberOfPips:" destination="BMo-uD-aH8" eventType="valueChanged" id="joP-5T-hXa"/>
                                                                 </connections>
                                                             </stepper>
                                                         </subviews>
+                                                        <color key="tintColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqY-ez-uRb">
                                                 <rect key="frame" x="97.5" y="114" width="43" height="60"/>
+                                                <color key="backgroundColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="30"/>
+                                                <color key="tintColor" red="0.9882352941176471" green="0.94509803921568625" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Bid">
-                                                    <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -190,9 +185,10 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvU-rv-kKb">
                                         <rect key="frame" x="438" y="0.0" width="108" height="174"/>
+                                        <color key="backgroundColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="30"/>
                                         <state key="normal" title="Bullsh*t!">
-                                            <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="playerSaysBullshit:" destination="BMo-uD-aH8" eventType="touchUpInside" id="r2T-LN-Dao"/>
@@ -207,11 +203,12 @@
                                     <constraint firstAttribute="height" constant="200" id="wA2-oX-v6E"/>
                                 </constraints>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf" userLabel="Roll Button">
-                                <rect key="frame" x="695" y="964" width="53" height="60"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-1l-6xf" userLabel="Roll Button">
+                                <rect key="frame" x="695" y="905" width="53" height="60"/>
+                                <color key="backgroundColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="30"/>
                                 <state key="normal" title="Roll">
-                                    <color key="titleColor" red="0.050980392156862744" green="0.25882352941176467" blue="0.1803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="roll:" destination="BMo-uD-aH8" eventType="touchUpInside" id="PLV-11-Bio"/>
@@ -259,6 +256,7 @@
                         <outlet property="playerBidNumberOfPipsView" destination="alx-s3-9cJ" id="lOT-8f-PV8"/>
                         <outlet property="playerBullshitButton" destination="TvU-rv-kKb" id="BVX-qi-CPl"/>
                         <outlet property="playerInputButtons" destination="8wG-VM-Xjd" id="d5X-tk-2Fj"/>
+                        <outlet property="quit" destination="1C7-A1-rEf" id="mxO-MZ-AUf"/>
                         <outlet property="rollButton" destination="IM8-1l-6xf" id="08Z-r8-L5N"/>
                         <segue destination="cD9-l1-e6F" kind="unwind" identifier="unwindToMenuFromGame" unwindAction="unwindToMenuWithSegue:" id="JzD-Fc-tJW"/>
                     </connections>
@@ -313,32 +311,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="187" y="328.5" width="394" height="368.5"/>
+                                <rect key="frame" x="185" y="328.5" width="398" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="105.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="107.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="136.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="138.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="398" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="402" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="172.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="174.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="150" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="152" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="178.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="180.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
@@ -479,16 +477,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXZ-fR-vha">
-                                <rect key="frame" x="20" y="0.0" width="56" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Back"/>
+                                <rect key="frame" x="20" y="0.0" width="58" height="52"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.94509803920000002" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="25"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.14901960784313725" green="0.42745098039215684" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="back:" destination="dA4-I6-gx9" eventType="touchUpInside" id="8MA-e8-REx"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your opponent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l9O-fw-jim">
-                                <rect key="frame" x="257.5" y="6" width="254.5" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <rect key="frame" x="251" y="11.5" width="266" height="29"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
