@@ -27,6 +27,8 @@
 		FE5FE8E41E851AF200D8A326 /* InstructionsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */; };
 		FE5FE8E61E851EA300D8A326 /* InstructionsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */; };
 		FE5FE8E81E85498F00D8A326 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */; };
+		FE9E160B1E8D8883004CA8D2 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E160A1E8D8883004CA8D2 /* Support.swift */; };
+		FE9E160D1E8D888A004CA8D2 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsPageViewController.swift; path = "Bid or Bullshit/InstructionsPageViewController.swift"; sourceTree = "<group>"; };
 		FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsContentViewController.swift; path = "Bid or Bullshit/InstructionsContentViewController.swift"; sourceTree = "<group>"; };
 		FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsViewController.swift; path = "Bid or Bullshit/InstructionsViewController.swift"; sourceTree = "<group>"; };
+		FE9E160A1E8D8883004CA8D2 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 				89E06A711E7FD0CE0040822E /* LaunchScreen.storyboard */,
 				89E06A6E1E7FD0C90040822E /* Main.storyboard */,
 				FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */,
+				FE9E160A1E8D8883004CA8D2 /* Support.swift */,
+				FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */,
 				89E06A4D1E7FCE2A0040822E /* Chunk.swift */,
 				89E06A4E1E7FCE2A0040822E /* Declarative.swift */,
 				89E06A4F1E7FCE2A0040822E /* DieUIImageView.swift */,
@@ -195,11 +201,13 @@
 				89E06A671E7FCE2A0040822E /* Model.swift in Sources */,
 				89E06A631E7FCE2A0040822E /* HumanPlayer.swift in Sources */,
 				89E06A621E7FCE2A0040822E /* GameViewController.swift in Sources */,
+				FE9E160D1E8D888A004CA8D2 /* SlotCondition.swift in Sources */,
 				89E06A6B1E7FCE2A0040822E /* SettingsViewController.swift in Sources */,
 				89E06A6C1E7FCE2A0040822E /* SpeechBubbleView.swift in Sources */,
 				89E06A5F1E7FCE2A0040822E /* Chunk.swift in Sources */,
 				89E06A691E7FCE2A0040822E /* Perudo.swift in Sources */,
 				89E06A681E7FCE2A0040822E /* ModelPlayer.swift in Sources */,
+				FE9E160B1E8D8883004CA8D2 /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

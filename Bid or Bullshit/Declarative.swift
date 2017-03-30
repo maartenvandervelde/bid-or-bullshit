@@ -1,5 +1,5 @@
-
-/*/  Declarative.swift
+//
+//  Declarative.swift
 //  actr
 //
 //  Created by Niels Taatgen on 3/1/15.
@@ -9,7 +9,7 @@
 import Foundation
 
 class Declarative  {
-
+    
     var baseLevelDecay: Double = 0.5
     var optimizedLearning = false
     var maximumAssociativeStrength: Double = 3
@@ -43,7 +43,7 @@ class Declarative  {
     func addToDMOrStrengthen(chunk: Chunk) -> Chunk {
         if let dupChunk = duplicate(chunk: chunk) {
             dupChunk.addReference()
-                        return dupChunk
+            return dupChunk
         } else {
             chunk.startTime()
             chunks[chunk.name] = chunk
@@ -54,14 +54,14 @@ class Declarative  {
                 default: break
                 }
             }
-        return chunk
+            return chunk
         }
     }
     
     func addToDM(_ chunk: Chunk) {
         if let dupChunk = duplicate(chunk: chunk) {
             dupChunk.addReference()
-//            return dupChunk
+            //            return dupChunk
         } else {
             chunk.startTime()
             chunks[chunk.name] = chunk
@@ -72,7 +72,7 @@ class Declarative  {
                 default: break
                 }
             }
-//            return chunk
+            //            return chunk
         }
     }
     
@@ -80,20 +80,20 @@ class Declarative  {
         return latencyFactor * exp(-activation)
     }
     
-    func retrieve(chunk: Chunk) -> (Double, Chunk?) {
+    func retrieve(slots: Array<String>, values: Array<Value>) -> (Double, Chunk?) {
         retrieveError = false
         var bestMatch: Chunk? = nil
         var bestActivation: Double = retrievalThreshold
         chunkloop: for (_,ch1) in chunks {
-            for (slot,value) in chunk.slotvals {
-                if let val1 = ch1.slotvals[slot] {
-                    if !val1.isEqual(value: value) {
+            for i in 0 ..< slots.count{
+                if let val1 = ch1.slotvals[slots[i]] {
+                    if !val1.isEqual(value: values[i]) {
                         continue chunkloop }
                 } else { continue chunkloop }
-            }
-            if ch1.activation() > bestActivation {
-                bestActivation = ch1.activation()
-                bestMatch = ch1
+                if ch1.activation() > bestActivation {
+                    bestActivation = ch1.activation()
+                    bestMatch = ch1
+                }
             }
         }
         if bestActivation > retrievalThreshold {
@@ -103,9 +103,28 @@ class Declarative  {
             return (latency(activation: retrievalThreshold), nil)
         }
         
+        /*retrieveError = false
+         var bestMatch: Chunk? = nil
+         var bestActivation: Double = retrievalThreshold
+         chunkloop: for (_,ch1) in chunks {
+         for (slot,value) in chunk.slotvals {
+         if let val1 = ch1.slotvals[slot] {
+         if !val1.isEqual(value: value) {
+         continue chunkloop }
+         } else { continue chunkloop }
+         }
+         if ch1.activation() > bestActivation {
+         bestActivation = ch1.activation()
+         bestMatch = ch1
+         }
+         }
+         if bestActivation > retrievalThreshold {
+         return (latency(activation: bestActivation) , bestMatch)
+         } else {
+         retrieveError = true
+         return (latency(activation: retrievalThreshold), nil)
+         }*/
     }
-    
-
     
     func partialRetrieve(chunk: Chunk, mismatchFunction: (_ x: Value, _ y: Value) -> Double? ) -> (Double, Chunk?) {
         var bestMatch: Chunk? = nil
@@ -125,7 +144,7 @@ class Declarative  {
                     }
                 } else { continue chunkloop }
             }
-//            println("Candidate: \(ch1) with activation \(ch1.activation() + mismatch)")
+            //            println("Candidate: \(ch1) with activation \(ch1.activation() + mismatch)")
             if ch1.activation()  + mismatch > bestActivation {
                 bestActivation = ch1.activation() + mismatch
                 bestMatch = ch1
@@ -138,27 +157,27 @@ class Declarative  {
             return (latency(activation: retrievalThreshold), nil)
         }
     }
-
+    
     func blendedRetrieve(chunk: Chunk) -> (Double, Chunk?) {
         let bestMatch = chunk.copy()
-
-
+        
+        
         var currentReturn: [String:Double] = [:]
         var totalpChunk = 0.0
         chunkloop: for (_,ch1) in chunks {
             for (slot,value) in chunk.slotvals {
-                    if let val1 = ch1.slotvals[slot] {
-                        if !val1.isEqual(value: value) {
-                            continue chunkloop }
-                    } else { continue chunkloop }
+                if let val1 = ch1.slotvals[slot] {
+                    if !val1.isEqual(value: value) {
+                        continue chunkloop }
+                } else { continue chunkloop }
             }
             // The chunk does match. Now blend the remaining slots
-            let activation = ch1.baseLevelActivation() + ch1.spreadingActivation()
+            let activation = ch1.baseLevelActivation()
             let pChunk = exp(activation / activationNoise!)
             totalpChunk += pChunk
             for (slot, value) in ch1.slotvals {
                 switch value {
-                case .Number(let num):
+                case .NumberD(let num):
                     if let val1 = currentReturn[slot] {
                         currentReturn[slot] = val1 + num * pChunk
                     } else {
@@ -180,4 +199,4 @@ class Declarative  {
     }
     
     
-}*/
+}

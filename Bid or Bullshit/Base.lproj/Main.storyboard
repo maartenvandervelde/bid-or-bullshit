@@ -209,10 +209,11 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdC-es-kHi">
-                                <rect key="frame" x="317" y="596" width="134" height="174"/>
+                                <rect key="frame" x="317" y="710" width="134" height="60"/>
+                                <color key="backgroundColor" red="0.14901960780000001" green="0.42745098040000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="30"/>
                                 <state key="normal" title="Play again">
-                                    <color key="titleColor" red="0.050980392159999999" green="0.25882352939999997" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="playAgain:" destination="BMo-uD-aH8" eventType="touchUpInside" id="Efo-1e-vY0"/>
@@ -283,7 +284,6 @@
                             <constraint firstItem="0t0-wa-IYn" firstAttribute="centerY" secondItem="zPf-6j-fFe" secondAttribute="centerY" id="eIx-Fa-Imm"/>
                             <constraint firstItem="0t0-wa-IYn" firstAttribute="leading" secondItem="zPf-6j-fFe" secondAttribute="leadingMargin" id="fUV-Y3-uaf"/>
                             <constraint firstAttribute="leadingMargin" secondItem="H5v-or-116" secondAttribute="leading" id="hfT-Ee-Nax"/>
-                            <constraint firstItem="IdC-es-kHi" firstAttribute="top" secondItem="8wG-VM-Xjd" secondAttribute="top" id="i1V-GQ-Li2"/>
                             <constraint firstItem="1C7-A1-rEf" firstAttribute="top" secondItem="RuL-dS-HyL" secondAttribute="bottom" id="mdY-3W-d4D"/>
                             <constraint firstItem="IdC-es-kHi" firstAttribute="centerX" secondItem="8wG-VM-Xjd" secondAttribute="centerX" id="zeW-wX-K4n"/>
                         </constraints>
@@ -357,32 +357,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="left" axis="vertical" distribution="fillProportionally" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="mPn-7V-3EK">
-                                <rect key="frame" x="183" y="328.5" width="402" height="368.5"/>
+                                <rect key="frame" x="181" y="328.5" width="406" height="368.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="These are just for show:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJv-XD-yiq">
-                                        <rect key="frame" x="109.5" y="0.0" width="183" height="20.5"/>
+                                        <rect key="frame" x="111.5" y="0.0" width="183" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V6Y-Xk-j3o">
-                                        <rect key="frame" x="140.5" y="60.5" width="121" height="29"/>
+                                        <rect key="frame" x="142.5" y="60.5" width="121" height="29"/>
                                         <segments>
                                             <segment title="First"/>
                                             <segment title="Second"/>
                                         </segments>
                                     </segmentedControl>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="OTE-Js-dYj">
-                                        <rect key="frame" x="-2" y="128.5" width="406" height="31"/>
+                                        <rect key="frame" x="-2" y="128.5" width="410" height="31"/>
                                     </slider>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0E-tt-QwQ">
-                                        <rect key="frame" x="176.5" y="198.5" width="51" height="31"/>
+                                        <rect key="frame" x="178.5" y="198.5" width="51" height="31"/>
                                     </switch>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="WY0-6S-7uD">
-                                        <rect key="frame" x="154" y="269.5" width="94" height="29"/>
+                                        <rect key="frame" x="156" y="269.5" width="94" height="29"/>
                                     </stepper>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oi-So-3Rx">
-                                        <rect key="frame" x="182.5" y="338.5" width="37" height="30"/>
+                                        <rect key="frame" x="184.5" y="338.5" width="37" height="30"/>
                                         <state key="normal" title="Done"/>
                                         <connections>
                                             <action selector="saveSettingsAndReturnToMenu:" destination="T8D-Iv-GBb" eventType="touchUpInside" id="qOw-u8-CuR"/>
@@ -427,9 +427,12 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sA7-2E-JOw">
-                                <rect key="frame" x="20" y="0.0" width="56" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Back"/>
+                                <rect key="frame" x="20" y="0.0" width="58" height="52"/>
+                                <color key="backgroundColor" red="0.14901960780000001" green="0.42745098040000001" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="25"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="back:" destination="utl-G8-cr5" eventType="touchUpInside" id="JfK-Rx-KB6"/>
                                     <action selector="back:" destination="dA4-I6-gx9" eventType="touchUpInside" id="OZ4-HU-tXv"/>
@@ -444,6 +447,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="sA7-2E-JOw" id="taK-ZS-0iI"/>
                         <outlet property="containerView" destination="SOH-5T-Rms" id="yqy-6R-2SD"/>
                         <segue destination="ffO-0j-NAn" kind="unwind" identifier="unwindToMenuFromInstructions" unwindAction="unwindToMenuWithSegue:" id="nlf-ly-KeT"/>
                     </connections>

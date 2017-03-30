@@ -15,12 +15,20 @@ class InstructionsViewController: UIViewController {
     @IBAction func back(_ sender: UIButton) {
     self.performSegue(withIdentifier: "unwindToMenuFromInstructions", sender: self)
     }
+    
+    @IBOutlet weak var backButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
         containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = true
+        
+        backButton.layer.cornerRadius = 10
+        backButton.contentEdgeInsets = UIEdgeInsets(top:8, left:20,bottom:8,right:20)
+
+        
         setBackgroundImage()
     }
 

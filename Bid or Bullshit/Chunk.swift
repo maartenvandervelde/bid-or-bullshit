@@ -1,5 +1,5 @@
-
-/*//  Chunk.swift
+//
+//  Chunk.swift
 //  actr
 //
 //  Created by Niels Taatgen on 3/1/15.
@@ -12,13 +12,21 @@ class Chunk: CustomStringConvertible {
     /// Name of the chunk
     let name: String
     /// The model that the chunk is part of
-    let model: Model
+    let model: ModelPlayer
     /// When was the chunk added to DM? If nil it means the chunk is not part of DM (yet)
+    
+    /*var type: String? = nil
+     var opponentDiceNum: Int? = nil
+     var myDice: [Int]? = nil
+     var myBid: [Int]? = nil
+     var opponentBid: [Int]? = nil
+     var result: Int? = nil*/
+    
     var creationTime: Double? = nil
     /// Number of references. Assume a single reference on creation
     var references: Int = 1
     /// Dictionary with slot value pairs
-    var slotvals = [String:Value]()
+    var slotvals = [String : Value]()
     /// List of timestamps when the chunk was referenced. Only used when optimized learning is off
     var referenceList = [Double]()
     /// Current fan of the chunk: in how many other chunks does this chunk appear?
@@ -34,14 +42,14 @@ class Chunk: CustomStringConvertible {
     var isRequest: Bool = false
     /// The order in which the slots have been declarared, necessary for proper printing
     var printOrder: [String] = [] // Order in which slots have to be printed
-    init (s: String, m: Model) {
+    init (s: String, m: ModelPlayer) {
         name = s
         model = m
     }
     
     /**
-      Printable version of the chunk
-    */
+     Printable version of the chunk
+     */
     var description: String {
         get {
             var s = "\(name)\n"
@@ -50,17 +58,17 @@ class Chunk: CustomStringConvertible {
                     s += "  \(slot)  \(val)\n"
                 }
             }
-
+            
             return s
         }
     }
     
     /**
      Make a copy of the chunk
-      - returns: a copy of the chunk
-    */
+     - returns: a copy of the chunk
+     */
     func copy() -> Chunk {
-        let newChunk = model.generateNewChunk(string: self.name)
+        let newChunk = model.generateNewChunk(s1: self.name, id: 0)
         newChunk.slotvals = self.slotvals
         newChunk.printOrder = self.printOrder
         return newChunk
@@ -68,7 +76,7 @@ class Chunk: CustomStringConvertible {
     
     /**
      Set the creation time of the chunk to the current model time. Typically called when the chunk is added to dm.
-    */
+     */
     func startTime() {
         creationTime = model.time
         if !model.dm.optimizedLearning {
@@ -76,12 +84,12 @@ class Chunk: CustomStringConvertible {
         }
     }
     
-/**
-Set the baselevel of a chunk 
- 
- - Parameter timeDiff: How long ago was the chunk created
- - Parameter references: How many references in the time period
- */
+    /**
+     Set the baselevel of a chunk
+     
+     - Parameter timeDiff: How long ago was the chunk created
+     - Parameter references: How many references in the time period
+     */
     func setBaseLevel(timeDiff: Double, references: Int) {
         creationTime = model.time + timeDiff
         if model.dm.optimizedLearning {
@@ -90,18 +98,18 @@ Set the baselevel of a chunk
             let increment = -timeDiff / Double(references)
             for i in 0..<references {
                 let referenceTime = creationTime! + Double(i) * increment
-              referenceList.append(referenceTime)
+                referenceList.append(referenceTime)
             }
         }
     }
-//    
-//    baseLevel = Math.log(useCount/(1-model.declarative.baseLevelDecayRate))
-//    - model.declarative.baseLevelDecayRate*Math.log(time-creationTime);
-
+    //
+    //    baseLevel = Math.log(useCount/(1-model.declarative.baseLevelDecayRate))
+    //    - model.declarative.baseLevelDecayRate*Math.log(time-creationTime);
+    
     /**
-    Calculate the base level activation of a chunk
-    - returns: The activation
-    */
+     Calculate the base level activation of a chunk
+     - returns: The activation
+     */
     func baseLevelActivation () -> Double {
         if creationTime == nil { return 0 }
         if fixedActivation != nil {
@@ -116,8 +124,8 @@ Set the baselevel of a chunk
     }
     
     /**
-    Add a reference to the chunk, increasing its activation
-    */
+     Add a reference to the chunk, increasing its activation
+     */
     func addReference() {
         if creationTime == nil { return }
         if model.dm.optimizedLearning {
@@ -130,10 +138,10 @@ Set the baselevel of a chunk
     }
     
     /**
-    Set a slot to a particular value
-    - parameter slot: the name of the slot
-    - parameter value: the value the goes into the slot
-    */
+     Set a slot to a particular value
+     - parameter slot: the name of the slot
+     - parameter value: the value the goes into the slot
+     */
     func setSlot(slot: String, value: Chunk) {
         if slotvals[slot] == nil { printOrder.append(slot) }
         slotvals[slot] = Value.symbol(value)
@@ -145,9 +153,14 @@ Set the baselevel of a chunk
      */
     func setSlot(slot: String, value: Double) {
         if slotvals[slot] == nil { printOrder.append(slot) }
-        slotvals[slot] = Value.Number(value)
+        slotvals[slot] = Value.NumberD(value)
     }
-
+    
+    func setSlot(slot: String, value: Int) {
+        if slotvals[slot] == nil { printOrder.append(slot) }
+        slotvals[slot] = Value.NumberI(value)
+    }
+    
     /**
      Set a slot to a particular value
      - parameter slot: the name of the slot
@@ -157,7 +170,7 @@ Set the baselevel of a chunk
         if slotvals[slot] == nil { printOrder.append(slot) }
         let possibleNumVal = NumberFormatter().number(from: value)?.doubleValue
         if possibleNumVal != nil {
-            slotvals[slot] = Value.Number(possibleNumVal!)
+            slotvals[slot] = Value.NumberD(possibleNumVal!)
         }
         if let chunk = model.dm.chunks[value] {
             slotvals[slot] = Value.symbol(chunk)
@@ -173,24 +186,24 @@ Set the baselevel of a chunk
      */
     func setSlot(slot: String, value: Value) {
         if slotvals[slot] == nil { printOrder.append(slot) }
-           slotvals[slot] = value
+        slotvals[slot] = value
     }
     
     /**
-    What value is there in a slot
-    - parameter slot: the slot
-    - returns: the value in the slot, if any, otherwise nil
-    */
+     What value is there in a slot
+     - parameter slot: the slot
+     - returns: the value in the slot, if any, otherwise nil
+     */
     func slotValue(slot: String) -> Value? {
         return slotvals[slot]
     }
     
-
+    
     /**
-    Checks whether a certain chunk appears in one of the slots of the current chunk
-    - parameter chunk: the chunk to be checked
-    - returns: whether the chunk has been found in one of the slots
-    */
+     Checks whether a certain chunk appears in one of the slots of the current chunk
+     - parameter chunk: the chunk to be checked
+     - returns: whether the chunk has been found in one of the slots
+     */
     func appearsInSlotOf(chunk: Chunk) -> Bool {
         for (_,value) in chunk.slotvals {
             switch value {
@@ -201,12 +214,12 @@ Set the baselevel of a chunk
         }
         return false
     }
-
+    
     /**
-    Calculate the Sji from this chunk to the given chunk
-    - parameter chunk: the chunk that receives the spread
-    - returns: the Sji value
-    */
+     Calculate the Sji from this chunk to the given chunk
+     - parameter chunk: the chunk that receives the spread
+     - returns: the Sji value
+     */
     func sji(chunk: Chunk) -> Double {
         if self.appearsInSlotOf(chunk: chunk) {
             return model.dm.maximumAssociativeStrength - log(Double(self.fan))
@@ -214,48 +227,27 @@ Set the baselevel of a chunk
         return 0.0
     }
     
-    /**
-    Calculate the spreading activation the current chunk receives from chunks in the goal
-    - returns: the amount of spreading activation
-    */
-    func spreadingActivation() -> Double {
-        if creationTime == nil {return 0}
-        if let goal=model.buffers["goal"] {
-            var totalSlots: Int = 0
-            var totalSji: Double = 0
-            for (_,value) in goal.slotvals {
-                switch value {
-                case .symbol(let valchunk):
-                    totalSji += valchunk.sji(chunk: self)
-                    totalSlots += 1
-                default: break
-                }
-                return (totalSlots==0 ? 0 : totalSji * (model.dm.goalActivation / Double(totalSlots)))
-            }
-        }
-        return 0
-    }
     
     /**
-    Calculate the noise. Only draw a new value if time has progressed
-    - returns: the noise value
-    */
+     Calculate the noise. Only draw a new value if time has progressed
+     - returns: the noise value
+     */
     func calculateNoise() -> Double {
         if model.time != noiseTime {
             noiseValue = (model.dm.activationNoise == nil ? 0.0 : actrNoise(noise: model.dm.activationNoise!))
             noiseTime = model.time
         }
-            return noiseValue
+        return noiseValue
     }
     
     /**
-    Return the total activation of the chunk
-    - returns: the activation value
-    */
+     Return the total activation of the chunk
+     - returns: the activation value
+     */
     func activation() -> Double {
         if creationTime == nil {return 0}
         return  self.baseLevelActivation()
-            + self.spreadingActivation() + calculateNoise()
+            + calculateNoise()
     }
     
 }
@@ -266,7 +258,7 @@ func == (left: Chunk, right: Chunk) -> Bool {
     for (slot1,value1) in left.slotvals {
         if let rightVal = right.slotvals[slot1] {
             switch (rightVal,value1) {
-            case (.Number(let val1),.Number(let val2)): if val1 != val2 { return false }
+            case (.NumberI(let val1),.NumberI(let val2)): if val1 != val2 { return false }
             case (.Empty, .Empty): break
             case (.Text(let s1), .Text(let s2)): if s1 != s2 { return false }
             case (.symbol(let c1), .symbol(let c2)): if c1 !== c2 { return false }
@@ -275,4 +267,4 @@ func == (left: Chunk, right: Chunk) -> Bool {
         } else { return false }
     }
     return true
-}*/
+}

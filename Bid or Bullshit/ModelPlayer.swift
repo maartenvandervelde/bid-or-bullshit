@@ -8,33 +8,31 @@
 
 import Foundation
 
-class ModelPlayer: Player {    
+class ModelPlayer: Player {
     // instantiation of and interaction with act-r model goes here.
-    //var dm  = Declarative()
+    //var model = Model()
+    var time: Double = 0
+    var dm = Declarative()
+    var chunkIdCounterOpponentDiceNum = 0
+    var chunkIdCounterOpeningBid = 0
+    var chunkIdCounterOpponentBid = 0
+    var running = false
+    var trace: String = "" {
+        didSet {
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "TraceChanged"), object: nil)
+        }
+    }
+    var waitingForAction: Bool = false {
+        didSet {
+            if waitingForAction == true {
+                print("Posted Action notification")
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "Action"), object: nil)
+            }
+        }
+    }
+    var modelText: String = ""
     
     private var latestBid: Bid?
-    
-    func makeOpeningBid() {
- 
-        var myDice = self.diceList
-        //var myTopDice = getMyTopDice(myDice)
-        /*var opponentDice = getOpponentDice(DM, myDice)
-        var previousOpeningBid = getPreviousOpeningBid(DM, myTopDice, opponentDice)
-
-        if previousOpeningBid != nil{//retrieval succes
-            openingBid = previousOpeningBid
-        } else {//retrieval failure
-            openingBid = makeDefaultOpeningBid(myDice, opponentDice)
-        }
-
-        return openingBid*/
-    }
-    
-    func respondToBid(bid: Bid) -> Bid? {
-        // for now we just return a bid that increases the number of dice by 1.
-        latestBid = Bid(numberOfDice: bid.numberOfDice + 1, numberOfPips: bid.numberOfPips)
-        return latestBid
-    }
     
     func speak(gamestate: GameState) -> String {
         // These are some canned responses that the model says every time the game state changes.
@@ -64,83 +62,314 @@ class ModelPlayer: Player {
             return "You have won the game."
         }
     }
-
-    /*func getMyTopDice(ownDice){
-        //Choose pip with highest number of dice
-        var
-        for(index,Dice) in ownDice{
-            
-        }
-        var topDice
-
-        
-
-        //if pips share highest number of dice, choose highest pip
-
-        return topDice
-    }*/
     
-    /*func getOpponentDice(DM, ownDice){
-        var opponentDiceNumber = retrieveChunk(DM,type=opponentDiceNum)
-
-        if opponentDiceNumber == nil{//retrieval failure
-            opponentDiceNumber = length(ownDice)
+    func makeOpeningBid() -> Bid {
+        
+        //////
+        print("DEBUG: adding starting chunks")
+        let chunk1 = generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: 1)
+        dm.addToDM(chunk1)
+        print(chunk1.description)
+        
+        let chunk2 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], myBid: [2,3])
+        dm.addToDM(chunk2)
+        print(chunk2.description)
+        
+        let chunk3 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunk3)
+        print(chunk3.description)
+        //////
+        
+        let myDice = self.diceList //Assume format is [pips, pips, pips, ...]
+        //print("myDice: ", myDice)
+        let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice) //[dice, pips][dice,dice,dice,dice,dice,dice]
+        //print("myTurfedDice: ", myTurfedDice)
+        //print("myTopDice: ", myTopDice)
+        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        //print("opponentDice: ", opponentDice)
+        let openingBid = getPreviousOpeningBid(ownDice: myTurfedDice, topDice: myTopDice, opponentDice: opponentDice)
+        //print("openingBid: ", openingBid)
+        
+        latestBid = Bid(numberOfDice: openingBid[0], numberOfPips: openingBid[1])
+        
+        return latestBid!
+    }
+    
+    func respondToBid(bid: Bid) -> Bid? {
+        let myDice = self.diceList
+        let opponentBid:[Int] = [bid.numberOfDice, bid.numberOfPips]
+        let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice)
+        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        var response: [Int]?
+        response = nil
+        response = getPreviousOpponentBidResponse(ownDice: myTurfedDice, opponentDice: opponentDice, opponentBid: opponentBid)
+        
+        if response!.count > 1{
+            latestBid = Bid(numberOfDice: (response?[0])!, numberOfPips: (response?[1])!)
         }
-
+        else{
+            //GameState.ModelCallsBullshit
+            
+            // When the model wants to call bullshit, it does so by not returning anything
+            return nil
+        }
+        return latestBid
+    }
+    
+    func getMyTopDice(ownDice: Array<Int>) -> (Array<Int>, Array<Int>){
+        //Choose pip with highest number of dice
+        var dice: [Int] = [0,0,0,0,0,0]
+        for die in ownDice{
+            dice[die-1] = dice[die-1] + 1
+        }
+        let maxDice = dice.max()
+        var maxPips: Int = -1
+        
+        //if pips share highest number of dice, choose highest pip
+        for pips in 0 ..< dice.count{
+            if dice[pips]==maxDice {
+                maxPips = pips+1
+            }
+        }
+        let topDice: [Int] = [maxDice!,maxPips] //[0]:num dice, [1]:num pips
+        
+        return (topDice, dice)
+    }
+    
+    func getOpponentDice(ownDice: Array<Int>) -> Int{
+        let slots: Array<String> = ["type"]
+        let values: Array<Value> = [Value.Text("openingBid")]
+        let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
+        
+        var opponentDiceNumber: Int = -1
+        
+        if retrievedChunk == nil{//retrieval failure
+            print("I do not remember the number of my opponents dice, lets assumme they have the same as me")
+            opponentDiceNumber = ownDice.count
+        } else {
+            print("I remember the number of my opponents dice")
+            opponentDiceNumber = Int((retrievedChunk!.slotvals["opponentDiceNum"]?.description)!)!
+        }
+        
         return opponentDiceNumber
     }
-
-    func getPreviousOpeningBid(DM, ownDice, opponentDice){
-        var openingBid = nil
-        openingBid = retrieveChunk(DM,type=openingbid, ownDice, opponentDice)
-
+    
+    func getPreviousOpeningBid(ownDice: Array<Int>, topDice: Array<Int>,  opponentDice: Int) -> Array<Int>{
+        var openingBid: Array<Int> = [0,0]
+        let slots: Array<String> = ["type","opponentDiceNum","myDice"]
+        let values: Array<Value> = [Value.Text("openingBid"),Value.NumberI(opponentDice),Value.Array(topDice)]
+        let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
+        
+        if retrievedChunk == nil{//retrieval failure
+            print("I do not remember a previous openingbid, lets make a standard bid")
+            openingBid = makeDefaultOpeningBid(topDice: topDice, opponentDice: opponentDice)
+        } else {//retrieval succes
+            print("I remember a previous openingbid")
+            var retrievedBid = retrievedChunk!.slotvals["myBid"]!.description
+            retrievedBid = retrievedBid.replacingOccurrences(of: ",", with: "",options: .regularExpression)
+            retrievedBid = retrievedBid.replacingOccurrences(of: "\\[", with: "",options: .regularExpression)
+            retrievedBid = retrievedBid.replacingOccurrences(of: "]", with: "",options: .regularExpression)
+            let retrievedBidArray = retrievedBid.components(separatedBy: " ")
+            openingBid = retrievedBidArray.map { Int($0)!}
+        }
+        
         return openingBid
     }
-
-    func getPreviousOpponentBidResponse(DM, ownDice, opponentDice, opponentBid){
-        var response = nil
-        response = retrieveChunk(DM,type=bidresponse, ownDice, opponentDice, opponentBid)
-
+    
+    func makeDefaultOpeningBid(topDice: Array<Int>, opponentDice: Int) -> Array<Int>{
+        let extraDice: Int = Int(floor(Double(opponentDice/6)))
+        print("extraDice: ", extraDice)
+        let openingBid: [Int] = [topDice[0]+extraDice,topDice[1]] //[0]:num dice, [1]:num pips
+        
+        return openingBid
+    }
+    
+    func getPreviousOpponentBidResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
+        var response: [Int]?
+        response = nil
+        let slots: Array<String> = ["type","opponentDiceNum","myDice", "opponentBid"]
+        let values: Array<Value> = [Value.Text("openingBid"),Value.NumberI(opponentDice),Value.Array(ownDice),Value.Array(opponentBid)]
+        let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
+        
+        if retrievedChunk == nil{//retrieval failure
+            print("I do not remember a previous response to a similar bid, lets make a standard response")//can be bullshit
+            response = makeDefaultResponse(ownDice: ownDice, opponentDice: opponentDice, opponentBid: opponentBid)
+        } else {//retrieval succes
+            print("I remember a previous response to a similar bid")
+            let retrievedResponse = Int((retrievedChunk!.slotvals["result"]?.description)!)!
+            
+            if(retrievedResponse==1){
+                response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
+            }
+        }
+        
+        return response!
+    }
+    
+    func makeDefaultResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
+        var response: [Int]?
+        response = [0]
+        
+        //init remainder
+        var remainder: Int = opponentBid[0]
+        
+        //subtract target dice from opponents bid
+        for die in ownDice{
+            if die==opponentBid[1]{
+                remainder = remainder - 1
+            }
+        }
+        
+        print("remainder/opponentDice: ", Double(Double(remainder)/Double(opponentDice)))
+        
+        //if below pip probability or not
+        if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/6.0)){
+            print("I want to reject this")
+            //leave response as 'nil'
+        } else {
+            //randomly reject offer
+            let choice = arc4random_uniform(10)
+            if(choice==0){
+                print("I randomly want to reject this")
+            } else {
+                print("I want to make a counter offer")
+                response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
+                print("Response: ", response!)
+            }
+        }
+        return response!
+    }
+    
+    func makeCounterBid(myDice: Array<Int>, opponentBid: Array<Int>) -> Array<Int>{
+        var response = [0,0]
+        var choice = arc4random_uniform(4)
+        var valid = false
+        
+        while !valid{
+            
+            switch choice {
+            case 0:
+                print("d+1")
+                response = [opponentBid[0]+1, opponentBid[1]]
+            case 1:
+                print("p+1")
+                response = [opponentBid[0], opponentBid[1]+1]
+            case 2:
+                print("d+1,p+1")
+                response = [opponentBid[0]+1, opponentBid[1]+1]
+            case 3:
+                print("d+1,p-1")
+                response = [opponentBid[0]+1, opponentBid[1]-1]
+            default:
+                print("Default: d+1")
+                response = [opponentBid[0]+1, opponentBid[1]]
+            }
+            
+            if(response[0]<11 && response[0]>0 && response[1]<7 && response[1]>0){
+                valid = true
+            } else {
+                
+                choice = arc4random_uniform(4)
+                print("Try again")
+            }
+        }
+        
         return response
     }
-
-    func makeDefaultOpeningBid(ownDice, opponentDice){
-        var openingBid = [:]
-        var extraDice = opponentDice/6
-
-        //openingBid = owndice + extraDice
-
-        return openingBid
+    
+    func addToTrace(string s: String) {
+        let timeString = String(format:"%.2f", time)
+        trace += "\(timeString)  " + s + "\n"
     }
-
-    func makeDefaultReponse(ownDice, opponentDice, opponentBid){
-
-        var result = something()//subtract target dice from opponents bid	
-
-        if (result/opponentDice<1/6){//if below pip probability
-
+    
+    func clearTrace() {
+        trace = ""
+    }
+    
+    /**
+     When you want to use partial matching, override this function when you subclass Model
+     */
+    func mismatchFunction(x: Value, y: Value) -> Double? {
+        if x == y {
+            return 0
         } else {
-            makeCounterBid(myDice, opponentBid)
+            return -1
         }
     }
-
-    func evaluateBid(opponentBid, myDice){
-        var opponentDice = getOpponentDice(DM, type=opponentDiceNum, myDice)
-            
-        var response = getPreviousOpponentBidResponse(DM, myDice, opponentDiceNum, opponentBid)
-
-        if (response=!NULL){//retrieval succes
-            if(response=="bullshit"){
-                callBullshit()
-            } else {
-                makeCounterBid(myDice, opponentBid)
-            }
-        } else {//retrieval failure
-            makeDefaultResponse(myDice, opponentDice, opponentBid)
+    
+    /**
+     Reset the model to its initial state
+     */
+    func reset() {
+        time = 0
+        dm.chunks = [:]
+        clearTrace()
+        running = false
+        waitingForAction = false
+    }
+    
+    
+    /**
+     Generate a chunk with a unique ID starting with the given string
+     - parameter s1: The base name of the chunk
+     - returns: the new chunk
+     */
+    /*func generateNewChunk(string s1: String = "chunk") -> Chunk {
+     let name = s1 + "\(chunkIdCounter)"
+     chunkIdCounter += 1
+     let chunk = Chunk(s: name, m: self)
+     return chunk
+     }*/
+    
+    func generateNewChunkOpponentDiceNum(s1: String, opponentDiceNum: Int) -> Chunk {
+        let chunk = generateNewChunk(s1: s1, id: chunkIdCounterOpponentDiceNum)
+        chunkIdCounterOpponentDiceNum += 1
+        chunk.slotvals["type"] = Value.Text("opponentDiceNum")
+        chunk.slotvals["opponentDiceNum"] = Value.NumberI(opponentDiceNum)
+        chunk.printOrder = ["type", "opponentDiceNum"]
+        return chunk
+    }
+    
+    func generateNewChunkOpeningBid(s1: String, opponentDiceNum: Int, myDice: [Int], myBid: [Int]) -> Chunk {
+        let chunk = generateNewChunk(s1: s1, id: chunkIdCounterOpeningBid)
+        chunkIdCounterOpeningBid += 1
+        chunk.slotvals["type"] = Value.Text("openingBid")
+        chunk.slotvals["opponentDiceNum"] = Value.NumberI(opponentDiceNum)
+        chunk.slotvals["myDice"] = Value.Array(myDice)
+        chunk.slotvals["myBid"] = Value.Array(myBid)
+        chunk.printOrder = ["type", "opponentDiceNum", "myDice", "myBid"]
+        return chunk
+    }
+    
+    func generateNewChunkOpponentBid(s1: String, opponentDiceNum: Int, myDice: [Int], opponentBid: [Int], result: Int) -> Chunk {
+        let chunk = generateNewChunk(s1: s1, id: chunkIdCounterOpponentBid)
+        chunkIdCounterOpponentBid += 1
+        chunk.slotvals["type"] = Value.Text("opponentBid")
+        chunk.slotvals["opponentDiceNum"] = Value.NumberI(opponentDiceNum)
+        chunk.slotvals["myDice"] = Value.Array(myDice)
+        chunk.slotvals["opponentBid"] = Value.Array(opponentBid)
+        chunk.slotvals["result"] = Value.NumberI(result)
+        chunk.printOrder = ["type", "opponentDiceNum", "myDice", "opponentBid", "result"]
+        return chunk
+    }
+    
+    func generateNewChunk(s1: String, id: Int) -> Chunk {
+        let name = s1 + "\(id)"
+        let chunk = Chunk(s: name, m: self)
+        return chunk
+    }
+    
+    func stringToValue(_ s: String) -> Value {
+        let possibleNumVal = NumberFormatter().number(from: s)?.doubleValue
+        if possibleNumVal != nil {
+            return Value.NumberD(possibleNumVal!)
+        }
+        if let chunk = self.dm.chunks[s] {
+            return Value.symbol(chunk)
+        } else if s == "nil" {
+            return Value.Empty
+        } else {
+            return Value.Text(s)
         }
     }
-
-    func makeCounterBid(myDice, opponentBid){
-
-    }*/
 }

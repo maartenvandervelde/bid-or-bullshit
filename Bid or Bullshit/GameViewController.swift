@@ -84,7 +84,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .ModelOpeningBid:
                 print("The model makes an opening bid")
-                modelPlayer.makeOpeningBid()
+                statusMessage = "It's the model's turn to start."
+                modelBid = modelPlayer.makeOpeningBid()
             
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
@@ -99,9 +100,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 statusMessage = "You bid \(playerBid.repr()). The model will now respond."
                 
                 let modelResponse = modelPlayer.respondToBid(bid: playerBid)
-                if modelResponse != nil {
-                    modelBid = modelResponse!
-                }
+                processModelResponse(modelResponse: modelResponse)
             
             case .PlayerResponse:
                 print("The player responds to the model's bid")
@@ -114,6 +113,23 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .ModelCallsBullshit:
                 print("The model calls bullshit")
                 statusMessage = "The model does not believe your bid of \(playerBid.repr()). Let's see who's right."
+                
+                let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer.diceList, player2dice: modelPlayer.diceList)
+                
+                if bidCorrect {
+                    // delay for 3 seconds
+                    let when = DispatchTime.now() + 3
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.drawOpponentDice(hidden: false)
+                        self.gamestate = .PlayerWinsRound
+                    }
+                } else {
+                    let when = DispatchTime.now() + 3
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.drawOpponentDice(hidden: false)
+                        self.gamestate = .ModelWinsRound
+                    }
+                }
 
             case .PlayerCallsBullshit:
                 print("The player calls bullshit")
@@ -138,7 +154,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .ModelWinsRound:
                 print("The model wins this round")
-                statusMessage = "The model wins this round. Final bid: \(modelBid.repr()). The model's dice: \(modelPlayer.diceList)."
+                statusMessage = "The model wins this round. Final bid: \(modelBid.repr())."
                 humanPlayer.discardDice()
                 
                 let gameover = checkIfGameOver()
@@ -149,7 +165,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
             case .PlayerWinsRound:
                 print("You win this round")
-                statusMessage = "You win this round. Final bid: \(modelBid.repr()). The model's dice: \(modelPlayer.diceList)."
+                statusMessage = "You win this round. Final bid: \(modelBid.repr())."
                 modelPlayer.discardDice()
                 
                 let gameover = checkIfGameOver()
@@ -310,13 +326,18 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         playerBidConfirmButton.layer.cornerRadius = 10
         playerBidConfirmButton.contentEdgeInsets = UIEdgeInsets(top:8, left:50,bottom:8,right:50)
         
+        playAgainButton.layer.cornerRadius = 10
+        playAgainButton.contentEdgeInsets = UIEdgeInsets(top:8, left:50,bottom:8,right:50)
+
+        
         quit.layer.cornerRadius = 10
         quit.contentEdgeInsets = UIEdgeInsets(top:8, left:15,bottom:8,right:15)
 
     }
 
     private func setStartingPlayer() {
-        gamestate = .PlayerOpeningBid
+        // Choose the starting player with a coin flip
+        gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
     }
     
     private func checkIfGameOver() -> Bool {
@@ -357,6 +378,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             if !rollButton.isHidden {
                 roll(_: UIButton())
             }
+        }
+    }
+    
+    
+    private func processModelResponse(modelResponse: Bid?) {
+        if modelResponse != nil {
+            modelBid = modelResponse!
+        } else {
+            gamestate = .ModelCallsBullshit
         }
     }
     
