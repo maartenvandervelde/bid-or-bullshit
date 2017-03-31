@@ -333,7 +333,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         modelPlayer = ModelPlayer(character: opponent!)
         
         
-        drawPlayerDice(spin: true)
+        let when = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.drawPlayerDice(spin: true)
+        }
         drawOpponentDice(hidden: true)
         
         gamestate = .PlayerOpeningBid
