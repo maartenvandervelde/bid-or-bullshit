@@ -16,7 +16,6 @@ class ModelPlayer: Player {
         self.character = character
     }
     
-    
     let hookPhrases: [GameState:String] = [
         .ModelOpeningBid: "I'll show you how it's done!",
         .PlayerOpeningBid: "Let's see what you're made of!",
@@ -43,7 +42,6 @@ class ModelPlayer: Player {
         .PlayerWinsGame: "When next you sail, we'll meet again"
     ]
     
-    
     let chingPhrases: [GameState:String] = [
         .ModelOpeningBid: "Give up now, you'll never win from me!",
         .PlayerOpeningBid: "Do you dare to challenge my Red Flag Fleet?",
@@ -56,8 +54,6 @@ class ModelPlayer: Player {
         .ModelWinsGame: "I told you, no one can defeat my fleet!",
         .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
     ]
-    
-    
     
     // instantiation of and interaction with act-r model
     
@@ -82,16 +78,11 @@ class ModelPlayer: Player {
     }
     var modelText: String = ""
     
-    
-    
-    
-    
     private var latestBid: Bid?
     
     func speak(gamestate: GameState) -> String {
         // These are some canned responses that the model says every time the game state changes.
         // It returns a different string depending on the game state (this can be expanded further if needed).
-        
         
         switch(character!.name) {
         case "Captain Hook":
@@ -133,21 +124,6 @@ class ModelPlayer: Player {
     }
     
     func makeOpeningBid() -> Bid {
-        
-        //////
-        print("DEBUG: adding starting chunks")
-        let chunk1 = generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: 1)
-        dm.addToDM(chunk1)
-        print(chunk1.description)
-        
-        let chunk2 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], myBid: [2,3])
-        dm.addToDM(chunk2)
-        print(chunk2.description)
-        
-        let chunk3 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
-        dm.addToDM(chunk3)
-        print(chunk3.description)
-        //////
         
         let myDice = self.diceList //Assume format is [pips, pips, pips, ...]
         //print("myDice: ", myDice)
@@ -256,6 +232,10 @@ class ModelPlayer: Player {
         print("extraDice: ", extraDice)
         let openingBid: [Int] = [topDice[0]+extraDice,topDice[1]] //[0]:num dice, [1]:num pips
         
+        //create new chunk and add to dm
+        let chunk = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: opponentDice, myDice: topDice, myBid: openingBid)
+        dm.addToDM(chunk)
+        
         return openingBid
     }
     
@@ -272,9 +252,9 @@ class ModelPlayer: Player {
         } else {//retrieval succes
             print("I remember a previous response to a similar bid")
             print(retrievedChunk!.description)
-            let retrievedResponse = Int((retrievedChunk!.slotvals["result"]?.description)!)!
+            let retrievedResult = Int((retrievedChunk!.slotvals["result"]?.description)!)!
             
-            if(retrievedResponse==1){
+            if(retrievedResult==1){
                 response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
             } else {
                 response = [0]
@@ -289,7 +269,7 @@ class ModelPlayer: Player {
     
     func makeDefaultResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
         var response: [Int]?
-        response = [0]
+        response = [0] //response can either hold 0[reject] or counterbid[dice, pips]
         
         //init remainder
         var remainder: Int = opponentBid[0]
@@ -306,16 +286,30 @@ class ModelPlayer: Player {
         //if below pip probability or not
         if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/6.0)){
             print("I want to reject this")
-            //leave response as 'nil'
+            //leave response as '0'
+            
+            //create new chunk and add to dm
+            let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
+            dm.addToDM(chunk)
+            
         } else {
             //randomly reject offer
             let choice = arc4random_uniform(10)
             if(choice==0){
                 print("I randomly want to reject this")
+                
+                //create new chunk and add to dm
+                let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
+                dm.addToDM(chunk)
+                
             } else {
                 print("I want to make a counter offer")
                 response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
                 print("Response: ", response!)
+                
+                //create new chunk and add to dm
+                let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 1)//0: Bullshit & 1: Accept
+                dm.addToDM(chunk)
             }
         }
         return response!

@@ -85,6 +85,22 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .GameStart:
                 print("Starting a new game")
                 setStartingPlayer()
+                
+                //////
+                print("DEBUG: adding starting chunks")
+                let chunk1 = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: 1)
+                modelPlayer?.dm.addToDM(chunk1!)
+                print(chunk1!.description)
+                
+                let chunk2 = modelPlayer?.generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], myBid: [2,3])
+                modelPlayer?.dm.addToDM(chunk2!)
+                print(chunk2!.description)
+                
+                let chunk3 = modelPlayer?.generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+                modelPlayer?.dm.addToDM(chunk3!)
+                print(chunk3!.description)
+                //////
+                
                 let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
                 modelPlayer?.dm.addToDM(chunk!)
             
