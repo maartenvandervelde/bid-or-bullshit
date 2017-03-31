@@ -89,7 +89,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 print("Starting a new game")
                 setStartingPlayer()
                 
-                //////
+                /*/////
                 print("DEBUG: adding starting chunks")
                 let chunk1 = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: 1)
                 modelPlayer?.dm.addToDM(chunk1!)
@@ -103,6 +103,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelPlayer?.dm.addToDM(chunk3!)
                 print(chunk3!.description)
                 //////
+                */
                 
                 let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
                 modelPlayer?.dm.addToDM(chunk!)
@@ -211,12 +212,21 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 playAgainButton.isHidden = false
                 
+                //DEBUG: Print all chunks in dm
+                for (_,chunk) in (modelPlayer?.dm.chunks)! {
+                    print(chunk.description)
+                }
+                
             case .PlayerWinsGame:
                 print("The player has won the game")
                 statusMessage = statusMessage! + " You have won the game."
                 
                 playAgainButton.isHidden = false
-            
+                
+                //DEBUG: Print all chunks in dm
+                for (_,chunk) in (modelPlayer?.dm.chunks)! {
+                    print(chunk.description)
+                }
             }
             
             let when = DispatchTime.now() + 0.05
