@@ -85,8 +85,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .GameStart:
                 print("Starting a new game")
                 setStartingPlayer()
-                let chunk = modelPlayer.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: humanPlayer.diceList.count)
-                modelPlayer.dm.addToDM(chunk)
+                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
+                modelPlayer?.dm.addToDM(chunk!)
             
             case .ModelOpeningBid:
                 print("\(opponent!.name) makes an opening bid")
@@ -163,8 +163,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 statusMessage = "\(opponent!.name) wins this round. Final bid: \(modelBid.repr())."
                 humanPlayer?.discardDice()
                 
-                let chunk = modelPlayer.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: humanPlayer.diceList.count)
-                modelPlayer.dm.addToDM(chunk)
+                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
+                modelPlayer?.dm.addToDM(chunk!)
                 
                 let gameover = checkIfGameOver()
                 if !gameover {
