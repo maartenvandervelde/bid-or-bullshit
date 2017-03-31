@@ -83,8 +83,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 setStartingPlayer()
             
             case .ModelOpeningBid:
-                print("The model makes an opening bid")
-                statusMessage = "It's the model's turn to start."
+                print("\(opponent!.name) makes an opening bid")
+                statusMessage = "It's \(opponent!.name)'s turn to start."
                 modelBid = modelPlayer!.makeOpeningBid()
             
             case .PlayerOpeningBid:
@@ -96,23 +96,23 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playerBidConfirmButton.isEnabled = true
             
             case .ModelResponse:
-                print("The model responds to the player's bid")
-                statusMessage = "You bid \(playerBid.repr()). The model will now respond."
+                print("\(opponent!.name) responds to the player's bid")
+                statusMessage = "You bid \(playerBid.repr()). \(opponent!.name) will now respond."
                 
                 let modelResponse = modelPlayer!.respondToBid(bid: playerBid)
                 processModelResponse(modelResponse: modelResponse)
             
             case .PlayerResponse:
-                print("The player responds to the model's bid")
-                statusMessage = "The model bid \(modelBid.repr()). It is your turn."
+                print("The player responds to \(opponent!.name)'s bid")
+                statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
                 playerBid = modelBid
                 
                 playerBidButtons.isHidden = false
                 playerBullshitButton.isHidden = false
             
             case .ModelCallsBullshit:
-                print("The model calls bullshit")
-                statusMessage = "The model does not believe your bid of \(playerBid.repr()). Let's see who's right."
+                print("\(opponent!.name) calls bullshit")
+                statusMessage = "\(opponent!.name) does not believe your bid of \(playerBid.repr()). Let's see who's right."
                 
                 let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
@@ -133,7 +133,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             case .PlayerCallsBullshit:
                 print("The player calls bullshit")
-                statusMessage = "You don't believe the model's bid of \(modelBid.repr()). Let's see who's right."
+                statusMessage = "You don't believe \(opponent!.name)'s bid of \(modelBid.repr()). Let's see who's right."
                 
                 let bidCorrect = Perudo.isBidCorrect(bid: modelBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
@@ -153,8 +153,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
             
             case .ModelWinsRound:
-                print("The model wins this round")
-                statusMessage = "The model wins this round. Final bid: \(modelBid.repr())."
+                print("\(opponent!.name) wins this round")
+                statusMessage = "\(opponent!.name) wins this round. Final bid: \(modelBid.repr())."
                 humanPlayer?.discardDice()
                 
                 let gameover = checkIfGameOver()
@@ -174,8 +174,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
                 
             case .ModelWinsGame:
-                print("The model has won the game")
-                statusMessage = statusMessage! + " The model has won the game."
+                print("\(opponent!.name) has won the game")
+                statusMessage = statusMessage! + " \(opponent!.name) has won the game."
                 
                 playAgainButton.isHidden = false
                 
