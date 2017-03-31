@@ -81,19 +81,31 @@ class Declarative  {
     }
     
     func retrieve(slots: Array<String>, values: Array<Value>) -> (Double, Chunk?) {
+        print("DEBUG: Retrieval process")
         retrieveError = false
         var bestMatch: Chunk? = nil
         var bestActivation: Double = retrievalThreshold
+        //Go through all chunks
         chunkloop: for (_,ch1) in chunks {
-            for i in 0 ..< slots.count{
+            //Go through all target slots
+            targetSlotLoop : for i in 0 ..< slots.count{
+                //If target slot gives us a value
                 if let val1 = ch1.slotvals[slots[i]] {
+                    print(slots[i])
+                    print("Target value: \(values[i]) | Found value \(val1)")
+                    //If chunk value is unequal to target value
                     if !val1.isEqual(value: values[i]) {
+                        print("Skipping chunk")
                         continue chunkloop }
-                } else { continue chunkloop }
-                if ch1.activation() > bestActivation {
-                    bestActivation = ch1.activation()
-                    bestMatch = ch1
+                } else {
+                    print("Skipping chunk")
+                    continue chunkloop
                 }
+            }
+            if ch1.activation() > bestActivation {
+                print("Updating best match")
+                bestActivation = ch1.activation()
+                bestMatch = ch1
             }
         }
         if bestActivation > retrievalThreshold {

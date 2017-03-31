@@ -87,6 +87,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .GameStart:
                 print("Starting a new game")
+                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
+                print("human player dice: ", (humanPlayer?.diceList.count)!)
+                print(chunk!.description)
+                modelPlayer?.dm.addToDM(chunk!)
                 setStartingPlayer()
                 
                 /*/////
@@ -105,8 +109,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 //////
                 */
                 
-                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
-                modelPlayer?.dm.addToDM(chunk!)
             
             case .ModelOpeningBid:
                 print("\(opponent!.name) makes an opening bid")
@@ -186,9 +188,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 humanPlayer?.discardDice()
                 
-                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
-                modelPlayer?.dm.addToDM(chunk!)
-                
                 let gameover = checkIfGameOver()
                 if !gameover {
                  rollButton.isHidden = false
@@ -213,8 +212,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playAgainButton.isHidden = false
                 
                 //DEBUG: Print all chunks in dm
+                print("DEBUG: printing all chunks")
                 for (_,chunk) in (modelPlayer?.dm.chunks)! {
                     print(chunk.description)
+                    print(chunk.baseLevelActivation)
                 }
                 
             case .PlayerWinsGame:
@@ -224,8 +225,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playAgainButton.isHidden = false
                 
                 //DEBUG: Print all chunks in dm
+                print("DEBUG: printing all chunks")
                 for (_,chunk) in (modelPlayer?.dm.chunks)! {
                     print(chunk.description)
+                    print(chunk.baseLevelActivation)
                 }
             }
             

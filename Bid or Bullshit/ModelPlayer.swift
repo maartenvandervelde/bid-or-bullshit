@@ -130,12 +130,16 @@ class ModelPlayer: Player {
         let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice) //[dice, pips][dice,dice,dice,dice,dice,dice]
         //print("myTurfedDice: ", myTurfedDice)
         //print("myTopDice: ", myTopDice)
-        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        let opponentDice = getOpponentDice(ownDice:myDice)
         //print("opponentDice: ", opponentDice)
         let openingBid = getPreviousOpeningBid(ownDice: myTurfedDice, topDice: myTopDice, opponentDice: opponentDice)
         //print("openingBid: ", openingBid)
         
         latestBid = Bid(numberOfDice: openingBid[0], numberOfPips: openingBid[1])
+        
+        print("myTurfedDice: ", myTurfedDice)
+        print("opponentDice: ", opponentDice)
+        print("openingBid: ", openingBid)
         
         return latestBid!
     }
@@ -144,9 +148,8 @@ class ModelPlayer: Player {
         let myDice = self.diceList
         let opponentBid:[Int] = [bid.numberOfDice, bid.numberOfPips]
         let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice)
-        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        let opponentDice = getOpponentDice(ownDice:myDice)
         var response: [Int]?
-        response = nil
         response = getPreviousOpponentBidResponse(ownDice: myTurfedDice, opponentDice: opponentDice, opponentBid: opponentBid)
         
         if response!.count > 1{
@@ -158,6 +161,12 @@ class ModelPlayer: Player {
             // When the model wants to call bullshit, it does so by not returning anything
             return nil
         }
+        
+        print("myTurfedDice: ", myTurfedDice)
+        print("opponentBid: ", opponentBid)
+        print("opponentDice: ", opponentDice)
+        print("response: ", response!)
+        
         return latestBid
     }
     
@@ -229,10 +238,13 @@ class ModelPlayer: Player {
     
     func makeDefaultOpeningBid(topDice: Array<Int>, opponentDice: Int) -> Array<Int>{
         let extraDice: Int = Int(floor(Double(opponentDice/6)))
+        print("diceList: ", topDice)
+        print("opponentDiceNum: ", opponentDice)
         print("extraDice: ", extraDice)
         let openingBid: [Int] = [topDice[0]+extraDice,topDice[1]] //[0]:num dice, [1]:num pips
         
         //create new chunk and add to dm
+        print("Adding new opening bid chunk")
         let chunk = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: opponentDice, myDice: topDice, myBid: openingBid)
         dm.addToDM(chunk)
         
@@ -271,16 +283,10 @@ class ModelPlayer: Player {
         var response: [Int]?
         response = [0] //response can either hold 0[reject] or counterbid[dice, pips]
         
-        //init remainder
-        var remainder: Int = opponentBid[0]
-        
-        //subtract target dice from opponents bid
-        for die in ownDice{
-            if die==opponentBid[1]{
-                remainder = remainder - 1
-            }
-        }
-        
+        print("dicelist: ", ownDice)
+        let matchedDice = ownDice[opponentBid[1]-1]
+        print("matchedDice: ", matchedDice)
+        let remainder = opponentBid[0] - matchedDice
         print("remainder/opponentDice: ", Double(Double(remainder)/Double(opponentDice)))
         
         //if below pip probability or not
@@ -289,6 +295,7 @@ class ModelPlayer: Player {
             //leave response as '0'
             
             //create new chunk and add to dm
+            print("Adding new opponent bid chunk")
             let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
             dm.addToDM(chunk)
             
@@ -299,6 +306,7 @@ class ModelPlayer: Player {
                 print("I randomly want to reject this")
                 
                 //create new chunk and add to dm
+                print("Adding new opponent bid chunk")
                 let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
                 dm.addToDM(chunk)
                 
@@ -308,6 +316,7 @@ class ModelPlayer: Player {
                 print("Response: ", response!)
                 
                 //create new chunk and add to dm
+                print("Adding new opponent bid chunk")
                 let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 1)//0: Bullshit & 1: Accept
                 dm.addToDM(chunk)
             }
