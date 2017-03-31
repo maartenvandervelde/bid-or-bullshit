@@ -471,7 +471,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             let image = diceImages[die] ?? UIImage(named: "grey-die-4")
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "player"
-            dieImageView.frame = CGRect(x: 200 + (76 * index), y: 900, width: 64, height: 64)
+            dieImageView.frame = CGRect(x: 180 + (84 * index), y: 900, width: 72, height: 72)
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
@@ -493,8 +493,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // Retrieve the opponent's current dice
         let opponentDice = modelPlayer!.diceList
-        
-        
 
         
         // Draw each die in the view
@@ -503,7 +501,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "opponent"
             //dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
-            dieImageView.frame = CGRect(x: 500 + (42 * index), y: 220, width: 36, height: 36)
+            dieImageView.frame = CGRect(x: 365 + (54 * index), y: 285, width: 42, height: 42)
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
@@ -514,10 +512,12 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         if hidden {
             if let cupImage = cupImages[opponent!.name] {
                 let cupImageView = CupUIImageView(image: cupImage)
-                cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
+                //cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
+                cupImageView.frame = CGRect(x: 350, y: 100, width: 285, height: 280)
                 view.addSubview(cupImageView)
             }
         }
+        
         
     }
     
