@@ -37,7 +37,7 @@ class ModelPlayer: Player {
         .PlayerResponse: "Let me hear your judgement on my bid.",
         .ModelCallsBullshit: "You liar!",
         .PlayerCallsBullshit: "Think you can outwit me?!",
-        .ModelWinsRound: "Lookee here. A lost bird. A lost bird that never learned to fly.",
+        .ModelWinsRound: "Lookee here. A lost bird that never learned to fly.",
         .PlayerWinsRound: "Don't you want to spend eternity on this ship?",
         .ModelWinsGame: "Life is cruel! But not to me today!",
         .PlayerWinsGame: "When next you sail, we'll meet again"
@@ -51,7 +51,7 @@ class ModelPlayer: Player {
         .PlayerResponse: "Try and oppose me!",
         .ModelCallsBullshit: "You liar!",
         .PlayerCallsBullshit: "You believe me a liar?",
-        .ModelWinsRound: "You have broken the code of honor! I'll behead you will not win the war!",
+        .ModelWinsRound: "You have broken the code of honor! You're walking the plank!",
         .PlayerWinsRound: "You won this battle, but you will not win the war!",
         .ModelWinsGame: "I told you, no one can defeat my fleet!",
         .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
