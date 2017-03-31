@@ -497,10 +497,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // Draw each die in the view
         for (index, die) in opponentDice.enumerated() {
-            let image = diceImages[die] ?? UIImage(named: "grey-die-4")
+            let name = opponent!.name == "Captain Hook" ? "hook" : opponent!.name == "Davy Jones" ? "davy" : "ching"
+            let image = UIImage(named: "\(name)dop\(die)")
             let dieImageView = DieUIImageView(image: image!)
             dieImageView.owner = "opponent"
-            //dieImageView.frame = CGRect(x: 450 + (60 * index), y: 185, width: 48, height: 48)
             dieImageView.frame = CGRect(x: 365 + (54 * index), y: 285, width: 42, height: 42)
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
