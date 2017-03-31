@@ -9,8 +9,58 @@
 import Foundation
 
 class ModelPlayer: Player {
-    // instantiation of and interaction with act-r model goes here.
-    //var model = Model()
+    
+    var character: OpponentCharacter?
+    
+    init(character: OpponentCharacter) {
+        self.character = character
+    }
+    
+    
+    let hookPhrases: [GameState:String] = [
+        .ModelOpeningBid: "I'll show you how it's done!",
+        .PlayerOpeningBid: "Let's see what you're made of!",
+        .ModelResponse: "Let's see...",
+        .PlayerResponse: "What do you make of my bid?!",
+        .ModelCallsBullshit: "You liar!",
+        .PlayerCallsBullshit: "You think I'm lying?!",
+        .ModelWinsRound: "Lie? Me? Never! The truth is far too much fun.",
+        .PlayerWinsRound: "Yes I lied. It's called being a grown-up!",
+        .ModelWinsGame: "You're a tragedy! No happy thought left for you. I win!",
+        .PlayerWinsGame: "No! My life is over. Let the crocodile come get me."
+    ]
+    
+    let davyPhrases: [GameState:String] = [
+        .ModelOpeningBid: "You can't beat me! You'll never get the key.",
+        .PlayerOpeningBid: "Come to join my crew? Let us play!",
+        .ModelResponse: "Let me contemplate this...",
+        .PlayerResponse: "Let me hear your judgement on my bid.",
+        .ModelCallsBullshit: "You liar!",
+        .PlayerCallsBullshit: "Think you can outwit me?!",
+        .ModelWinsRound: "Lookee here. A lost bird. A lost bird that never learned to fly.",
+        .PlayerWinsRound: "Don't you want to spend eternity on this ship?",
+        .ModelWinsGame: "Life is cruel! But not to me today!",
+        .PlayerWinsGame: "When next you sail, we'll meet again"
+    ]
+    
+    
+    let chingPhrases: [GameState:String] = [
+        .ModelOpeningBid: "Give up now, you'll never win from me!",
+        .PlayerOpeningBid: "Do you dare to challenge my Red Flag Fleet?",
+        .ModelResponse: "What is your strategy...?",
+        .PlayerResponse: "Try and oppose me!",
+        .ModelCallsBullshit: "You liar!",
+        .PlayerCallsBullshit: "You believe me a liar?",
+        .ModelWinsRound: "You have broken the code of honor! I'll behead you will not win the war!",
+        .PlayerWinsRound: "You won this battle, but you will not win the war!",
+        .ModelWinsGame: "I told you, no one can defeat my fleet!",
+        .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
+    ]
+    
+    
+    
+    // instantiation of and interaction with act-r model
+    
     var time: Double = 0
     var dm = Declarative()
     var chunkIdCounterOpponentDiceNum = 0
@@ -32,11 +82,29 @@ class ModelPlayer: Player {
     }
     var modelText: String = ""
     
+    
+    
+    
+    
     private var latestBid: Bid?
     
     func speak(gamestate: GameState) -> String {
         // These are some canned responses that the model says every time the game state changes.
         // It returns a different string depending on the game state (this can be expanded further if needed).
+        
+        
+        switch(character!.name) {
+        case "Captain Hook":
+            return hookPhrases[gamestate]!
+        case "Davy Jones":
+            return davyPhrases[gamestate]!
+        case "Ching Shih":
+            return chingPhrases[gamestate]!
+        default:
+            return ""
+        }
+        
+        /*
         switch gamestate {
         case .GameStart:
             return "This is the model speaking at the start of the game."
@@ -61,6 +129,7 @@ class ModelPlayer: Player {
         case .PlayerWinsGame:
             return "You have won the game."
         }
+         */
     }
     
     func makeOpeningBid() -> Bid {
