@@ -344,7 +344,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         humanPlayer = HumanPlayer()
         modelPlayer = ModelPlayer(character: opponent!)
-        
+        if opponent?.name=="Ching Shih"{
+            print("Creating initial memories for Ching Shih")
+            modelPlayer?.createInitialMemories()
+        }
         
         let when = DispatchTime.now() + 0.1
         DispatchQueue.main.asyncAfter(deadline: when) {
