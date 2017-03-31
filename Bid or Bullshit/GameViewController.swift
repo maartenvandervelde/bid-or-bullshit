@@ -69,6 +69,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     var humanPlayer: HumanPlayer?
     var modelPlayer: ModelPlayer?
     
+    var modelWonLastRound: Bool?
+    
     private var gamestate = GameState.GameStart {
         didSet {
             
@@ -159,8 +161,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
             
             case .ModelWinsRound:
+                modelWonLastRound = true
                 print("\(opponent!.name) wins this round")
                 statusMessage = "\(opponent!.name) wins this round. Final bid: \(modelBid.repr())."
+                
                 humanPlayer?.discardDice()
                 
                 let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
@@ -173,6 +177,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 
             case .PlayerWinsRound:
+                modelWonLastRound = false
                 print("You win this round")
                 statusMessage = "You win this round. Final bid: \(modelBid.repr())."
                 modelPlayer!.discardDice()
@@ -349,8 +354,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
 
     private func setStartingPlayer() {
-        // Choose the starting player with a coin flip
-        gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+        // If it's the first round, choose the starting player randomly
+        if modelWonLastRound == nil {
+            gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+        } else {
+            // Otherwise the loser of the last round begins
+            gamestate = modelWonLastRound! ? .PlayerOpeningBid : .ModelOpeningBid
+        }
     }
     
     private func checkIfGameOver() -> Bool {
