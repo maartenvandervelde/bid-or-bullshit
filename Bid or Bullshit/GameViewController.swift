@@ -394,7 +394,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         if modelResponse != nil {
             modelBid = modelResponse!
         } else {
-            gamestate = .ModelCallsBullshit
+            // delay for 3 seconds
+            if gamestate != .PlayerOpeningBid {
+                let when = DispatchTime.now() + 3
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.gamestate = .ModelCallsBullshit
+                }
+            }
         }
     }
     
