@@ -56,7 +56,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                       5: UIImage(named: "dop5"),
                       6: UIImage(named: "dop6")]
 
-    let cupImages = [""]
+    let cupImages = [
+        "Captain Hook": UIImage(named: "hookscup"),
+        "Davy Jones": UIImage(named: "davyjonescup"),
+        "Ching Shih": UIImage(named: "shihscup")
+    ]
     
     var opponent: OpponentCharacter? = nil
     
@@ -468,7 +472,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // If the dice are hidden, draw the cup over them
         if hidden {
-            if let cupImage = UIImage(named: "davyjonescup") {
+            if let cupImage = cupImages[opponent!.name] {
                 let cupImageView = CupUIImageView(image: cupImage)
                 cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
                 view.addSubview(cupImageView)
