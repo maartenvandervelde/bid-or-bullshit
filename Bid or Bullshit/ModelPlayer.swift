@@ -39,7 +39,7 @@ class ModelPlayer: Player {
         .ModelWinsRound: "Lookee here. A lost bird that never learned to fly.",
         .PlayerWinsRound: "Don't you want to spend eternity on this ship?",
         .ModelWinsGame: "Life is cruel! But not to me today!",
-        .PlayerWinsGame: "When next you sail, we'll meet again"
+        .PlayerWinsGame: "When next you sail, we'll meet again."
     ]
     
     let chingPhrases: [GameState:String] = [
