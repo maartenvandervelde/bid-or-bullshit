@@ -69,6 +69,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     var humanPlayer: HumanPlayer?
     var modelPlayer: ModelPlayer?
     
+    var modelWonLastRound: Bool?
+    var latestBid: Bid?
+    
     private var gamestate = GameState.GameStart {
         didSet {
             
@@ -108,6 +111,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 print("\(opponent!.name) makes an opening bid")
                 statusMessage = "It's \(opponent!.name)'s turn to start."
                 modelBid = modelPlayer!.makeOpeningBid()
+                latestBid = modelBid
             
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
@@ -127,7 +131,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerResponse:
                 print("The player responds to \(opponent!.name)'s bid")
                 statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
-                playerBid = modelBid
+                playerBid = latestBid!
                 
                 playerBidButtons.isHidden = false
                 playerBullshitButton.isHidden = false
@@ -175,8 +179,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
             
             case .ModelWinsRound:
+                modelWonLastRound = true
                 print("\(opponent!.name) wins this round")
-                statusMessage = "\(opponent!.name) wins this round. Final bid: \(modelBid.repr())."
+                statusMessage = "\(opponent!.name) wins this round. Final bid: \(latestBid!.repr())."
+                
                 humanPlayer?.discardDice()
                 
                 let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
@@ -189,8 +195,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 
             case .PlayerWinsRound:
+                modelWonLastRound = false
                 print("You win this round")
-                statusMessage = "You win this round. Final bid: \(modelBid.repr())."
+                statusMessage = "You win this round. Final bid: \(latestBid!.repr())."
                 modelPlayer!.discardDice()
                 
                 let gameover = checkIfGameOver()
@@ -365,8 +372,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
 
     private func setStartingPlayer() {
-        // Choose the starting player with a coin flip
-        gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+        // If it's the first round, choose the starting player randomly
+        if modelWonLastRound == nil {
+            gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+        } else {
+            // Otherwise the loser of the last round begins
+            gamestate = modelWonLastRound! ? .PlayerOpeningBid : .ModelOpeningBid
+        }
     }
     
     private func checkIfGameOver() -> Bool {
@@ -393,6 +405,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     /// GAMEPLAY FUNCTIONS
     
     @IBAction func processPlayerBid(_ sender: UIButton) {
+        latestBid = playerBid
         gamestate = .ModelResponse
     }
 
@@ -415,7 +428,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         if modelResponse != nil {
             modelBid = modelResponse!
         } else {
-            gamestate = .ModelCallsBullshit
+            // delay for 3 seconds
+            if gamestate != .PlayerOpeningBid {
+                let when = DispatchTime.now() + 3
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.gamestate = .ModelCallsBullshit
+                }
+            }
         }
     }
     

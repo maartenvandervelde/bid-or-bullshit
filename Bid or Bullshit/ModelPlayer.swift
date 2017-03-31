@@ -49,7 +49,7 @@ class ModelPlayer: Player {
         .PlayerResponse: "Try and oppose me!",
         .ModelCallsBullshit: "You liar!",
         .PlayerCallsBullshit: "You believe me a liar?",
-        .ModelWinsRound: "You have broken the code of honor! You're walking the plank!",
+        .ModelWinsRound: "You broke the code of honor! You're walking the plank!",
         .PlayerWinsRound: "You won this battle, but you will not win the war!",
         .ModelWinsGame: "I told you, no one can defeat my fleet!",
         .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
