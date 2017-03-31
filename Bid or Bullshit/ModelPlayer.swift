@@ -138,7 +138,7 @@ class ModelPlayer: Player {
     
     func getOpponentDice(ownDice: Array<Int>) -> Int{
         let slots: Array<String> = ["type"]
-        let values: Array<Value> = [Value.Text("openingBid")]
+        let values: Array<Value> = [Value.Text("opponentDiceNum")]
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
         
         var opponentDiceNumber: Int = -1
@@ -148,7 +148,10 @@ class ModelPlayer: Player {
             opponentDiceNumber = ownDice.count
         } else {
             print("I remember the number of my opponents dice")
+            print(retrievedChunk!.description)
             opponentDiceNumber = Int((retrievedChunk!.slotvals["opponentDiceNum"]?.description)!)!
+            //add encounter of chunk
+            dm.addToDM(retrievedChunk!)
         }
         
         return opponentDiceNumber
@@ -165,12 +168,15 @@ class ModelPlayer: Player {
             openingBid = makeDefaultOpeningBid(topDice: topDice, opponentDice: opponentDice)
         } else {//retrieval succes
             print("I remember a previous openingbid")
+            print(retrievedChunk!.description)
             var retrievedBid = retrievedChunk!.slotvals["myBid"]!.description
             retrievedBid = retrievedBid.replacingOccurrences(of: ",", with: "",options: .regularExpression)
             retrievedBid = retrievedBid.replacingOccurrences(of: "\\[", with: "",options: .regularExpression)
             retrievedBid = retrievedBid.replacingOccurrences(of: "]", with: "",options: .regularExpression)
             let retrievedBidArray = retrievedBid.components(separatedBy: " ")
             openingBid = retrievedBidArray.map { Int($0)!}
+            //add encounter of chunk
+            dm.addToDM(retrievedChunk!)
         }
         
         return openingBid
@@ -188,7 +194,7 @@ class ModelPlayer: Player {
         var response: [Int]?
         response = nil
         let slots: Array<String> = ["type","opponentDiceNum","myDice", "opponentBid"]
-        let values: Array<Value> = [Value.Text("openingBid"),Value.NumberI(opponentDice),Value.Array(ownDice),Value.Array(opponentBid)]
+        let values: Array<Value> = [Value.Text("opponentBid"),Value.NumberI(opponentDice),Value.Array(ownDice),Value.Array(opponentBid)]
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
         
         if retrievedChunk == nil{//retrieval failure
@@ -196,11 +202,17 @@ class ModelPlayer: Player {
             response = makeDefaultResponse(ownDice: ownDice, opponentDice: opponentDice, opponentBid: opponentBid)
         } else {//retrieval succes
             print("I remember a previous response to a similar bid")
+            print(retrievedChunk!.description)
             let retrievedResponse = Int((retrievedChunk!.slotvals["result"]?.description)!)!
             
             if(retrievedResponse==1){
                 response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
+            } else {
+                response = [0]
             }
+            //add encounter of chunk
+            dm.addToDM(retrievedChunk!)
+            
         }
         
         return response!
