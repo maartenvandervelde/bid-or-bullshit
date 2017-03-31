@@ -23,8 +23,8 @@ class ModelPlayer: Player {
         .PlayerResponse: "What do you make of my bid?!",
         .ModelCallsBullshit: "You liar!",
         .PlayerCallsBullshit: "You think I'm lying?!",
-        .ModelWinsRound: "Lie? Me? Never! The truth is far too much fun.",
-        .PlayerWinsRound: "Yes I lied. It's called being a grown-up!",
+        .ModelWinsRound: "If I were you, I'd give up.",
+        .PlayerWinsRound: "Arrrr! How dare you?!",
         .ModelWinsGame: "You're a tragedy! No happy thought left for you. I win!",
         .PlayerWinsGame: "No! My life is over. Let the crocodile come get me."
     ]
