@@ -56,14 +56,18 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                       5: UIImage(named: "dop5"),
                       6: UIImage(named: "dop6")]
 
-    let cupImages = [""]
+    let cupImages = [
+        "Captain Hook": UIImage(named: "hookscup"),
+        "Davy Jones": UIImage(named: "davyjonescup"),
+        "Ching Shih": UIImage(named: "shihscup")
+    ]
     
     var opponent: OpponentCharacter? = nil
     
     let perudo = Perudo()
     
-    var humanPlayer = HumanPlayer()
-    var modelPlayer = ModelPlayer()
+    var humanPlayer: HumanPlayer?
+    var modelPlayer: ModelPlayer?
     
     private var gamestate = GameState.GameStart {
         didSet {
@@ -85,9 +89,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelPlayer.dm.addToDM(chunk)
             
             case .ModelOpeningBid:
-                print("The model makes an opening bid")
-                statusMessage = "It's the model's turn to start."
-                modelBid = modelPlayer.makeOpeningBid()
+                print("\(opponent!.name) makes an opening bid")
+                statusMessage = "It's \(opponent!.name)'s turn to start."
+                modelBid = modelPlayer!.makeOpeningBid()
             
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
@@ -98,25 +102,25 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playerBidConfirmButton.isEnabled = true
             
             case .ModelResponse:
-                print("The model responds to the player's bid")
-                statusMessage = "You bid \(playerBid.repr()). The model will now respond."
+                print("\(opponent!.name) responds to the player's bid")
+                statusMessage = "You bid \(playerBid.repr()). \(opponent!.name) will now respond."
                 
-                let modelResponse = modelPlayer.respondToBid(bid: playerBid)
+                let modelResponse = modelPlayer!.respondToBid(bid: playerBid)
                 processModelResponse(modelResponse: modelResponse)
             
             case .PlayerResponse:
-                print("The player responds to the model's bid")
-                statusMessage = "The model bid \(modelBid.repr()). It is your turn."
+                print("The player responds to \(opponent!.name)'s bid")
+                statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
                 playerBid = modelBid
                 
                 playerBidButtons.isHidden = false
                 playerBullshitButton.isHidden = false
             
             case .ModelCallsBullshit:
-                print("The model calls bullshit")
-                statusMessage = "The model does not believe your bid of \(playerBid.repr()). Let's see who's right."
+                print("\(opponent!.name) calls bullshit")
+                statusMessage = "\(opponent!.name) does not believe your bid of \(playerBid.repr()). Let's see who's right."
                 
-                let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer.diceList, player2dice: modelPlayer.diceList)
+                let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
                 if bidCorrect {
                     // delay for 3 seconds
@@ -135,9 +139,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             case .PlayerCallsBullshit:
                 print("The player calls bullshit")
-                statusMessage = "You don't believe the model's bid of \(modelBid.repr()). Let's see who's right."
+                statusMessage = "You don't believe \(opponent!.name)'s bid of \(modelBid.repr()). Let's see who's right."
                 
-                let bidCorrect = Perudo.isBidCorrect(bid: modelBid, player1dice: humanPlayer.diceList, player2dice: modelPlayer.diceList)
+                let bidCorrect = Perudo.isBidCorrect(bid: modelBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
                 if bidCorrect {
                     // delay for 3 seconds
@@ -155,9 +159,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
             
             case .ModelWinsRound:
-                print("The model wins this round")
-                statusMessage = "The model wins this round. Final bid: \(modelBid.repr())."
-                humanPlayer.discardDice()
+                print("\(opponent!.name) wins this round")
+                statusMessage = "\(opponent!.name) wins this round. Final bid: \(modelBid.repr())."
+                humanPlayer?.discardDice()
                 
                 let chunk = modelPlayer.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: humanPlayer.diceList.count)
                 modelPlayer.dm.addToDM(chunk)
@@ -171,7 +175,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerWinsRound:
                 print("You win this round")
                 statusMessage = "You win this round. Final bid: \(modelBid.repr())."
-                modelPlayer.discardDice()
+                modelPlayer!.discardDice()
                 
                 let gameover = checkIfGameOver()
                 if !gameover {
@@ -179,8 +183,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
                 
             case .ModelWinsGame:
-                print("The model has won the game")
-                statusMessage = statusMessage! + " The model has won the game."
+                print("\(opponent!.name) has won the game")
+                statusMessage = statusMessage! + " \(opponent!.name) has won the game."
                 
                 playAgainButton.isHidden = false
                 
@@ -194,7 +198,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             let when = DispatchTime.now() + 0.05
             DispatchQueue.main.asyncAfter(deadline: when) {
-                self.drawOpponentSpeechBubble(message: self.modelPlayer.speak(gamestate: self.gamestate))
+                self.drawOpponentSpeechBubble(message: self.modelPlayer!.speak(gamestate: self.gamestate))
             }
 
         }
@@ -270,9 +274,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     /// ROLL BUTTON
     @IBAction func roll(_ sender: UIButton) {
-        humanPlayer.rollDice()
+        humanPlayer!.rollDice()
         drawPlayerDice()
-        modelPlayer.rollDice()
+        modelPlayer!.rollDice()
         drawOpponentDice(hidden: true)
         gamestate = .GameStart
     }
@@ -295,7 +299,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             opponentImage.image = opponent!.image
         }
         
-        setBackgroundImage()
+        humanPlayer = HumanPlayer()
+        modelPlayer = ModelPlayer(character: opponent!)
+        
         
         drawPlayerDice()
         drawOpponentDice(hidden: true)
@@ -308,6 +314,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         //gameInformation.layer.shadowOpacity = 0.8
         //gameInformation.layer.shadowRadius = 5
         //gameInformation.layer.shadowOffset = CGSize(width: 2, height: 2)
+
+        setBackgroundImage()
 
         gameInfoPaddingLabel.layer.cornerRadius = 10
         gameInfoPaddingLabel.layer.shadowOpacity = 0.8
@@ -346,10 +354,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     private func checkIfGameOver() -> Bool {
-        if (humanPlayer.playerHasLost) {
+        if (humanPlayer!.playerHasLost) {
             gamestate = .ModelWinsGame
             return true
-        } else if (modelPlayer.playerHasLost) {
+        } else if (modelPlayer!.playerHasLost) {
             gamestate = .PlayerWinsGame
             return true
         }
@@ -359,7 +367,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     private func reset() {
         print("Resetting the game.")
         humanPlayer = HumanPlayer()
-        modelPlayer = ModelPlayer()
+        modelPlayer = ModelPlayer(character: opponent!)
         gamestate = .GameStart
         drawPlayerDice()
         drawOpponentDice(hidden: true)
@@ -421,7 +429,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         
         // Retrieve the player's current dice
-        let playerDice = humanPlayer.diceList
+        let playerDice = humanPlayer!.diceList
         
         // Draw each die in the view
         for (index, die) in playerDice.enumerated() {
@@ -449,7 +457,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
         
         // Retrieve the opponent's current dice
-        let opponentDice = modelPlayer.diceList
+        let opponentDice = modelPlayer!.diceList
         
         
 
@@ -469,7 +477,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         // If the dice are hidden, draw the cup over them
         if hidden {
-            if let cupImage = UIImage(named: "davyjonescup") {
+            if let cupImage = cupImages[opponent!.name] {
                 let cupImageView = CupUIImageView(image: cupImage)
                 cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
                 view.addSubview(cupImageView)
