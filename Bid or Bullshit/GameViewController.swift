@@ -186,11 +186,14 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 print("\(opponent!.name) wins this round")
                 statusMessage = "\(opponent!.name) wins this round. Final bid: \(latestBid!.repr())."
                 
-                humanPlayer?.discardDice()
+                discardDice(player: "human")
                 
                 let gameover = checkIfGameOver()
                 if !gameover {
-                 rollButton.isHidden = false
+                    let when = DispatchTime.now() + 1.5
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.rollButton.isHidden = false
+                    }
                 }
                 
                 
@@ -198,11 +201,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelWonLastRound = false
                 print("You win this round")
                 statusMessage = "You win this round. Final bid: \(latestBid!.repr())."
-                modelPlayer!.discardDice()
+                //modelPlayer!.discardDice()
+                discardDice(player: "model")
                 
                 let gameover = checkIfGameOver()
                 if !gameover {
-                    rollButton.isHidden = false
+                    let when = DispatchTime.now() + 1.5
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        self.rollButton.isHidden = false
+                    }
                 }
                 
             case .ModelWinsGame:
@@ -311,7 +318,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     /// ROLL BUTTON
     @IBAction func roll(_ sender: UIButton) {
         humanPlayer!.rollDice()
-        drawPlayerDice()
+        drawPlayerDice(spin: true)
         modelPlayer!.rollDice()
         drawOpponentDice(hidden: true)
         gamestate = .GameStart
@@ -339,7 +346,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         modelPlayer = ModelPlayer(character: opponent!)
         
         
-        drawPlayerDice()
+        let when = DispatchTime.now() + 0.1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.drawPlayerDice(spin: true)
+        }
         drawOpponentDice(hidden: true)
         
         gamestate = .PlayerOpeningBid
@@ -410,7 +420,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         humanPlayer = HumanPlayer()
         modelPlayer = ModelPlayer(character: opponent!)
         gamestate = .GameStart
-        drawPlayerDice()
+        drawPlayerDice(spin: true)
         drawOpponentDice(hidden: true)
     }
     
@@ -454,6 +464,12 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     /// DRAWING FUNCTIONS
     
+    var playerDiceViews: [DieUIImageView]?
+    var rightMostPlayerDie: DieUIImageView?
+    var rightMostModelDie: DieUIImageView?
+    var cupImageView: CupUIImageView?
+    
+    
     private func setBackgroundImage() {
         let backgroundImageView = UIImageView(frame: self.view.bounds)
         backgroundImageView.contentMode = .scaleAspectFill
@@ -464,7 +480,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     
-    private func drawPlayerDice() {
+    private func drawPlayerDice(spin: Bool) {
         
         // Remove previous images of dice from the view
         for subView in view.subviews {
@@ -474,6 +490,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 }
             }
         }
+        
+        playerDiceViews = []
         
         
         // Retrieve the player's current dice
@@ -488,6 +506,38 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
+            
+            playerDiceViews!.append(dieImageView)
+
+            
+            
+            if (index == playerDice.count - 1) {
+                rightMostPlayerDie = dieImageView
+            }
+            
+            
+        }
+        
+        if spin {
+            UIView.animate(withDuration: 1.0,
+                           delay: 0,
+                           options: .curveEaseOut,
+                           animations: {
+                            for diceview in self.playerDiceViews! {
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                                diceview.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                            }
+            },
+                           completion: { finished in
+                            print("Animate!")
+            })
+            
         }
     }
     
@@ -518,20 +568,74 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             dieImageView.layer.cornerRadius = 5 // round the corners of the dice
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
-        }
-        
-        
-        // If the dice are hidden, draw the cup over them
-        if hidden {
-            if let cupImage = cupImages[opponent!.name] {
-                let cupImageView = CupUIImageView(image: cupImage)
-                //cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
-                cupImageView.frame = CGRect(x: 350, y: 100, width: 285, height: 280)
-                view.addSubview(cupImageView)
+            
+            if (index == opponentDice.count - 1) {
+                rightMostModelDie = dieImageView
             }
         }
         
+        if let cupImage = cupImages[opponent!.name] {
+            cupImageView = CupUIImageView(image: cupImage)
+            //cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
+            cupImageView!.frame = CGRect(x: 350, y: 100, width: 285, height: 280)
+            view.addSubview(cupImageView!)
+        }
         
+        // If the dice are not hidden, animate the cup
+        if !hidden {
+            UIView.animate(withDuration: 1.0,
+                           delay: 0,
+                           options: .curveEaseIn,
+                           animations: {
+                            self.cupImageView?.center = CGPoint(x: 492, y: -200)
+            },
+                           completion: { finished in
+                            print("Animate!")
+            })
+        }
+        
+    }
+    
+    private func discardDice(player: String) {
+        
+        switch(player) {
+        case "model":
+            modelPlayer!.discardDice()
+            
+            UIView.animate(withDuration: 1.0,
+                           delay: 1.0,
+                           options: .curveEaseIn,
+                           animations: {
+                            self.rightMostModelDie?.center = CGPoint(x: 1000, y: 306)
+                            self.rightMostModelDie?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                            self.rightMostModelDie?.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                            self.rightMostModelDie?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                            self.rightMostModelDie?.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+            },
+                           completion: { finished in
+                            print("Animate!")
+            })
+            
+        case "human":
+            humanPlayer!.discardDice()
+            
+            UIView.animate(withDuration: 1.0,
+                           delay: 0.5,
+                           options: .curveEaseIn,
+                           animations: {
+                            self.rightMostPlayerDie?.center = CGPoint(x: 1000, y: 936)
+                            self.rightMostPlayerDie?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                            self.rightMostPlayerDie?.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+                            self.rightMostPlayerDie?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+                            self.rightMostPlayerDie?.transform = CGAffineTransform(rotationAngle: CGFloat(0))
+
+            },
+                           completion: { finished in
+                            print("Animate!")
+            })
+        default:
+            break
+        }
     }
     
     
