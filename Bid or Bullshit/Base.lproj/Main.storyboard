@@ -60,19 +60,19 @@
                                     <constraint firstAttribute="width" secondItem="vOP-r9-eBo" secondAttribute="height" multiplier="287:45" id="kTk-6D-Dso"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="iconTransparent" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-bV-Jev">
-                                <rect key="frame" x="286" y="283" width="196" height="202"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="finalIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Tt5-bV-Jev">
+                                <rect key="frame" x="234" y="259" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="202" id="h5H-ji-9ew"/>
-                                    <constraint firstAttribute="width" constant="196" id="xhW-rF-ozG"/>
+                                    <constraint firstAttribute="height" constant="300" id="h5H-ji-9ew"/>
+                                    <constraint firstAttribute="width" constant="300" id="xhW-rF-ozG"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ouR-LO-Bmv" firstAttribute="top" secondItem="J3o-8y-38j" secondAttribute="bottom" constant="195" id="4kH-Q0-4UC"/>
-                            <constraint firstItem="Tt5-bV-Jev" firstAttribute="centerY" secondItem="Ff3-6r-9Qu" secondAttribute="centerY" id="Cp8-at-Ck1"/>
                             <constraint firstItem="vOP-r9-eBo" firstAttribute="top" secondItem="d1N-pH-gQf" secondAttribute="bottom" constant="54" id="E9F-Fe-i4l"/>
+                            <constraint firstItem="Tt5-bV-Jev" firstAttribute="top" secondItem="d1N-pH-gQf" secondAttribute="bottom" constant="259" id="FLD-K4-RDf"/>
                             <constraint firstItem="J3o-8y-38j" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="haj-Hc-fbd"/>
                             <constraint firstItem="J3o-8y-38j" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="hyn-T8-WYe"/>
                             <constraint firstItem="vOP-r9-eBo" firstAttribute="centerX" secondItem="Ff3-6r-9Qu" secondAttribute="centerX" id="msV-GN-OVf"/>
@@ -584,7 +584,7 @@
     </scenes>
     <resources>
         <image name="dop1" width="380" height="380"/>
-        <image name="iconTransparent" width="98" height="101"/>
+        <image name="finalIcon" width="600" height="600"/>
         <image name="title" width="574" height="90"/>
     </resources>
 </document>
