@@ -119,6 +119,12 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
                 statusMessage = "It's your turn to start. Make an opening bid."
+                
+                // Add extra instructions in EASY mode
+                if (opponent!.difficulty == "easy") {
+                    statusMessage = statusMessage! + " An opening bid can be any number of dice with any number of pips. Hint: look at your dice!"
+                }
+                
                 playerBid = Bid()
                 modelBid = Bid()
                 playerBidButtons.isHidden = false
@@ -134,6 +140,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .PlayerResponse:
                 print("The player responds to \(opponent!.name)'s bid")
                 statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
+                
+                // Add extra instructions in EASY mode
+                if (opponent!.difficulty == "easy") {
+                    statusMessage = statusMessage! + " If you want to make a bid, up the dice and / or pips by 1, or up the dice and lower the pips."
+                }
+                
+                
                 playerBid = latestBid!
                 
                 playerBidButtons.isHidden = false

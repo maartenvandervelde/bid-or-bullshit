@@ -176,7 +176,7 @@ class ModelPlayer: Player {
     func getMyTopDice(ownDice: Array<Int>) -> (Array<Int>, Array<Int>){
         //Choose pip with highest number of dice
         var dice: [Int] = [0,0,0,0,0,0]
-        for die in ownDice{
+        for die in ownDice {
             dice[die-1] = dice[die-1] + 1
         }
         let maxDice = dice.max()
