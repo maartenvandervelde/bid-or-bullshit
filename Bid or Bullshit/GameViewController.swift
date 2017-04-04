@@ -222,6 +222,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 print("DEBUG: printing all chunks")
                 for (_,chunk) in (modelPlayer?.dm.chunks)! {
                     print(chunk.description)
+                    print(chunk.creationTime!)
+                    print(chunk.referenceList)
                     print(chunk.baseLevelActivation)
                 }
                 
@@ -235,6 +237,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 print("DEBUG: printing all chunks")
                 for (_,chunk) in (modelPlayer?.dm.chunks)! {
                     print(chunk.description)
+                    print(chunk.creationTime!)
+                    print(chunk.referenceList)
                     print(chunk.baseLevelActivation)
                 }
             }
@@ -370,6 +374,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         gameInfoPaddingLabel.layer.shadowOpacity = 0.8
         gameInfoPaddingLabel.layer.shadowRadius = 5
         gameInfoPaddingLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
+        gameInfoPaddingLabel.backgroundColor = UIColor(patternImage: UIImage(named: "paper")!)
+        gameInfoPaddingLabel.contentMode = .scaleAspectFill
+        gameInfoPaddingLabel.alpha = 1
         
         playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
         playerBidNumberOfPipsView.layer.masksToBounds = true
