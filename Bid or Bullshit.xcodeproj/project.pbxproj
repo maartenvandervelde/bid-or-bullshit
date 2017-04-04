@@ -16,7 +16,6 @@
 		89E06A621E7FCE2A0040822E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A501E7FCE2A0040822E /* GameViewController.swift */; };
 		89E06A631E7FCE2A0040822E /* HumanPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A511E7FCE2A0040822E /* HumanPlayer.swift */; };
 		89E06A661E7FCE2A0040822E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A541E7FCE2A0040822E /* MenuViewController.swift */; };
-		89E06A671E7FCE2A0040822E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A551E7FCE2A0040822E /* Model.swift */; };
 		89E06A681E7FCE2A0040822E /* ModelPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A561E7FCE2A0040822E /* ModelPlayer.swift */; };
 		89E06A691E7FCE2A0040822E /* Perudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A571E7FCE2A0040822E /* Perudo.swift */; };
 		89E06A6A1E7FCE2A0040822E /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A581E7FCE2A0040822E /* Player.swift */; };
@@ -42,7 +41,6 @@
 		89E06A511E7FCE2A0040822E /* HumanPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HumanPlayer.swift; path = "Bid or Bullshit/HumanPlayer.swift"; sourceTree = "<group>"; };
 		89E06A521E7FCE2A0040822E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Bid or Bullshit/Info.plist"; sourceTree = "<group>"; };
 		89E06A541E7FCE2A0040822E /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = "Bid or Bullshit/MenuViewController.swift"; sourceTree = "<group>"; };
-		89E06A551E7FCE2A0040822E /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Model.swift; path = "Bid or Bullshit/Model.swift"; sourceTree = "<group>"; };
 		89E06A561E7FCE2A0040822E /* ModelPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelPlayer.swift; path = "Bid or Bullshit/ModelPlayer.swift"; sourceTree = "<group>"; };
 		89E06A571E7FCE2A0040822E /* Perudo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Perudo.swift; path = "Bid or Bullshit/Perudo.swift"; sourceTree = "<group>"; };
 		89E06A581E7FCE2A0040822E /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = "Bid or Bullshit/Player.swift"; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 				FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */,
 				FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */,
 				89E06A541E7FCE2A0040822E /* MenuViewController.swift */,
-				89E06A551E7FCE2A0040822E /* Model.swift */,
 				89E06A561E7FCE2A0040822E /* ModelPlayer.swift */,
 				89E06A571E7FCE2A0040822E /* Perudo.swift */,
 				89E06A581E7FCE2A0040822E /* Player.swift */,
@@ -198,7 +195,6 @@
 				89E06A5E1E7FCE2A0040822E /* CharacterSelectionViewController.swift in Sources */,
 				89E06A661E7FCE2A0040822E /* MenuViewController.swift in Sources */,
 				89E06A6A1E7FCE2A0040822E /* Player.swift in Sources */,
-				89E06A671E7FCE2A0040822E /* Model.swift in Sources */,
 				89E06A631E7FCE2A0040822E /* HumanPlayer.swift in Sources */,
 				89E06A621E7FCE2A0040822E /* GameViewController.swift in Sources */,
 				FE9E160D1E8D888A004CA8D2 /* SlotCondition.swift in Sources */,
