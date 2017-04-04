@@ -12,18 +12,19 @@ class InstructionsPageViewController: UIPageViewController, UIPageViewController
 
     let pages = [0,1,2,3,4]
     let textInstructions = [
-    "First choose an opponent.",
-    "How to enter a bid.",
-    "Calling bullshit.",
-    "End of the round.",
-    "You win the game if you are the last player with dice."
+    "First choose an opponent. Note that they have different difficulty levels.",
+    "During game play, important information about the state of the game will be shown in this text box.",
+    "Each player starts with five dice. You can only see your own dice. Players alternate in making bids, in which they claim that there are a certain number of a particular kind of die in the game. For example, you might claim that there are two sixes.",
+    "Enter a bid using the highlighted buttons. When making an opening bid you can bid anything you want, but subsequent bids are constrained by a number of rules. The Bid button will only be enabled when the bid you have entered follows these rules. A legal bid increases the number of dice by 1, the number of pips by 1, both the number of dice and the number of pips by 1, or increases the number of dice by 1 while decreasing the number of pips by 1.",
+    "When you don't believe a bid made by your opponent, call their bluff by hitting the Bullsh!t button. All dice will be revealed to evaluate the bid. If your opponent was indeed bluffing, they lose one of their dice. However, if the bid was correct, you lose a die instead. Be careful: the model can also call Bullsh!t on your bids! The last player to have dice remaining wins the game."
     ]
+    
     let images = [
-    "davyjones",
-    "davyjones",
-    "davyjones",
-    "davyjones",
-    "davyjones"
+    "instruction0",
+    "instruction5",
+    "instruction1",
+    "instruction2",
+    "instruction3"
     ]
     
     var pageContentViews: [InstructionsContentViewController] = []
