@@ -473,6 +473,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     private func processModelResponse(modelResponse: Bid?) {
         if modelResponse != nil {
             modelBid = modelResponse!
+            latestBid = modelResponse!
         } else {
             // delay for 3 seconds
             if gamestate != .PlayerOpeningBid {
@@ -651,7 +652,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             },
                            completion: { finished in
-            })
+})
         default:
             break
         }
