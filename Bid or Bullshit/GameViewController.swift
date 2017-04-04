@@ -143,7 +143,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 // Add extra instructions in EASY mode
                 if (opponent!.difficulty == "easy") {
-                    statusMessage = statusMessage! + " If you want to make a bid, up the dice and / or pips by 1, or up the dice and lower the pips."
+                    statusMessage = statusMessage! + " If you want to bid, up the dice and / or pips by 1, or up the dice and lower the pips."
                 }
                 
                 
@@ -558,7 +558,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                             }
             },
                            completion: { finished in
-                            print("Animate!")
             })
             
         }
@@ -613,7 +612,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                             self.cupImageView?.center = CGPoint(x: 492, y: -200)
             },
                            completion: { finished in
-                            print("Animate!")
             })
         }
         
@@ -636,7 +634,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                             self.rightMostModelDie?.transform = CGAffineTransform(rotationAngle: CGFloat(0))
             },
                            completion: { finished in
-                            print("Animate!")
             })
             
         case "human":
@@ -654,7 +651,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             },
                            completion: { finished in
-                            print("Animate!")
             })
         default:
             break

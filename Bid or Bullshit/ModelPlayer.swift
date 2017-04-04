@@ -55,7 +55,7 @@ class ModelPlayer: Player {
         .ModelWinsRound: "You broke the code of honor! You're walking the plank!",
         .PlayerWinsRound: "You won this battle, but you will not win the war!",
         .ModelWinsGame: "You too have suffered a humiliating defeat at my hands!",
-        .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
+        .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure!"
     ]
     
     // instantiation of and interaction with act-r model
@@ -501,7 +501,8 @@ class ModelPlayer: Player {
         dm.addToDM(chunkA11)
         
         
-        /*bidresponses
+        /*
+        //bidresponses
         let chunkB1 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
         dm.addToDM(chunkB1)
     
