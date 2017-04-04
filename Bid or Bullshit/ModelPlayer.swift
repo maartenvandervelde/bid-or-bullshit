@@ -206,6 +206,7 @@ class ModelPlayer: Player {
         } else {
             print("I remember the number of my opponents dice")
             print(retrievedChunk!.description)
+            print("Latency opponentDice", latency)
             opponentDiceNumber = Int((retrievedChunk!.slotvals["opponentDiceNum"]?.description)!)!
             //add encounter of chunk
             dm.addToDM(retrievedChunk!)
@@ -226,6 +227,7 @@ class ModelPlayer: Player {
         } else {//retrieval succes
             print("I remember a previous openingbid")
             print(retrievedChunk!.description)
+            print("Latency openingbid", latency)
             var retrievedBid = retrievedChunk!.slotvals["myBid"]!.description
             retrievedBid = retrievedBid.replacingOccurrences(of: ",", with: "",options: .regularExpression)
             retrievedBid = retrievedBid.replacingOccurrences(of: "\\[", with: "",options: .regularExpression)
@@ -267,6 +269,7 @@ class ModelPlayer: Player {
         } else {//retrieval succes
             print("I remember a previous response to a similar bid")
             print(retrievedChunk!.description)
+            print("Latency previousresponse", latency)
             let retrievedResult = Int((retrievedChunk!.slotvals["result"]?.description)!)!
             
             if(retrievedResult==1){
