@@ -296,7 +296,7 @@ class ModelPlayer: Player {
         print("remainder/opponentDice: ", Double(Double(remainder)/Double(opponentDice)))
         
         //if below pip probability or not
-        if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/5.0)){
+        if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/4.0)){
             print("I want to reject this")
             //leave response as '0'
             
