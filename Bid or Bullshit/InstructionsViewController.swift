@@ -40,8 +40,8 @@ class InstructionsViewController: UIViewController {
     private func setBackgroundImage() {
         let backgroundImageView = UIImageView(frame: self.view.bounds)
         backgroundImageView.contentMode = .scaleAspectFill
-        backgroundImageView.image = UIImage(named: "nauticalmap")
-        backgroundImageView.alpha = 0.25
+        backgroundImageView.image = UIImage(named: "paper")
+        backgroundImageView.alpha = 0.75
         view.addSubview(backgroundImageView)
         view.sendSubview(toBack: backgroundImageView)
     }
