@@ -21,7 +21,7 @@ class ModelPlayer: Player {
         .PlayerOpeningBid: "Let's see what you're made of!",
         .ModelResponse: "Let's see...",
         .PlayerResponse: "What do you make of my bid?!",
-        .ModelCallsBullshit: "You liar!",
+        .ModelCallsBullshit: "Liar! Are you trying to be a grown-up?!",
         .PlayerCallsBullshit: "You think I'm lying?!",
         .ModelWinsRound: "If I were you, I'd give up.",
         .PlayerWinsRound: "Arrrr! How dare you?!",
@@ -47,11 +47,11 @@ class ModelPlayer: Player {
         .PlayerOpeningBid: "Do you dare to challenge my Red Flag Fleet?",
         .ModelResponse: "What is your strategy...?",
         .PlayerResponse: "Try and oppose me!",
-        .ModelCallsBullshit: "You liar!",
+        .ModelCallsBullshit: "Victory cannot escape me!",
         .PlayerCallsBullshit: "You believe me a liar?",
         .ModelWinsRound: "You broke the code of honor! You're walking the plank!",
         .PlayerWinsRound: "You won this battle, but you will not win the war!",
-        .ModelWinsGame: "I told you, no one can defeat my fleet!",
+        .ModelWinsGame: "You too have suffered a humiliating defeat at my hands!",
         .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure I won!"
     ]
     
