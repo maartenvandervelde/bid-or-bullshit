@@ -10,10 +10,13 @@ import Foundation
 
 class ModelPlayer: Player {
     
+    var rememberMemory = false
+    
     var character: OpponentCharacter?
     
     init(character: OpponentCharacter) {
         self.character = character
+        
     }
     
     let hookPhrases: [GameState:String] = [
@@ -130,12 +133,16 @@ class ModelPlayer: Player {
         let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice) //[dice, pips][dice,dice,dice,dice,dice,dice]
         //print("myTurfedDice: ", myTurfedDice)
         //print("myTopDice: ", myTopDice)
-        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        let opponentDice = getOpponentDice(ownDice:myDice)
         //print("opponentDice: ", opponentDice)
         let openingBid = getPreviousOpeningBid(ownDice: myTurfedDice, topDice: myTopDice, opponentDice: opponentDice)
         //print("openingBid: ", openingBid)
         
         latestBid = Bid(numberOfDice: openingBid[0], numberOfPips: openingBid[1])
+        
+        print("myTurfedDice: ", myTurfedDice)
+        print("opponentDice: ", opponentDice)
+        print("openingBid: ", openingBid)
         
         return latestBid!
     }
@@ -144,9 +151,8 @@ class ModelPlayer: Player {
         let myDice = self.diceList
         let opponentBid:[Int] = [bid.numberOfDice, bid.numberOfPips]
         let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice)
-        let opponentDice = getOpponentDice(ownDice:myTurfedDice)
+        let opponentDice = getOpponentDice(ownDice:myDice)
         var response: [Int]?
-        response = nil
         response = getPreviousOpponentBidResponse(ownDice: myTurfedDice, opponentDice: opponentDice, opponentBid: opponentBid)
         
         if response!.count > 1{
@@ -158,6 +164,12 @@ class ModelPlayer: Player {
             // When the model wants to call bullshit, it does so by not returning anything
             return nil
         }
+        
+        print("myTurfedDice: ", myTurfedDice)
+        print("opponentBid: ", opponentBid)
+        print("opponentDice: ", opponentDice)
+        print("response: ", response!)
+        
         return latestBid
     }
     
@@ -229,10 +241,13 @@ class ModelPlayer: Player {
     
     func makeDefaultOpeningBid(topDice: Array<Int>, opponentDice: Int) -> Array<Int>{
         let extraDice: Int = Int(floor(Double(opponentDice/6)))
+        print("diceList: ", topDice)
+        print("opponentDiceNum: ", opponentDice)
         print("extraDice: ", extraDice)
         let openingBid: [Int] = [topDice[0]+extraDice,topDice[1]] //[0]:num dice, [1]:num pips
         
         //create new chunk and add to dm
+        print("Adding new opening bid chunk")
         let chunk = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: opponentDice, myDice: topDice, myBid: openingBid)
         dm.addToDM(chunk)
         
@@ -271,24 +286,19 @@ class ModelPlayer: Player {
         var response: [Int]?
         response = [0] //response can either hold 0[reject] or counterbid[dice, pips]
         
-        //init remainder
-        var remainder: Int = opponentBid[0]
-        
-        //subtract target dice from opponents bid
-        for die in ownDice{
-            if die==opponentBid[1]{
-                remainder = remainder - 1
-            }
-        }
-        
+        print("dicelist: ", ownDice)
+        let matchedDice = ownDice[opponentBid[1]-1]
+        print("matchedDice: ", matchedDice)
+        let remainder = opponentBid[0] - matchedDice
         print("remainder/opponentDice: ", Double(Double(remainder)/Double(opponentDice)))
         
         //if below pip probability or not
-        if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/6.0)){
+        if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/5.0)){
             print("I want to reject this")
             //leave response as '0'
             
             //create new chunk and add to dm
+            print("Adding new opponent bid chunk")
             let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
             dm.addToDM(chunk)
             
@@ -299,6 +309,7 @@ class ModelPlayer: Player {
                 print("I randomly want to reject this")
                 
                 //create new chunk and add to dm
+                print("Adding new opponent bid chunk")
                 let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
                 dm.addToDM(chunk)
                 
@@ -308,6 +319,7 @@ class ModelPlayer: Player {
                 print("Response: ", response!)
                 
                 //create new chunk and add to dm
+                print("Adding new opponent bid chunk")
                 let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 1)//0: Bullshit & 1: Accept
                 dm.addToDM(chunk)
             }
@@ -377,7 +389,9 @@ class ModelPlayer: Player {
      */
     func reset() {
         time = 0
-        dm.chunks = [:]
+        if !(rememberMemory){
+            dm.chunks = [:]
+        }
         clearTrace()
         running = false
         waitingForAction = false
@@ -446,5 +460,74 @@ class ModelPlayer: Player {
         } else {
             return Value.Text(s)
         }
+    }
+    
+    func createInitialMemories(){
+        //openingbids
+        let chunkA1 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 5, myDice: [2,6], myBid: [3,6])
+        dm.addToDM(chunkA1)
+        
+        let chunkA2 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 5, myDice: [2,5], myBid: [3,5])
+        dm.addToDM(chunkA2)
+        
+        let chunkA3 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 5, myDice: [3,4], myBid: [3,4])
+        dm.addToDM(chunkA3)
+        
+        let chunkA4 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 4, myDice: [2,3], myBid: [2,3])
+        dm.addToDM(chunkA4)
+        
+        let chunkA5 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 4, myDice: [2,4], myBid: [2,5])
+        dm.addToDM(chunkA5)
+        
+        let chunkA6 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 4, myDice: [1,1], myBid: [2,1])
+        dm.addToDM(chunkA6)
+        
+        let chunkA7 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [2,2], myBid: [2,2])
+        dm.addToDM(chunkA7)
+        
+        let chunkA8 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [1,3], myBid: [2,3])
+        dm.addToDM(chunkA8)
+        
+        let chunkA9 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 3, myDice: [1,4], myBid: [1,4])
+        dm.addToDM(chunkA9)
+        
+        let chunkA10 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 2, myDice: [1,5], myBid: [1,5])
+        dm.addToDM(chunkA10)
+        
+        let chunkA11 = generateNewChunkOpeningBid(s1: "chunkOpeningBid", opponentDiceNum: 2, myDice: [1,6], myBid: [1,6])
+        dm.addToDM(chunkA11)
+        
+        
+        /*bidresponses
+        let chunkB1 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB1)
+    
+        let chunkB2 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB2)
+        
+        let chunkB3 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB3)
+        
+        let chunkB4 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB4)
+        
+        let chunkB5 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB5)
+        
+        let chunkB6 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB6)
+        
+        let chunkB7 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB7)
+        
+        let chunkB8 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB8)
+        
+        let chunkB9 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB9)
+        
+        let chunkB10 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
+        dm.addToDM(chunkB10)
+        */
     }
 }

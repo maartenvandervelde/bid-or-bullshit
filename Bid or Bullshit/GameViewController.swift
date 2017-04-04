@@ -87,9 +87,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .GameStart:
                 print("Starting a new game")
+                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
+                print("human player dice: ", (humanPlayer?.diceList.count)!)
+                print(chunk!.description)
+                modelPlayer?.dm.addToDM(chunk!)
                 setStartingPlayer()
                 
-                //////
+                /*/////
                 print("DEBUG: adding starting chunks")
                 let chunk1 = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: 1)
                 modelPlayer?.dm.addToDM(chunk1!)
@@ -103,9 +107,8 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelPlayer?.dm.addToDM(chunk3!)
                 print(chunk3!.description)
                 //////
+                */
                 
-                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
-                modelPlayer?.dm.addToDM(chunk!)
             
             case .ModelOpeningBid:
                 print("\(opponent!.name) makes an opening bid")
@@ -185,9 +188,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 discardDice(player: "human")
                 
-                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
-                modelPlayer?.dm.addToDM(chunk!)
-                
                 let gameover = checkIfGameOver()
                 if !gameover {
                     let when = DispatchTime.now() + 1.5
@@ -218,12 +218,25 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 playAgainButton.isHidden = false
                 
+                //DEBUG: Print all chunks in dm
+                print("DEBUG: printing all chunks")
+                for (_,chunk) in (modelPlayer?.dm.chunks)! {
+                    print(chunk.description)
+                    print(chunk.baseLevelActivation)
+                }
+                
             case .PlayerWinsGame:
                 print("The player has won the game")
                 statusMessage = statusMessage! + " You have won the game."
                 
                 playAgainButton.isHidden = false
-            
+                
+                //DEBUG: Print all chunks in dm
+                print("DEBUG: printing all chunks")
+                for (_,chunk) in (modelPlayer?.dm.chunks)! {
+                    print(chunk.description)
+                    print(chunk.baseLevelActivation)
+                }
             }
             
             let when = DispatchTime.now() + 0.05
@@ -331,7 +344,10 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         humanPlayer = HumanPlayer()
         modelPlayer = ModelPlayer(character: opponent!)
-        
+        if opponent?.name=="Ching Shih"{
+            print("Creating initial memories for Ching Shih")
+            modelPlayer?.createInitialMemories()
+        }
         
         let when = DispatchTime.now() + 0.1
         DispatchQueue.main.asyncAfter(deadline: when) {
