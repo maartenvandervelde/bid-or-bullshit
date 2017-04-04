@@ -41,13 +41,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var rollButton: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var quit: UIButton!
-    
-//    let diceImages = [1: UIImage(named: "die-1"),
-//                      2: UIImage(named: "die-2"),
-//                      3: UIImage(named: "die-3"),
-//                      4: UIImage(named: "die-4"),
-//                      5: UIImage(named: "die-5"),
-//                      6: UIImage(named: "die-6")]
 
     let diceImages = [1: UIImage(named: "dop1"),
                       2: UIImage(named: "dop2"),
@@ -72,8 +65,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     var modelWonLastRound: Bool?
     var latestBid: Bid?
     
-    var previousTime: Double?
-    var currentTime: Double?
     
     private var gamestate = GameState.GameStart {
         didSet {
@@ -91,24 +82,16 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .GameStart:
                 print("Starting a new game")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
+                // ??
                 let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
                 print("human player dice: ", (humanPlayer?.diceList.count)!)
                 print(chunk!.description)
                 modelPlayer?.dm.addToDM(chunk!)
+                
                 setStartingPlayer()
             
             case .ModelOpeningBid:
                 print("\(opponent!.name) makes an opening bid")
-                
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
                 
                 statusMessage = "It's \(opponent!.name)'s turn to start."
                 modelBid = modelPlayer!.makeOpeningBid()
@@ -116,11 +99,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .PlayerOpeningBid:
                 print("The player makes an opening bid")
-                
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
                 
                 statusMessage = "It's your turn to start. Make an opening bid."
                 
@@ -137,11 +115,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .ModelResponse:
                 print("\(opponent!.name) responds to the player's bid")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
                 statusMessage = "You bid \(playerBid.repr()). \(opponent!.name) will now respond."
                 
                 let modelResponse = modelPlayer!.respondToBid(bid: playerBid)
@@ -149,11 +122,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             case .PlayerResponse:
                 print("The player responds to \(opponent!.name)'s bid")
-                
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
                 
                 statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
                 
@@ -171,23 +139,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .ModelCallsBullshit:
                 print("\(opponent!.name) calls bullshit")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
                 statusMessage = "\(opponent!.name) does not believe your bid of \(playerBid.repr()). Let's see who's right."
-                
-                
-                /*/update dm behavior chunks
-                if opponent?.name=="Ching Shih"{
-                    let(_, opponentTurfedDice) = (modelPlayer?.getMyTopDice(ownDice: humanPlayer!.diceList))!
-                    let opponentBid = [playerBid.numberOfDice, playerBid.numberOfPips]
-                    
-                    print("updating behavior chunks: \(opponentTurfedDice), \(opponentBid)")
-                    
-                    modelPlayer?.evaluateBehavior(opponentDice: opponentTurfedDice, opponentBid: opponentBid)
-                }*/
                 
                 let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
@@ -208,11 +160,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             case .PlayerCallsBullshit:
                 print("The player calls bullshit")
-                
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
                 
                 statusMessage = "You don't believe \(opponent!.name)'s bid of \(modelBid.repr()). Let's see who's right."
                 
@@ -237,11 +184,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelWonLastRound = true
                 print("\(opponent!.name) wins this round")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
                 statusMessage = "\(opponent!.name) wins this round. Final bid: \(latestBid!.repr())."
                 
                 discardDice(player: "human")
@@ -259,13 +201,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 modelWonLastRound = false
                 print("You win this round")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
                 statusMessage = "You win this round. Final bid: \(latestBid!.repr())."
-                //modelPlayer!.discardDice()
                 discardDice(player: "model")
                 
                 let gameover = checkIfGameOver()
@@ -279,52 +215,30 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             case .ModelWinsGame:
                 print("\(opponent!.name) has won the game")
                 
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
-                
                 statusMessage = statusMessage! + " \(opponent!.name) has won the game."
                 
                 playAgainButton.isHidden = false
                 
-                //DEBUG: Print all chunks in dm
-                print("DEBUG: printing all chunks")
-                for (_,chunk) in (modelPlayer?.dm.chunks)! {
-                    print(chunk.description)
-                    print(chunk.creationTime!)
-                    print(chunk.referenceList)
-                    print(chunk.references)
-                    print(chunk.baseLevelActivation)
-                }
+                modelPlayer?.printChunksInDM()
                 
             case .PlayerWinsGame:
                 print("The player has won the game")
-                
-                //update dm time
-                previousTime = currentTime
-                currentTime = getCurrentSec()
-                modelPlayer?.time = (modelPlayer?.time)! + (currentTime!-previousTime!)
                 
                 statusMessage = statusMessage! + " You have won the game."
                 
                 playAgainButton.isHidden = false
                 
-                //DEBUG: Print all chunks in dm
-                print("DEBUG: printing all chunks")
-                for (_,chunk) in (modelPlayer?.dm.chunks)! {
-                    print(chunk.description)
-                    print(chunk.creationTime!)
-                    print(chunk.referenceList)
-                    print(chunk.references)
-                    print(chunk.baseLevelActivation)
-                }
+                modelPlayer?.printChunksInDM()
+
             }
             
             let when = DispatchTime.now() + 0.05
             DispatchQueue.main.asyncAfter(deadline: when) {
                 self.drawOpponentSpeechBubble(message: self.modelPlayer!.speak(gamestate: self.gamestate))
             }
+            
+            // Tell model to update its time
+            modelPlayer?.updateTime()
 
         }
     }
@@ -420,27 +334,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         modelPlayer = ModelPlayer(character: opponent!)
         modelPlayer?.name = (opponent?.name)!
         
-        if opponent?.name=="Ching Shih"{
-            /*print("Adding behavior chunks to dm for Ching Shih")
-            //under bid
-            var chunk = modelPlayer?.generateNewChunkBehavior(s1: "chunkBehavior", behavior: "under")
-            modelPlayer?.dm.addToDM(chunk!)
-            
-            //equal bid
-            chunk = modelPlayer?.generateNewChunkBehavior(s1: "chunkBehavior", behavior: "equal")
-            modelPlayer?.dm.addToDM(chunk!)
-            
-            //over bid
-            chunk = modelPlayer?.generateNewChunkBehavior(s1: "chunkBehavior", behavior: "over")
-            modelPlayer?.dm.addToDM(chunk!)*/
-            
-            print("Creating initial memories for Ching Shih")
-            modelPlayer?.createInitialMemories()
-        }
-        
-        //set initial time stamp
-        currentTime = getCurrentSec()
-        
         let when = DispatchTime.now() + 0.1
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.drawPlayerDice(spin: true)
@@ -448,13 +341,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         drawOpponentDice(hidden: true)
         
         gamestate = .PlayerOpeningBid
-        //gameInformation.layer.borderWidth = 1
-        //gameInformation.backgroundColor = UIColor.white
-        //gameInformation.textColor = UIColor.black
-        //gameInformation.layer.cornerRadius = 10
-        //gameInformation.layer.shadowOpacity = 0.8
-        //gameInformation.layer.shadowRadius = 5
-        //gameInformation.layer.shadowOffset = CGSize(width: 2, height: 2)
 
         setBackgroundImage()
 
@@ -491,6 +377,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         quit.contentEdgeInsets = UIEdgeInsets(top:8, left:15,bottom:8,right:15)
 
     }
+    
 
     private func setStartingPlayer() {
         // If it's the first round, choose the starting player randomly
@@ -518,7 +405,6 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         humanPlayer = HumanPlayer()
         modelPlayer = ModelPlayer(character: opponent!)
         gamestate = .GameStart
-        currentTime = getCurrentSec()
         drawPlayerDice(spin: true)
         drawOpponentDice(hidden: true)
     }
@@ -753,9 +639,5 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 subview.removeFromSuperview()
             }
         }
-    }
-    
-    func getCurrentSec()->Double {
-        return Double(Date().timeIntervalSince1970)
     }
 }

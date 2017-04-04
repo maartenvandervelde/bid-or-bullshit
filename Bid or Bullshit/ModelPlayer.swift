@@ -61,6 +61,8 @@ class ModelPlayer: Player {
     
     var name: String?
     var time: Double = 0
+    var previousTime: Double = Double(Date().timeIntervalSince1970)
+    var currentTime: Double = Double(Date().timeIntervalSince1970)
     var dm = Declarative()
     var chunkIdCounterOpponentDiceNum = 0
     var chunkIdCounterOpeningBid = 0
@@ -98,33 +100,26 @@ class ModelPlayer: Player {
         default:
             return ""
         }
-        
-        /*
-        switch gamestate {
-        case .GameStart:
-            return "This is the model speaking at the start of the game."
-        case .ModelOpeningBid:
-            return "I'm making an opening bid."
-        case .PlayerOpeningBid:
-            return "The player is making an opening bid."
-        case .ModelResponse:
-            return "Let me think about it..."
-        case .PlayerResponse:
-            return "I bid \(latestBid!.repr())."
-        case .ModelCallsBullshit:
-            return "I don't believe you."
-        case .PlayerCallsBullshit:
-            return "You don't believe me."
-        case .ModelWinsRound:
-            return "I have won."
-        case .PlayerWinsRound:
-            return "You win this time."
-        case .ModelWinsGame:
-            return "I have won the game"
-        case .PlayerWinsGame:
-            return "You have won the game."
+    }
+    
+    // Updates time of DM
+    func updateTime() {
+        previousTime = currentTime
+        currentTime = getCurrentSec()
+        time = time + (currentTime-previousTime)
+    }
+    
+    // Print all chunks in model's DM
+    func printChunksInDM() {
+        //DEBUG: Print all chunks in dm
+        print("DEBUG: printing all chunks")
+        for (_,chunk) in dm.chunks {
+            print(chunk.description)
+            print(chunk.creationTime!)
+            print(chunk.referenceList)
+            print(chunk.references)
+            print(chunk.baseLevelActivation)
         }
-         */
     }
     
     func makeOpeningBid() -> Bid {
@@ -310,47 +305,7 @@ class ModelPlayer: Player {
             print("Adding new opponent bid chunk")
             let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
             dm.addToDM(chunk)
-
-
-            /*if (name=="Ching Shih"){
-                let slots: Array<String> = ["type"]
-                let values: Array<Value> = [Value.Text("behavior")]
-                let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
-                
-                time += latency
-                
-                if retrievedChunk == nil{//retrieval failure
-                    //leave response as '0'
-                    print("I want to reject this based on pip probability")
-                    
-                    //create new chunk and add to dm
-                    print("Adding new opponent bid chunk")
-                    let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
-                    dm.addToDM(chunk)
-                    
-                } else {//retrieval succes
-                    let retrievedResult = (retrievedChunk!.slotvals["behavior"]?.description)!
-                    
-                    if(retrievedResult == "above"){
-                        //leave response as '0'
-                        print("I want to reject this based on your overbidding behavior")
-                        
-                        //create new chunk and add to dm
-                        print("Adding new opponent bid chunk")
-                        let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
-                        dm.addToDM(chunk)
-                    } else {
-                        print("I want to make a counter offer since you generally bid what you have")
-                        response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
-                        print("Response: ", response!)
-                        
-                        //create new chunk and add to dm
-                        print("Adding new opponent bid chunk")
-                        let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 1)//0: Bullshit & 1: Accept
-                        dm.addToDM(chunk)
-                    }
-                }
-            }*/
+            
         } else {
             //randomly reject offer
             let choice = arc4random_uniform(10)
@@ -445,19 +400,6 @@ class ModelPlayer: Player {
         running = false
         waitingForAction = false
     }
-    
-    
-    /**
-     Generate a chunk with a unique ID starting with the given string
-     - parameter s1: The base name of the chunk
-     - returns: the new chunk
-     */
-    /*func generateNewChunk(string s1: String = "chunk") -> Chunk {
-     let name = s1 + "\(chunkIdCounter)"
-     chunkIdCounter += 1
-     let chunk = Chunk(s: name, m: self)
-     return chunk
-     }*/
     
     func generateNewChunkOpponentDiceNum(s1: String, opponentDiceNum: Int) -> Chunk {
         let chunk = generateNewChunk(s1: s1, id: chunkIdCounterOpponentDiceNum)
@@ -610,5 +552,9 @@ class ModelPlayer: Player {
         let chunkB10 = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: 3, myDice: [0,0,2,1,1,0], opponentBid: [2,3], result: 0)//0: Bullshit & 1: Accept
         dm.addToDM(chunkB10)
         */
+    }
+    
+    private func getCurrentSec() -> Double {
+        return Double(Date().timeIntervalSince1970)
     }
 }

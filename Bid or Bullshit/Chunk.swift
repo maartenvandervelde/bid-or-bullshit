@@ -14,14 +14,6 @@ class Chunk: CustomStringConvertible {
     /// The model that the chunk is part of
     let model: ModelPlayer
     /// When was the chunk added to DM? If nil it means the chunk is not part of DM (yet)
-    
-    /*var type: String? = nil
-     var opponentDiceNum: Int? = nil
-     var myDice: [Int]? = nil
-     var myBid: [Int]? = nil
-     var opponentBid: [Int]? = nil
-     var result: Int? = nil*/
-    
     var creationTime: Double? = nil
     /// Number of references. Assume a single reference on creation
     var references: Int = 1
