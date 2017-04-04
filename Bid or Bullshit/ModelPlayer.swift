@@ -10,13 +10,12 @@ import Foundation
 
 class ModelPlayer: Player {
     
-    var rememberMemory = false
+    var rememberMemory = true
     
     var character: OpponentCharacter?
     
     init(character: OpponentCharacter) {
         self.character = character
-        
     }
     
     let hookPhrases: [GameState:String] = [
@@ -60,11 +59,13 @@ class ModelPlayer: Player {
     
     // instantiation of and interaction with act-r model
     
+    var name: String?
     var time: Double = 0
     var dm = Declarative()
     var chunkIdCounterOpponentDiceNum = 0
     var chunkIdCounterOpeningBid = 0
     var chunkIdCounterOpponentBid = 0
+    var chunkIdBehavior = 0
     var running = false
     var trace: String = "" {
         didSet {
@@ -199,6 +200,8 @@ class ModelPlayer: Player {
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
         
         var opponentDiceNumber: Int = -1
+        time += latency
+        print("DM time: ", time)
         
         if retrievedChunk == nil{//retrieval failure
             print("I do not remember the number of my opponents dice, lets assumme they have the same as me")
@@ -206,7 +209,6 @@ class ModelPlayer: Player {
         } else {
             print("I remember the number of my opponents dice")
             print(retrievedChunk!.description)
-            print("Latency opponentDice", latency)
             opponentDiceNumber = Int((retrievedChunk!.slotvals["opponentDiceNum"]?.description)!)!
             //add encounter of chunk
             dm.addToDM(retrievedChunk!)
@@ -221,13 +223,15 @@ class ModelPlayer: Player {
         let values: Array<Value> = [Value.Text("openingBid"),Value.NumberI(opponentDice),Value.Array(topDice)]
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
         
+        time += latency
+        print("DM time: ", time)
+        
         if retrievedChunk == nil{//retrieval failure
             print("I do not remember a previous openingbid, lets make a standard bid")
             openingBid = makeDefaultOpeningBid(topDice: topDice, opponentDice: opponentDice)
         } else {//retrieval succes
             print("I remember a previous openingbid")
             print(retrievedChunk!.description)
-            print("Latency openingbid", latency)
             var retrievedBid = retrievedChunk!.slotvals["myBid"]!.description
             retrievedBid = retrievedBid.replacingOccurrences(of: ",", with: "",options: .regularExpression)
             retrievedBid = retrievedBid.replacingOccurrences(of: "\\[", with: "",options: .regularExpression)
@@ -263,13 +267,15 @@ class ModelPlayer: Player {
         let values: Array<Value> = [Value.Text("opponentBid"),Value.NumberI(opponentDice),Value.Array(ownDice),Value.Array(opponentBid)]
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
         
+        time += latency
+        print("DM time: ", time)
+        
         if retrievedChunk == nil{//retrieval failure
             print("I do not remember a previous response to a similar bid, lets make a standard response")//can be bullshit
             response = makeDefaultResponse(ownDice: ownDice, opponentDice: opponentDice, opponentBid: opponentBid)
         } else {//retrieval succes
             print("I remember a previous response to a similar bid")
             print(retrievedChunk!.description)
-            print("Latency previousresponse", latency)
             let retrievedResult = Int((retrievedChunk!.slotvals["result"]?.description)!)!
             
             if(retrievedResult==1){
@@ -297,14 +303,54 @@ class ModelPlayer: Player {
         
         //if below pip probability or not
         if (Double(Double(remainder)/Double(opponentDice)) > Double(1.0/4.0)){
-            print("I want to reject this")
             //leave response as '0'
+            print("I want to reject this based on pip probability")
             
             //create new chunk and add to dm
             print("Adding new opponent bid chunk")
             let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
             dm.addToDM(chunk)
-            
+
+
+            /*if (name=="Ching Shih"){
+                let slots: Array<String> = ["type"]
+                let values: Array<Value> = [Value.Text("behavior")]
+                let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
+                
+                time += latency
+                
+                if retrievedChunk == nil{//retrieval failure
+                    //leave response as '0'
+                    print("I want to reject this based on pip probability")
+                    
+                    //create new chunk and add to dm
+                    print("Adding new opponent bid chunk")
+                    let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
+                    dm.addToDM(chunk)
+                    
+                } else {//retrieval succes
+                    let retrievedResult = (retrievedChunk!.slotvals["behavior"]?.description)!
+                    
+                    if(retrievedResult == "above"){
+                        //leave response as '0'
+                        print("I want to reject this based on your overbidding behavior")
+                        
+                        //create new chunk and add to dm
+                        print("Adding new opponent bid chunk")
+                        let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 0)//0: Bullshit & 1: Accept
+                        dm.addToDM(chunk)
+                    } else {
+                        print("I want to make a counter offer since you generally bid what you have")
+                        response = makeCounterBid(myDice: ownDice, opponentBid: opponentBid)
+                        print("Response: ", response!)
+                        
+                        //create new chunk and add to dm
+                        print("Adding new opponent bid chunk")
+                        let chunk = generateNewChunkOpponentBid(s1: "chunkOpponentBid", opponentDiceNum: opponentDice, myDice: ownDice, opponentBid: opponentBid, result: 1)//0: Bullshit & 1: Accept
+                        dm.addToDM(chunk)
+                    }
+                }
+            }*/
         } else {
             //randomly reject offer
             let choice = arc4random_uniform(10)
@@ -445,6 +491,15 @@ class ModelPlayer: Player {
         return chunk
     }
     
+    func generateNewChunkBehavior(s1: String, behavior: String) -> Chunk {
+        let chunk = generateNewChunk(s1: s1, id: chunkIdBehavior)
+        chunkIdBehavior += 1
+        chunk.slotvals["type"] = Value.Text("behavior")
+        chunk.slotvals["behavior"] = Value.Text(behavior)
+        chunk.printOrder = ["type", "behavior"]
+        return chunk
+    }
+    
     func generateNewChunk(s1: String, id: Int) -> Chunk {
         let name = s1 + "\(id)"
         let chunk = Chunk(s: name, m: self)
@@ -462,6 +517,28 @@ class ModelPlayer: Player {
             return Value.Empty
         } else {
             return Value.Text(s)
+        }
+    }
+    
+    func evaluateBehavior(opponentDice: [Int], opponentBid: [Int]){
+        let matchedDice = opponentDice[opponentBid[1]-1]
+        let remainder = opponentBid[0] - matchedDice
+        print("remainder: \(remainder)")
+        
+        //if player made a bid equal to their hand
+        if (remainder == 0){
+            let chunk = generateNewChunkBehavior(s1: "chunkBehavior", behavior: "equal")
+            dm.addToDM(chunk)
+            
+        //if player made a bid above their hand
+        } else if (remainder > 0) {
+            let chunk = generateNewChunkBehavior(s1: "chunkBehavior", behavior: "over")
+            dm.addToDM(chunk)
+            
+        //if player made a bid below their hand
+        } else {
+            let chunk = generateNewChunkBehavior(s1: "chunkBehavior", behavior: "under")
+            dm.addToDM(chunk)
         }
     }
     
