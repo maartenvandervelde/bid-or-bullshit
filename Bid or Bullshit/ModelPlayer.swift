@@ -10,12 +10,16 @@ import Foundation
 
 class ModelPlayer: Player {
     
-    var rememberMemory = true
-    
     var character: OpponentCharacter?
     
     init(character: OpponentCharacter) {
+        super.init()
         self.character = character
+        
+        if (character.difficulty == "expert") {
+            print("Creating initial memories for Ching Shih")
+            createInitialMemories()
+        }
     }
     
     let hookPhrases: [GameState:String] = [
@@ -57,6 +61,21 @@ class ModelPlayer: Player {
         .PlayerWinsGame: "Okay, I'll retire, but I'll keep the treasure!"
     ]
     
+    func speak(gamestate: GameState) -> String {
+        // These are some canned responses that the model says every time the game state changes.
+        // It returns a different string depending on the game state and the character.
+        switch(character!.name) {
+        case "Captain Hook":
+            return hookPhrases[gamestate]!
+        case "Davy Jones":
+            return davyPhrases[gamestate]!
+        case "Ching Shih":
+            return chingPhrases[gamestate]!
+        default:
+            return ""
+        }
+    }
+    
     // instantiation of and interaction with act-r model
     
     var name: String?
@@ -64,6 +83,7 @@ class ModelPlayer: Player {
     var previousTime: Double = Double(Date().timeIntervalSince1970)
     var currentTime: Double = Double(Date().timeIntervalSince1970)
     var dm = Declarative()
+    var rememberMemory = true // When the model is reset it will keep its memory chunks
     var chunkIdCounterOpponentDiceNum = 0
     var chunkIdCounterOpeningBid = 0
     var chunkIdCounterOpponentBid = 0
@@ -86,21 +106,7 @@ class ModelPlayer: Player {
     
     private var latestBid: Bid?
     
-    func speak(gamestate: GameState) -> String {
-        // These are some canned responses that the model says every time the game state changes.
-        // It returns a different string depending on the game state (this can be expanded further if needed).
-        
-        switch(character!.name) {
-        case "Captain Hook":
-            return hookPhrases[gamestate]!
-        case "Davy Jones":
-            return davyPhrases[gamestate]!
-        case "Ching Shih":
-            return chingPhrases[gamestate]!
-        default:
-            return ""
-        }
-    }
+    
     
     // Updates time of DM
     func updateTime() {
@@ -146,7 +152,7 @@ class ModelPlayer: Player {
     func respondToBid(bid: Bid) -> Bid? {
         let myDice = self.diceList
         let opponentBid:[Int] = [bid.numberOfDice, bid.numberOfPips]
-        let (myTopDice, myTurfedDice) = getMyTopDice(ownDice: myDice)
+        let (_, myTurfedDice) = getMyTopDice(ownDice: myDice)
         let opponentDice = getOpponentDice(ownDice:myDice)
         var response: [Int]?
         response = getPreviousOpponentBidResponse(ownDice: myTurfedDice, opponentDice: opponentDice, opponentBid: opponentBid)
@@ -154,9 +160,7 @@ class ModelPlayer: Player {
         if response!.count > 1{
             latestBid = Bid(numberOfDice: (response?[0])!, numberOfPips: (response?[1])!)
         }
-        else{
-            //GameState.ModelCallsBullshit
-            
+        else{            
             // When the model wants to call bullshit, it does so by not returning anything
             return nil
         }
@@ -169,7 +173,7 @@ class ModelPlayer: Player {
         return latestBid
     }
     
-    func getMyTopDice(ownDice: Array<Int>) -> (Array<Int>, Array<Int>){
+    private func getMyTopDice(ownDice: Array<Int>) -> (Array<Int>, Array<Int>){
         //Choose pip with highest number of dice
         var dice: [Int] = [0,0,0,0,0,0]
         for die in ownDice {
@@ -189,7 +193,7 @@ class ModelPlayer: Player {
         return (topDice, dice)
     }
     
-    func getOpponentDice(ownDice: Array<Int>) -> Int{
+    private func getOpponentDice(ownDice: Array<Int>) -> Int{
         let slots: Array<String> = ["type"]
         let values: Array<Value> = [Value.Text("opponentDiceNum")]
         let (latency, retrievedChunk) = dm.retrieve(slots: slots, values: values)
@@ -212,7 +216,7 @@ class ModelPlayer: Player {
         return opponentDiceNumber
     }
     
-    func getPreviousOpeningBid(ownDice: Array<Int>, topDice: Array<Int>,  opponentDice: Int) -> Array<Int>{
+    private func getPreviousOpeningBid(ownDice: Array<Int>, topDice: Array<Int>,  opponentDice: Int) -> Array<Int>{
         var openingBid: Array<Int> = [0,0]
         let slots: Array<String> = ["type","opponentDiceNum","myDice"]
         let values: Array<Value> = [Value.Text("openingBid"),Value.NumberI(opponentDice),Value.Array(topDice)]
@@ -240,7 +244,7 @@ class ModelPlayer: Player {
         return openingBid
     }
     
-    func makeDefaultOpeningBid(topDice: Array<Int>, opponentDice: Int) -> Array<Int>{
+    private func makeDefaultOpeningBid(topDice: Array<Int>, opponentDice: Int) -> Array<Int>{
         let extraDice: Int = Int(floor(Double(opponentDice/6)))
         print("diceList: ", topDice)
         print("opponentDiceNum: ", opponentDice)
@@ -255,7 +259,7 @@ class ModelPlayer: Player {
         return openingBid
     }
     
-    func getPreviousOpponentBidResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
+    private func getPreviousOpponentBidResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
         var response: [Int]?
         response = nil
         let slots: Array<String> = ["type","opponentDiceNum","myDice", "opponentBid"]
@@ -286,7 +290,7 @@ class ModelPlayer: Player {
         return response!
     }
     
-    func makeDefaultResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
+    private func makeDefaultResponse(ownDice: Array<Int>, opponentDice: Int, opponentBid: Array<Int>) -> Array<Int>{
         var response: [Int]?
         response = [0] //response can either hold 0[reject] or counterbid[dice, pips]
         
@@ -331,7 +335,7 @@ class ModelPlayer: Player {
         return response!
     }
     
-    func makeCounterBid(myDice: Array<Int>, opponentBid: Array<Int>) -> Array<Int>{
+    private func makeCounterBid(myDice: Array<Int>, opponentBid: Array<Int>) -> Array<Int>{
         var response = [0,0]
         var choice = arc4random_uniform(4)
         var valid = false
@@ -368,19 +372,19 @@ class ModelPlayer: Player {
         return response
     }
     
-    func addToTrace(string s: String) {
+    private func addToTrace(string s: String) {
         let timeString = String(format:"%.2f", time)
         trace += "\(timeString)  " + s + "\n"
     }
     
-    func clearTrace() {
+    private func clearTrace() {
         trace = ""
     }
     
     /**
      When you want to use partial matching, override this function when you subclass Model
      */
-    func mismatchFunction(x: Value, y: Value) -> Double? {
+    private func mismatchFunction(x: Value, y: Value) -> Double? {
         if x == y {
             return 0
         } else {
@@ -401,7 +405,18 @@ class ModelPlayer: Player {
         waitingForAction = false
     }
     
-    func generateNewChunkOpponentDiceNum(s1: String, opponentDiceNum: Int) -> Chunk {
+    /**
+     Create a new chunk for the number of dice the human player has.
+    */
+    func encodeHumanPlayerDiceNum(count: Int) {
+        let chunk = generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: count)
+        print("human player dice: \(count)")
+        print(chunk.description)
+        dm.addToDM(chunk)
+    }
+
+    
+    private func generateNewChunkOpponentDiceNum(s1: String, opponentDiceNum: Int) -> Chunk {
         let chunk = generateNewChunk(s1: s1, id: chunkIdCounterOpponentDiceNum)
         chunkIdCounterOpponentDiceNum += 1
         chunk.slotvals["type"] = Value.Text("opponentDiceNum")

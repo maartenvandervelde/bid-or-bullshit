@@ -8,7 +8,9 @@
 
 import UIKit
 
-
+/**
+ The state of the game at any point in time is one of the following.
+*/
 enum GameState: String {
     case GameStart
     case ModelOpeningBid
@@ -26,6 +28,7 @@ enum GameState: String {
 
 class GameViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
+    // Interface elements
     @IBOutlet weak var opponentImage: UIImageView!
     @IBOutlet weak var gameInformation: UILabel!
     
@@ -65,13 +68,16 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     var modelWonLastRound: Bool?
     var latestBid: Bid?
     
-    
+    /**
+     The game state keeps track of the current position in the game.
+     Changes in the game state prompt changes in the interface (which elements are shown to the user).
+     Changes in the game state will also prompt communication with the model, e.g. to ask it for a new bid.
+    */
     private var gamestate = GameState.GameStart {
         didSet {
             
             // The visibility of interface elements is controlled here.
             // Whenenver the gamestate changes, hide all state-dependent interface elements, and unhide those that are relevant in the current state.
-            
             playerBidButtons.isHidden = true
             playerBullshitButton.isHidden = true
             rollButton.isHidden = true
@@ -79,25 +85,23 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             switch gamestate {
             
-            case .GameStart:
+            case .GameStart: // Start of a new game (round)
                 print("Starting a new game")
                 
-                // ??
-                let chunk = modelPlayer?.generateNewChunkOpponentDiceNum(s1: "chunkOppDiceNum", opponentDiceNum: (humanPlayer?.diceList.count)!)
-                print("human player dice: ", (humanPlayer?.diceList.count)!)
-                print(chunk!.description)
-                modelPlayer?.dm.addToDM(chunk!)
+                // At the start of each round, the model knows with certainty how many dice the human player has
+                modelPlayer?.encodeHumanPlayerDiceNum(count: humanPlayer!.diceList.count)
                 
+                // Select the player that starts the bidding
                 setStartingPlayer()
             
-            case .ModelOpeningBid:
+            case .ModelOpeningBid: // The model makes an opening bid
                 print("\(opponent!.name) makes an opening bid")
                 
                 statusMessage = "It's \(opponent!.name)'s turn to start."
                 modelBid = modelPlayer!.makeOpeningBid()
                 latestBid = modelBid
             
-            case .PlayerOpeningBid:
+            case .PlayerOpeningBid: // The player makes an opening bid
                 print("The player makes an opening bid")
                 
                 statusMessage = "It's your turn to start. Make an opening bid."
@@ -112,7 +116,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playerBidButtons.isHidden = false
                 playerBidConfirmButton.isEnabled = true
             
-            case .ModelResponse:
+            case .ModelResponse: // The model responds to the player's bid
                 print("\(opponent!.name) responds to the player's bid")
                 
                 statusMessage = "You bid \(playerBid.repr()). \(opponent!.name) will now respond."
@@ -120,7 +124,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 let modelResponse = modelPlayer!.respondToBid(bid: playerBid)
                 processModelResponse(modelResponse: modelResponse)
             
-            case .PlayerResponse:
+            case .PlayerResponse: // The player responds to the model's bid
                 print("The player responds to \(opponent!.name)'s bid")
                 
                 statusMessage = "\(opponent!.name) bid \(modelBid.repr()). It is your turn."
@@ -136,13 +140,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 playerBidButtons.isHidden = false
                 playerBullshitButton.isHidden = false
             
-            case .ModelCallsBullshit:
+            case .ModelCallsBullshit: // The model doesn't believe the player's bid
                 print("\(opponent!.name) calls bullshit")
                 
                 statusMessage = "\(opponent!.name) does not believe your bid of \(playerBid.repr()). Let's see who's right."
                 
+                // Evaluate the bid made by the player
                 let bidCorrect = Perudo.isBidCorrect(bid: playerBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
+                // If the player's bid was correct, declare player the winner of the round. If not, the model is the winner.
                 if bidCorrect {
                     // delay for 3 seconds
                     let when = DispatchTime.now() + 3
@@ -158,13 +164,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     }
                 }
 
-            case .PlayerCallsBullshit:
+            case .PlayerCallsBullshit: // The player does not believe the model's bid
                 print("The player calls bullshit")
                 
                 statusMessage = "You don't believe \(opponent!.name)'s bid of \(modelBid.repr()). Let's see who's right."
                 
+                // Evaluate the model's bid
                 let bidCorrect = Perudo.isBidCorrect(bid: modelBid, player1dice: humanPlayer!.diceList, player2dice: modelPlayer!.diceList)
                 
+                // If the model's bid was correct, declare the model the winner
                 if bidCorrect {
                     // delay for 3 seconds
                     let when = DispatchTime.now() + 3
@@ -180,7 +188,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     }
                 }
             
-            case .ModelWinsRound:
+            case .ModelWinsRound: // The model wins the round
                 modelWonLastRound = true
                 print("\(opponent!.name) wins this round")
                 
@@ -196,8 +204,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     }
                 }
                 
-                
-            case .PlayerWinsRound:
+            case .PlayerWinsRound: // The player wins the round
                 modelWonLastRound = false
                 print("You win this round")
                 
@@ -212,7 +219,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                     }
                 }
                 
-            case .ModelWinsGame:
+            case .ModelWinsGame: // The player has no more dice. The model wins
                 print("\(opponent!.name) has won the game")
                 
                 statusMessage = statusMessage! + " \(opponent!.name) has won the game."
@@ -221,7 +228,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 
                 modelPlayer?.printChunksInDM()
                 
-            case .PlayerWinsGame:
+            case .PlayerWinsGame: // The model has no more dice. The player wins
                 print("The player has won the game")
                 
                 statusMessage = statusMessage! + " You have won the game."
@@ -232,6 +239,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
 
             }
             
+            // Draw model player's speech bubble
             let when = DispatchTime.now() + 0.05
             DispatchQueue.main.asyncAfter(deadline: when) {
                 self.drawOpponentSpeechBubble(message: self.modelPlayer!.speak(gamestate: self.gamestate))
@@ -243,12 +251,18 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
+    /**
+     Text label in the middle of the screen
+    */
     private var statusMessage: String? {
         didSet {
             gameInformation.text = statusMessage!
         }
     }
     
+    /**
+     If the player's bid is updated, update the steppers and labels on screen accordingly.
+    */
     private var playerBid = Bid() {
         didSet {
             playerBidNumberOfDiceStepper.value = Double(playerBid.numberOfDice)
@@ -269,6 +283,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
+    /**
+     If the model's bid is updated, let the player respond (after a delay).
+    */
     private var modelBid = Bid() {
         didSet {
             // delay for 3 seconds
@@ -281,7 +298,7 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
 
-    
+    // Functions that take stepper actions and translate them to the internal representation of the player's bid
     @IBAction func setPlayerBidNumberOfDice(_ sender: UIStepper) {
         playerBid.numberOfDice = Int(sender.value)
     }
@@ -290,7 +307,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     /// BACK BUTTON
-    // Return to main menu, throwing away the current game if in progress (after user confirmation).
+    /**
+     Return to main menu, throwing away the current game if one is in progress (after user confirmation).
+    */
     @IBAction func backToMenu(_ sender: UIButton) {
         if !(gamestate == .PlayerWinsGame || gamestate == .ModelWinsGame) {
             let alert = UIAlertController(title: "Return to menu?", message: "Are you sure you want to return to the menu? Your progress in the game will be lost.", preferredStyle: .alert)
@@ -326,24 +345,30 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Set image of opponent in top-left of screen
         if opponent != nil {
             opponentImage.image = opponent!.image
         }
         
+        // Initialise players
         humanPlayer = HumanPlayer()
         modelPlayer = ModelPlayer(character: opponent!)
         modelPlayer?.name = (opponent?.name)!
         
+        // draw player's dice at the bottom of the screen with spinning animation
         let when = DispatchTime.now() + 0.1
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.drawPlayerDice(spin: true)
         }
+        // Draw opponent's dice, hidden by a cup
         drawOpponentDice(hidden: true)
         
-        gamestate = .PlayerOpeningBid
+        // The player always starts the first round
+        gamestate = .GameStart
 
         setBackgroundImage()
 
+        // Adjust appearance of the game information label in the center of the screen
         gameInfoPaddingLabel.layer.cornerRadius = 10
         gameInfoPaddingLabel.layer.shadowOpacity = 0.8
         gameInfoPaddingLabel.layer.shadowRadius = 5
@@ -352,12 +377,13 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         gameInfoPaddingLabel.contentMode = .scaleAspectFill
         gameInfoPaddingLabel.alpha = 1
         
-        playerBidNumberOfPipsView.layer.cornerRadius = 5 // round the corners of the dice
+        // round the corners of the bid dice
+        playerBidNumberOfPipsView.layer.cornerRadius = 5
         playerBidNumberOfPipsView.layer.masksToBounds = true
         
+        // round the corners of the opponent image
         opponentImage.layer.cornerRadius = 5
         opponentImage.layer.masksToBounds = true
-        
         
         // Adjust appearance of buttons
         rollButton.layer.cornerRadius = 10
@@ -372,23 +398,28 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         playAgainButton.layer.cornerRadius = 10
         playAgainButton.contentEdgeInsets = UIEdgeInsets(top:8, left:50,bottom:8,right:50)
 
-        
         quit.layer.cornerRadius = 10
         quit.contentEdgeInsets = UIEdgeInsets(top:8, left:15,bottom:8,right:15)
-
     }
     
 
+    /**
+     Sets a gamestate that makes one of the players the starting player.
+    */
     private func setStartingPlayer() {
-        // If it's the first round, choose the starting player randomly
+        // If it's the first round, the human player starts
         if modelWonLastRound == nil {
-            gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+            //gamestate = (Int(arc4random_uniform(2)) == 1) ?  .PlayerOpeningBid : .ModelOpeningBid
+            gamestate = .PlayerOpeningBid
         } else {
             // Otherwise the loser of the last round begins
             gamestate = modelWonLastRound! ? .PlayerOpeningBid : .ModelOpeningBid
         }
     }
     
+    /**
+     Checks if one of the players has lost all their dice, and if so, sets the gamestate accordingly.
+    */
     private func checkIfGameOver() -> Bool {
         if (humanPlayer!.playerHasLost) {
             gamestate = .ModelWinsGame
@@ -400,6 +431,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         return false
     }
 
+    /**
+     Resets the game so that a new game can be started from scratch.
+    */
     private func reset() {
         print("Resetting the game.")
         humanPlayer = HumanPlayer()
@@ -422,7 +456,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
     
     
-    // Responding to a shake gesture
+    /**
+     Responds to a shake event: when the player shakes the device when the Roll button is on screen, treat it as a button press.
+    */
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if event?.subtype == UIEventSubtype.motionShake {
             if !rollButton.isHidden {
@@ -431,7 +467,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
-    
+    /**
+     Parses a response made by the model.
+    */
     private func processModelResponse(modelResponse: Bid?) {
         if modelResponse != nil {
             modelBid = modelResponse!
@@ -455,7 +493,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
     var rightMostModelDie: DieUIImageView?
     var cupImageView: CupUIImageView?
     
-    
+    /**
+     Set the map image as the background of the view.
+     */
     private func setBackgroundImage() {
         let backgroundImageView = UIImageView(frame: self.view.bounds)
         backgroundImageView.contentMode = .scaleAspectFill
@@ -465,7 +505,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         view.sendSubview(toBack: backgroundImageView)
     }
     
-    
+    /**
+     Draws the player's dice at the bottom of the screen.
+     Parameters:
+        spin: Bool      -       if True, dice are given a spin animation
+     */
     private func drawPlayerDice(spin: Bool) {
         
         // Remove previous images of dice from the view
@@ -494,14 +538,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             view.addSubview(dieImageView)
             
             playerDiceViews!.append(dieImageView)
-
             
-            
+            // Keep track of the rightmost dieImageView so that it can be thrown out later if the player loses
             if (index == playerDice.count - 1) {
                 rightMostPlayerDie = dieImageView
             }
-            
-            
         }
         
         if spin {
@@ -526,6 +567,12 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
+    /**
+     Draws the opponent's dice at the top of the screen.
+     Parameters:
+     hidden: Bool      -       if True, dice are hidden behind the opponent's cup.
+                               if False, cup is drawn but is removed via an animation.
+     */
     private func drawOpponentDice(hidden: Bool) {
         
         // Remove any previous images of dice and cups from the view
@@ -554,14 +601,15 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
             dieImageView.layer.masksToBounds = true
             view.addSubview(dieImageView)
             
+            // Keep track of the opponent's rightmost dieImageView for throwing away later if opponent loses
             if (index == opponentDice.count - 1) {
                 rightMostModelDie = dieImageView
             }
         }
         
+        
         if let cupImage = cupImages[opponent!.name] {
             cupImageView = CupUIImageView(image: cupImage)
-            //cupImageView.frame = CGRect(x: 475, y: 75, width: 250, height: 220)
             cupImageView!.frame = CGRect(x: 350, y: 100, width: 285, height: 280)
             view.addSubview(cupImageView!)
         }
@@ -580,6 +628,12 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
     }
     
+    /**
+     Throws away one die of one of the players.
+     The die is removed from the player's dicelist and is also visually removed from screen via a rolling animation.
+     Parameters:
+        player: String      -       The name of the player whose die should be discarded ("human" or "model").
+    */
     private func discardDice(player: String) {
         
         switch(player) {
@@ -620,7 +674,11 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
     }
     
-    
+    /**
+     Draws speech bubble to the right of the opponent's image.
+     Parameters:
+        message: String     -       The text that goes inside the speech bubble (beware of its length!).
+    */
     private func drawOpponentSpeechBubble(message: String) {
         // Is there a previous speech bubble on screen? Then remove it first.
         removeExistingSpeechBubble()
@@ -633,6 +691,9 @@ class GameViewController: UIViewController, UIPopoverPresentationControllerDeleg
         view.bringSubview(toFront: bubbleView)
     }
     
+    /**
+     Removes any speech bubbles that may be on screen.
+    */
     private func removeExistingSpeechBubble() {
         for subview in view.subviews {
             if let subview = subview as? SpeechBubbleView {

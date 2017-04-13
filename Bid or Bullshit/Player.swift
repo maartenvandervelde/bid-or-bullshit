@@ -31,12 +31,8 @@ class Player {
     func discardDice() {
         diceList.removeLast()
     }
-    
-    
-    
-    
+
     init() {
         rollDice()
     }
-    
 }

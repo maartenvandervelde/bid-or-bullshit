@@ -55,7 +55,9 @@ class InstructionsPageViewController: UIPageViewController, UIPageViewController
         
     }
 
-    
+    /**
+     Returns the ViewController that is to the left of the current one.
+    */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         let currentIndex = presentationIndex(for: pageViewController)
@@ -71,7 +73,9 @@ class InstructionsPageViewController: UIPageViewController, UIPageViewController
     }
     
     
-    
+    /**
+     Returns the ViewController that is to the right of the current one.
+     */
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         let currentIndex = presentationIndex(for: pageViewController)
@@ -86,14 +90,17 @@ class InstructionsPageViewController: UIPageViewController, UIPageViewController
         return pageContentViews[nextIndex]
     }
     
-    
 
-    
+    /**
+     Returns the number of pages.
+    */
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pageContentViews.count
     }
     
-    
+    /**
+     Returns the index of a given ViewController.
+     */
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         guard let firstViewControllerIndex = pageContentViews.index(of: viewControllers?.first as! InstructionsContentViewController) else {
             return 0
@@ -101,17 +108,4 @@ class InstructionsPageViewController: UIPageViewController, UIPageViewController
         
         return firstViewControllerIndex
     }
-    
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

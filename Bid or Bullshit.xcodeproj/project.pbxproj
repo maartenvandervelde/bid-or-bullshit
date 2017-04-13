@@ -12,22 +12,21 @@
 		89E06A5E1E7FCE2A0040822E /* CharacterSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A4C1E7FCE2A0040822E /* CharacterSelectionViewController.swift */; };
 		89E06A5F1E7FCE2A0040822E /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A4D1E7FCE2A0040822E /* Chunk.swift */; };
 		89E06A601E7FCE2A0040822E /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A4E1E7FCE2A0040822E /* Declarative.swift */; };
-		89E06A611E7FCE2A0040822E /* DieUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A4F1E7FCE2A0040822E /* DieUIImageView.swift */; };
+		89E06A611E7FCE2A0040822E /* HelperUIImageViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A4F1E7FCE2A0040822E /* HelperUIImageViews.swift */; };
 		89E06A621E7FCE2A0040822E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A501E7FCE2A0040822E /* GameViewController.swift */; };
 		89E06A631E7FCE2A0040822E /* HumanPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A511E7FCE2A0040822E /* HumanPlayer.swift */; };
 		89E06A661E7FCE2A0040822E /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A541E7FCE2A0040822E /* MenuViewController.swift */; };
 		89E06A681E7FCE2A0040822E /* ModelPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A561E7FCE2A0040822E /* ModelPlayer.swift */; };
 		89E06A691E7FCE2A0040822E /* Perudo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A571E7FCE2A0040822E /* Perudo.swift */; };
 		89E06A6A1E7FCE2A0040822E /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A581E7FCE2A0040822E /* Player.swift */; };
-		89E06A6B1E7FCE2A0040822E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A591E7FCE2A0040822E /* SettingsViewController.swift */; };
 		89E06A6C1E7FCE2A0040822E /* SpeechBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E06A5A1E7FCE2A0040822E /* SpeechBubbleView.swift */; };
 		89E06A701E7FD0C90040822E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89E06A6E1E7FD0C90040822E /* Main.storyboard */; };
 		89E06A731E7FD0CE0040822E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89E06A711E7FD0CE0040822E /* LaunchScreen.storyboard */; };
+		FE33F8561E9F71C500125769 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE33F8541E9F71C500125769 /* SlotCondition.swift */; };
+		FE33F8571E9F71C500125769 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE33F8551E9F71C500125769 /* Support.swift */; };
 		FE5FE8E41E851AF200D8A326 /* InstructionsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */; };
 		FE5FE8E61E851EA300D8A326 /* InstructionsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */; };
 		FE5FE8E81E85498F00D8A326 /* InstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */; };
-		FE9E160B1E8D8883004CA8D2 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E160A1E8D8883004CA8D2 /* Support.swift */; };
-		FE9E160D1E8D888A004CA8D2 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +35,7 @@
 		89E06A4C1E7FCE2A0040822E /* CharacterSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectionViewController.swift; path = "Bid or Bullshit/CharacterSelectionViewController.swift"; sourceTree = "<group>"; };
 		89E06A4D1E7FCE2A0040822E /* Chunk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chunk.swift; path = "Bid or Bullshit/Chunk.swift"; sourceTree = "<group>"; };
 		89E06A4E1E7FCE2A0040822E /* Declarative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Declarative.swift; path = "Bid or Bullshit/Declarative.swift"; sourceTree = "<group>"; };
-		89E06A4F1E7FCE2A0040822E /* DieUIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DieUIImageView.swift; path = "Bid or Bullshit/DieUIImageView.swift"; sourceTree = "<group>"; };
+		89E06A4F1E7FCE2A0040822E /* HelperUIImageViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HelperUIImageViews.swift; path = "Bid or Bullshit/HelperUIImageViews.swift"; sourceTree = "<group>"; };
 		89E06A501E7FCE2A0040822E /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewController.swift; path = "Bid or Bullshit/GameViewController.swift"; sourceTree = "<group>"; };
 		89E06A511E7FCE2A0040822E /* HumanPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HumanPlayer.swift; path = "Bid or Bullshit/HumanPlayer.swift"; sourceTree = "<group>"; };
 		89E06A521E7FCE2A0040822E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Bid or Bullshit/Info.plist"; sourceTree = "<group>"; };
@@ -44,16 +43,15 @@
 		89E06A561E7FCE2A0040822E /* ModelPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelPlayer.swift; path = "Bid or Bullshit/ModelPlayer.swift"; sourceTree = "<group>"; };
 		89E06A571E7FCE2A0040822E /* Perudo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Perudo.swift; path = "Bid or Bullshit/Perudo.swift"; sourceTree = "<group>"; };
 		89E06A581E7FCE2A0040822E /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Player.swift; path = "Bid or Bullshit/Player.swift"; sourceTree = "<group>"; };
-		89E06A591E7FCE2A0040822E /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = "Bid or Bullshit/SettingsViewController.swift"; sourceTree = "<group>"; };
 		89E06A5A1E7FCE2A0040822E /* SpeechBubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpeechBubbleView.swift; path = "Bid or Bullshit/SpeechBubbleView.swift"; sourceTree = "<group>"; };
 		89E06A6F1E7FD0C90040822E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Bid or Bullshit/Base.lproj/Main.storyboard"; sourceTree = "<group>"; };
 		89E06A721E7FD0CE0040822E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "Bid or Bullshit/Base.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		C7A2708F1E64252400841D3E /* Bid or Bullshit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bid or Bullshit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE33F8541E9F71C500125769 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlotCondition.swift; path = "Bid or Bullshit/SlotCondition.swift"; sourceTree = "<group>"; };
+		FE33F8551E9F71C500125769 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Support.swift; path = "Bid or Bullshit/Support.swift"; sourceTree = "<group>"; };
 		FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsPageViewController.swift; path = "Bid or Bullshit/InstructionsPageViewController.swift"; sourceTree = "<group>"; };
 		FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsContentViewController.swift; path = "Bid or Bullshit/InstructionsContentViewController.swift"; sourceTree = "<group>"; };
 		FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InstructionsViewController.swift; path = "Bid or Bullshit/InstructionsViewController.swift"; sourceTree = "<group>"; };
-		FE9E160A1E8D8883004CA8D2 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
-		FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,28 +68,21 @@
 		89E06A6D1E7FCE380040822E /* Bid or Bullshit */ = {
 			isa = PBXGroup;
 			children = (
-				89E06A491E7FCE2A0040822E /* AppDelegate.swift */,
-				89E06A4A1E7FCE2A0040822E /* Assets.xcassets */,
-				89E06A4C1E7FCE2A0040822E /* CharacterSelectionViewController.swift */,
-				89E06A711E7FD0CE0040822E /* LaunchScreen.storyboard */,
+				FE33F8531E9F6FD300125769 /* Supporting files */,
+				FE33F8521E9F6FAA00125769 /* ACT-R files */,
 				89E06A6E1E7FD0C90040822E /* Main.storyboard */,
+				89E06A541E7FCE2A0040822E /* MenuViewController.swift */,
 				FE5FE8E71E85498F00D8A326 /* InstructionsViewController.swift */,
-				FE9E160A1E8D8883004CA8D2 /* Support.swift */,
-				FE9E160C1E8D888A004CA8D2 /* SlotCondition.swift */,
-				89E06A4D1E7FCE2A0040822E /* Chunk.swift */,
-				89E06A4E1E7FCE2A0040822E /* Declarative.swift */,
-				89E06A4F1E7FCE2A0040822E /* DieUIImageView.swift */,
-				89E06A501E7FCE2A0040822E /* GameViewController.swift */,
-				89E06A511E7FCE2A0040822E /* HumanPlayer.swift */,
-				89E06A521E7FCE2A0040822E /* Info.plist */,
 				FE5FE8E31E851AF200D8A326 /* InstructionsPageViewController.swift */,
 				FE5FE8E51E851EA300D8A326 /* InstructionsContentViewController.swift */,
-				89E06A541E7FCE2A0040822E /* MenuViewController.swift */,
-				89E06A561E7FCE2A0040822E /* ModelPlayer.swift */,
+				89E06A4C1E7FCE2A0040822E /* CharacterSelectionViewController.swift */,
+				89E06A501E7FCE2A0040822E /* GameViewController.swift */,
+				89E06A4F1E7FCE2A0040822E /* HelperUIImageViews.swift */,
+				89E06A5A1E7FCE2A0040822E /* SpeechBubbleView.swift */,
 				89E06A571E7FCE2A0040822E /* Perudo.swift */,
 				89E06A581E7FCE2A0040822E /* Player.swift */,
-				89E06A591E7FCE2A0040822E /* SettingsViewController.swift */,
-				89E06A5A1E7FCE2A0040822E /* SpeechBubbleView.swift */,
+				89E06A511E7FCE2A0040822E /* HumanPlayer.swift */,
+				89E06A561E7FCE2A0040822E /* ModelPlayer.swift */,
 			);
 			name = "Bid or Bullshit";
 			sourceTree = "<group>";
@@ -110,6 +101,28 @@
 				C7A2708F1E64252400841D3E /* Bid or Bullshit.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FE33F8521E9F6FAA00125769 /* ACT-R files */ = {
+			isa = PBXGroup;
+			children = (
+				FE33F8541E9F71C500125769 /* SlotCondition.swift */,
+				FE33F8551E9F71C500125769 /* Support.swift */,
+				89E06A4D1E7FCE2A0040822E /* Chunk.swift */,
+				89E06A4E1E7FCE2A0040822E /* Declarative.swift */,
+			);
+			name = "ACT-R files";
+			sourceTree = "<group>";
+		};
+		FE33F8531E9F6FD300125769 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				89E06A491E7FCE2A0040822E /* AppDelegate.swift */,
+				89E06A4A1E7FCE2A0040822E /* Assets.xcassets */,
+				89E06A711E7FD0CE0040822E /* LaunchScreen.storyboard */,
+				89E06A521E7FCE2A0040822E /* Info.plist */,
+			);
+			name = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,23 +200,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5FE8E61E851EA300D8A326 /* InstructionsContentViewController.swift in Sources */,
+				FE33F8561E9F71C500125769 /* SlotCondition.swift in Sources */,
 				FE5FE8E81E85498F00D8A326 /* InstructionsViewController.swift in Sources */,
 				FE5FE8E41E851AF200D8A326 /* InstructionsPageViewController.swift in Sources */,
+				FE33F8571E9F71C500125769 /* Support.swift in Sources */,
 				89E06A601E7FCE2A0040822E /* Declarative.swift in Sources */,
 				89E06A5B1E7FCE2A0040822E /* AppDelegate.swift in Sources */,
-				89E06A611E7FCE2A0040822E /* DieUIImageView.swift in Sources */,
+				89E06A611E7FCE2A0040822E /* HelperUIImageViews.swift in Sources */,
 				89E06A5E1E7FCE2A0040822E /* CharacterSelectionViewController.swift in Sources */,
 				89E06A661E7FCE2A0040822E /* MenuViewController.swift in Sources */,
 				89E06A6A1E7FCE2A0040822E /* Player.swift in Sources */,
 				89E06A631E7FCE2A0040822E /* HumanPlayer.swift in Sources */,
 				89E06A621E7FCE2A0040822E /* GameViewController.swift in Sources */,
-				FE9E160D1E8D888A004CA8D2 /* SlotCondition.swift in Sources */,
-				89E06A6B1E7FCE2A0040822E /* SettingsViewController.swift in Sources */,
 				89E06A6C1E7FCE2A0040822E /* SpeechBubbleView.swift in Sources */,
 				89E06A5F1E7FCE2A0040822E /* Chunk.swift in Sources */,
 				89E06A691E7FCE2A0040822E /* Perudo.swift in Sources */,
 				89E06A681E7FCE2A0040822E /* ModelPlayer.swift in Sources */,
-				FE9E160B1E8D8883004CA8D2 /* Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
